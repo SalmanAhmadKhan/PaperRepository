@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Salman A. Khan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#20242c; --ink-soft:#5a6070; --maroon:#7d1e2e; --maroon-soft:#f6ecee;
+    --line:#e3e1dc; --paper:#ffffff;
+    --sans:'Public Sans',system-ui,sans-serif; --serif:'Spectral',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:24px 16px 64px}
+
+  .role{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--maroon);margin-bottom:10px}
+  h1{font-family:var(--serif);font-weight:700;font-size:clamp(30px,5vw,42px);line-height:1.15;margin-bottom:18px}
+  .lede{font-family:var(--serif);font-size:19px;line-height:1.6;color:var(--ink);max-width:44em}
+  .lede em{color:var(--maroon);font-style:normal;font-weight:600}
+  .body-text{margin-top:16px;font-size:15.5px;color:var(--ink-soft);max-width:46em}
+
+  /* Numbers strip */
+  .numbers{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:36px 0 8px}
+  .num{background:#fff;padding:18px 14px}
+  .num b{display:block;font-family:var(--serif);font-weight:700;font-size:27px;color:var(--maroon);font-variant-numeric:tabular-nums;line-height:1.1}
+  .num span{font-size:12.5px;color:var(--ink-soft);line-height:1.4;display:block;margin-top:5px}
+  .numbers-note{font-size:12px;color:var(--ink-soft);margin-bottom:32px;margin-top:8px}
+
+  /* Focus areas */
+  h2{font-family:var(--serif);font-weight:600;font-size:22px;margin:36px 0 14px}
+  .areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .area{border:1px solid var(--line);border-radius:10px;padding:18px;transition:border-color .15s}
+  .area:hover{border-color:var(--maroon)}
+  .area h3{font-family:var(--serif);font-size:16.5px;font-weight:600;margin-bottom:6px}
+  .area p{font-size:14px;color:var(--ink-soft)}
+  .area a{display:inline-block;margin-top:10px;font-size:13px;font-weight:700;color:var(--maroon);text-decoration:none}
+  .area a:hover{text-decoration:underline}
+
+  .cta{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{font-weight:700;font-size:14px;padding:11px 22px;border-radius:6px;text-decoration:none;transition:all .15s}
+  .btn.primary{background:var(--maroon);color:#fff}
+  .btn.primary:hover{background:#651825}
+  .btn.ghost{border:1px solid var(--line);color:var(--ink)}
+  .btn.ghost:hover{border-color:var(--maroon);color:var(--maroon)}
+
+  @media (max-width:640px){.numbers{grid-template-columns:repeat(2,1fr)}}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="role">Research Director &middot; Crime Lab &amp; Education Lab, University of Chicago</div>
+  <h1>Salman A. Khan</h1>
+  <p class="lede">I lead large-scale randomized evaluations of programs that <em>accelerate student learning</em>, <em>expand career pathways</em>, and <em>change students' life trajectories</em>.</p>
+  <p class="body-text">My work focuses on understanding how schools and community programs shape young people's outcomes through evidence-based interventions: tutoring that strengthens academic skills, career experiences that broaden opportunities, and personalized supports that keep students engaged. Through partnerships with schools, government agencies, and nonprofits, I generate rigorous research that translates directly into improved policy and practice.</p>
+
+  <div class="numbers" aria-label="Research at a glance">
+    <div class="num"><b data-count="4000">0</b><span>students in the Saga Tech tutoring RCT</span></div>
+    <div class="num"><b data-count="5300">0</b><span>students followed long-term after tutoring</span></div>
+    <div class="num"><b data-count="6">0</b><span>years of outcomes tracked in the Genesys Works evaluation</span></div>
+    <div class="num"><b data-count="0.23" data-decimals="2">0</b><span>SD math gains for students tutored in Saga Tech</span></div>
+  </div>
+  <div class="numbers-note">Figures from randomized evaluations at the UChicago Education Lab; see the Research page for details and sources.</div>
+
+  <h2>Focus areas</h2>
+  <div class="areas">
+    <div class="area">
+      <h3>Tutoring &amp; personalized learning</h3>
+      <p>Randomized evaluations of high-dosage tutoring and technology-enabled learning models, and how they can scale affordably.</p>
+      <a href="https://www.sal-khan.com/research">Explore the studies &rarr;</a>
+    </div>
+    <div class="area">
+      <h3>Career pathways &amp; workforce</h3>
+      <p>Experimental evidence on how paid internships and workforce programs during high school shape education and early careers.</p>
+      <a href="https://www.sal-khan.com/research">Explore the studies &rarr;</a>
+    </div>
+    <div class="area">
+      <h3>Education in developing countries</h3>
+      <p>Long-term and intergenerational effects of expanding schooling and health services for girls and women in Pakistan.</p>
+      <a href="https://www.sal-khan.com/research">Explore the studies &rarr;</a>
+    </div>
+  </div>
+
+  <div class="cta">
+    <a class="btn primary" href="https://www.sal-khan.com/research">See my research</a>
+    <a class="btn ghost" href="https://salmanahmadkhan.github.io/PaperRepository/CV_Khan.pdf">Download CV</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els=document.querySelectorAll('[data-count]');
+  function run(el){
+    var target=parseFloat(el.dataset.count);
+    var dec=parseInt(el.dataset.decimals||'0',10);
+    if(reduced){el.textContent=target.toLocaleString(undefined,{minimumFractionDigits:dec,maximumFractionDigits:dec});return;}
+    var t0=null, dur=900;
+    function step(t){
+      if(!t0)t0=t;
+      var p=Math.min((t-t0)/dur,1);
+      var eased=1-Math.pow(1-p,3);
+      var v=target*eased;
+      el.textContent=dec?v.toFixed(dec):Math.round(v).toLocaleString();
+      if(p<1)requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){run(e.target);io.unobserve(e.target);}
+    });
+  },{threshold:.4});
+  els.forEach(function(el){io.observe(el)});
+})();
+</script>
+</body>
+</html>

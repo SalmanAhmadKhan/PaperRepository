@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research — Salman A. Khan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#20242c;
+    --ink-soft:#5a6070;
+    --maroon:#7d1e2e;
+    --maroon-soft:#f6ecee;
+    --line:#e3e1dc;
+    --paper:#ffffff;
+    --band:#e9d9dc;
+    --guess:#2b5d8a;
+    --radius:10px;
+    --sans:'Public Sans',system-ui,-apple-system,sans-serif;
+    --serif:'Spectral',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:8px 16px 64px}
+
+  /* Filters */
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 28px}
+  .chip{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.02em;
+    padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:#fff;
+    color:var(--ink-soft);cursor:pointer;transition:all .15s ease}
+  .chip:hover{border-color:var(--maroon);color:var(--maroon)}
+  .chip.active{background:var(--maroon);border-color:var(--maroon);color:#fff}
+  .chip:focus-visible{outline:2px solid var(--guess);outline-offset:2px}
+  .chip .n{opacity:.65;font-weight:500;margin-left:4px}
+
+  /* Cards */
+  .card{border:1px solid var(--line);border-radius:var(--radius);margin-bottom:16px;background:#fff;
+    transition:border-color .15s ease, box-shadow .15s ease;overflow:hidden}
+  .card:hover{border-color:#c9c6bf}
+  .card.open{border-color:var(--maroon);box-shadow:0 2px 14px rgba(125,30,46,.07)}
+  .card.hidden{display:none}
+
+  .card-head{width:100%;text-align:left;background:none;border:none;cursor:pointer;
+    padding:20px 22px;display:block;font-family:inherit}
+  .card-head:focus-visible{outline:2px solid var(--guess);outline-offset:-2px;border-radius:var(--radius)}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--maroon);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--maroon);opacity:.5}
+  .card h2{font-family:var(--serif);font-weight:600;font-size:21px;line-height:1.35;color:var(--ink)}
+  .authors{font-size:14px;color:var(--ink-soft);margin-top:6px;font-style:italic;font-family:var(--serif)}
+  .teaser{font-size:14.5px;color:var(--ink-soft);margin-top:10px}
+  .toggle-hint{font-size:12.5px;font-weight:600;color:var(--maroon);margin-top:12px;display:inline-flex;align-items:center;gap:5px}
+  .toggle-hint svg{transition:transform .2s ease}
+  .card.open .toggle-hint svg{transform:rotate(180deg)}
+
+  .card-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .card.open .card-body{max-height:2400px}
+  .card-body-inner{padding:0 22px 22px;border-top:1px solid var(--line);padding-top:18px;margin:0 0}
+  .card-body p{font-size:15px;margin-bottom:12px}
+  .links{font-size:14px;margin-top:4px}
+  .links a{color:var(--maroon);font-weight:600;text-decoration:none;border-bottom:1px solid var(--band)}
+  .links a:hover{border-bottom-color:var(--maroon)}
+  .recog{font-size:13.5px;color:var(--ink-soft);margin-top:10px}
+  .recog a{color:var(--ink-soft);text-decoration:underline;text-decoration-color:var(--line)}
+  .recog a:hover{color:var(--maroon)}
+
+  /* Guess widget */
+  .guess{margin-top:18px;border:1px solid var(--band);border-radius:8px;background:var(--maroon-soft);padding:18px 18px 20px}
+  .guess-label{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--maroon);margin-bottom:8px}
+  .guess-q{font-family:var(--serif);font-size:16.5px;font-weight:600;margin-bottom:16px;line-height:1.4}
+  .slider-row{display:flex;align-items:center;gap:14px}
+  .guess input[type=range]{flex:1;appearance:none;-webkit-appearance:none;height:4px;border-radius:2px;
+    background:linear-gradient(to right,var(--guess) 0%,var(--guess) var(--fill,50%),#d8cfd1 var(--fill,50%),#d8cfd1 100%);outline:none}
+  .guess input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+    background:#fff;border:3px solid var(--guess);cursor:grab;box-shadow:0 1px 4px rgba(0,0,0,.18)}
+  .guess input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--guess);cursor:grab}
+  .guess input[type=range]:focus-visible{outline:2px solid var(--guess);outline-offset:4px}
+  .guess-val{font-family:var(--serif);font-weight:700;font-size:19px;color:var(--guess);min-width:84px;text-align:right;font-variant-numeric:tabular-nums}
+  .reveal-btn{margin-top:16px;font-family:var(--sans);font-weight:700;font-size:14px;padding:10px 22px;
+    background:var(--maroon);color:#fff;border:none;border-radius:6px;cursor:pointer;transition:background .15s}
+  .reveal-btn:hover{background:#651825}
+  .reveal-btn:focus-visible{outline:2px solid var(--guess);outline-offset:2px}
+  .reveal-btn:disabled{opacity:.45;cursor:default}
+
+  .result{display:none;margin-top:18px}
+  .guess.revealed .result{display:block;animation:fadeUp .4s ease}
+  .guess.revealed .slider-row,.guess.revealed .reveal-btn{display:none}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+  }
+  .axis{position:relative;height:74px;margin:8px 4px 2px}
+  .axis-line{position:absolute;left:0;right:0;top:46px;height:2px;background:#cfc4c6;border-radius:1px}
+  .ci-band{position:absolute;top:40px;height:14px;background:var(--band);border-radius:4px;opacity:.9}
+  .marker{position:absolute;top:36px;width:2px;height:22px;transform:translateX(-50%)}
+  .marker.actual{background:var(--maroon);width:3px}
+  .marker.you{background:var(--guess)}
+  .marker-label{position:absolute;transform:translateX(-50%);font-size:11.5px;font-weight:700;white-space:nowrap}
+  .marker-label.actual{top:8px;color:var(--maroon)}
+  .marker-label.you{top:62px;color:var(--guess)}
+  .axis-end{position:absolute;top:54px;font-size:11px;color:var(--ink-soft)}
+  .result-text{font-size:14.5px;margin-top:14px}
+  .result-text strong{color:var(--maroon)}
+
+  .empty{display:none;text-align:center;color:var(--ink-soft);font-size:14.5px;padding:32px 0}
+
+  .foot{margin-top:36px;font-size:12.5px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:14px}
+
+  @media (max-width:560px){
+    .card h2{font-size:18.5px}
+    .card-head{padding:16px}
+    .card-body-inner{padding:16px}
+    .guess-val{min-width:64px;font-size:16px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="filters" role="group" aria-label="Filter research by topic">
+    <button class="chip active" data-filter="all">All</button>
+    <button class="chip" data-filter="tutoring">Tutoring &amp; Personalized Learning</button>
+    <button class="chip" data-filter="development">Development</button>
+    <button class="chip" data-filter="labor">Labor &amp; Workforce</button>
+    <button class="chip" data-filter="progress">Work in Progress</button>
+  </div>
+
+  <!-- ============ SAGA TECH ============ -->
+  <article class="card" data-tags="tutoring">
+    <button class="card-head" aria-expanded="false">
+      <div class="eyebrow">Research Paper <span class="dot"></span> Tutoring &amp; Personalized Learning</div>
+      <h2>Can Technology Facilitate Scale? Evidence from a Randomized Evaluation of High-Dosage Tutoring</h2>
+      <div class="authors">with Monica Bhatt, Jon Guryan, Bhavya Mishra &amp; Michael LaForest</div>
+      <div class="teaser">An RCT with ~4,000 students testing whether a hybrid of tutoring and computer-assisted learning can cut costs while preserving learning gains.</div>
+      <span class="toggle-hint">Read more &amp; guess the impact
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+    </button>
+    <div class="card-body"><div class="card-body-inner">
+      <p>High-dosage tutoring (HDT) is one of the most effective interventions to boost student learning, but cost and staffing remain barriers to scaling. We ran an RCT with ~4,000 students in two large districts (2018&ndash;19, 2019&ndash;20), testing a hybrid tutoring model where half of student time was spent with a tutor and half on computer-assisted learning (CAL). This reduced costs by ~30% relative to 2-to-1 tutoring, while producing math test score gains nearly as large as those in prior HDT models. The findings suggest technology can help expand HDT while preserving effectiveness.</p>
+
+      <div class="guess" data-actual="0.23" data-min="0" data-max="0.5" data-step="0.01" data-unit=" SD" data-decimals="2" data-cilo="0.10" data-cihi="0.36"
+           data-explain="Participating students gained 0.23 standard deviations in math (a treatment-on-the-treated estimate), nearly as large as effects from full 2-to-1 tutoring models, at roughly 30% lower cost.">
+        <div class="guess-label">Guess the impact</div>
+        <div class="guess-q">How much did hybrid tutoring raise math test scores for participating students, in standard deviations?</div>
+        <div class="slider-row">
+          <input type="range" aria-label="Your guess in standard deviations">
+          <div class="guess-val"></div>
+        </div>
+        <button class="reveal-btn">Reveal the estimate</button>
+        <div class="result"></div>
+      </div>
+
+      <p class="links" style="margin-top:16px">Learn more: <a href="https://www.nber.org/papers/w32510" target="_blank" rel="noopener">NBER working paper</a> &middot; <a href="https://educationlab.uchicago.edu/projects/saga-tech/" target="_blank" rel="noopener">Saga Tech project page</a></p>
+      <p class="recog">Policy influence &amp; recognition: <a href="https://educationlab.uchicago.edu/resources/2025-economic-report-of-the-president/" target="_blank" rel="noopener">2025 Economic Report of the President</a>; <a href="https://www.bls.gov/opub/mlr/2024/beyond-bls/is-computer-assisted-learning-the-key-to-widespread-high-dosage-tutoring.htm" target="_blank" rel="noopener">BLS Monthly Labor Review</a>; <a href="https://www.evidencebasedpolicy.org/study-reviews-1/saga-tech-math-tutoring" target="_blank" rel="noopener">Evidence Based Policy</a>; <a href="https://commonwealthbeacon.org/education/study-shows-technology-can-help-scale-tutoring-efforts/" target="_blank" rel="noopener">CommonWealth Beacon</a>; <a href="https://www.k12dive.com/news/ed-tech-high-dosage-tutoring-cut-costs-reduce-staffing/718013/" target="_blank" rel="noopener">K-12 Dive</a></p>
+    </div></div>
+  </article>
+
+  <!-- ============ SAGA LIT ============ -->
+  <article class="card" data-tags="tutoring">
+    <button class="card-head" aria-expanded="false">
+      <div class="eyebrow">Research Paper <span class="dot"></span> Tutoring &amp; Personalized Learning</div>
+      <h2>Can Early Literacy Tutoring Improve Student Learning? Experimental Evidence from Chicago Public Schools</h2>
+      <div class="authors">with Monica Bhatt, Jon Guryan &amp; James Kim</div>
+      <div class="teaser">A randomized evaluation of Saga Education's first-grade literacy tutoring program in Chicago schools.</div>
+      <span class="toggle-hint">Read more &amp; guess the impact
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+    </button>
+    <div class="card-body"><div class="card-body-inner">
+      <p>We evaluate Saga Education's early-grade literacy tutoring program in CPS and a charter network. Approximately 300 first-grade students were randomized in 2016&ndash;17 and 2017&ndash;18. Mid-year gains persisted for two years but faded by year 3, with impacts comparable to Project STAR and math-focused HDT studies. Classroom observation data show increases in time-on-task and instructional quality, consistent with scaffolding as a mechanism. Estimates may be conservative given that control group sizes declined as treatment students were pulled from classrooms.</p>
+
+      <div class="guess" data-actual="0.19" data-min="0" data-max="0.5" data-step="0.01" data-unit=" SD" data-decimals="2"
+           data-explain="For Cohort 1, first graders offered tutoring gained roughly 0.19 standard deviations on literacy assessments, comparable to class-size reductions in Project STAR.">
+        <div class="guess-label">Guess the impact</div>
+        <div class="guess-q">How much did first-grade tutoring raise literacy scores, in standard deviations?</div>
+        <div class="slider-row">
+          <input type="range" aria-label="Your guess in standard deviations">
+          <div class="guess-val"></div>
+        </div>
+        <button class="reveal-btn">Reveal the estimate</button>
+        <div class="result"></div>
+      </div>
+
+      <p class="links" style="margin-top:16px">Learn more: <a href="https://educationlab.uchicago.edu/projects/saga-lit/" target="_blank" rel="noopener">Saga Lit project page</a></p>
+    </div></div>
+  </article>
+
+  <!-- ============ PUNJAB JMP ============ -->
+  <article class="card" data-tags="development">
+    <button class="card-head" aria-expanded="false">
+      <div class="eyebrow">Research Paper <span class="dot"></span> Development</div>
+      <h2>Unmet Expectations: The Impacts of School Construction on Female Outcomes in Rural Punjab, Pakistan</h2>
+      <div class="authors">Job Market Paper &middot; Best Student Paper, AGEW 2021</div>
+      <div class="teaser">The long-term and intergenerational effects of a 1960s school construction program on girls' education, work, and marriage outcomes.</div>
+      <span class="toggle-hint">Read more &amp; guess the impact
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+    </button>
+    <div class="card-body"><div class="card-body-inner">
+      <p>This paper examines the long-term and intergenerational effects of Pakistan's 1960s school construction program in rural Punjab. Building an additional girls' school per 1,000 children substantially raised girls' primary completion and increased schooling by ~0.5 years, with no comparable impacts for boys. Maternal exposure improved children's education but did not translate into better labor market or marriage outcomes, underscoring the limits of schooling gains in settings where social norms constrain women's opportunities.</p>
+
+      <div class="guess" data-actual="4.5" data-min="0" data-max="20" data-step="0.5" data-unit=" pp" data-decimals="1"
+           data-explain="An additional girls' school per 1,000 children raised the likelihood of girls completing primary school by 4 to 5 percentage points, a 20&ndash;25% increase, with no comparable effect for boys.">
+        <div class="guess-label">Guess the impact</div>
+        <div class="guess-q">By how many percentage points did an additional girls' school raise girls' primary completion?</div>
+        <div class="slider-row">
+          <input type="range" aria-label="Your guess in percentage points">
+          <div class="guess-val"></div>
+        </div>
+        <button class="reveal-btn">Reveal the estimate</button>
+        <div class="result"></div>
+      </div>
+
+      <p class="links" style="margin-top:16px">Learn more: <a href="http://papers.sal-khan.com/JMP_Khan_latest.pdf" target="_blank" rel="noopener">Read the paper</a> &middot; <a href="https://www.youtube.com/watch?v=Nute-Z9H6ZE" target="_blank" rel="noopener">2-minute video</a> &middot; <a href="https://www.cdpr.org.pk/the-fight-against-gender-inequality-in-developing-countries-is-primary-schooling-enough/" target="_blank" rel="noopener">Blog summary at CDPR</a></p>
+    </div></div>
+  </article>
+
+  <!-- ============ GREAT RECESSION ============ -->
+  <article class="card" data-tags="labor">
+    <button class="card-head" aria-expanded="false">
+      <div class="eyebrow">Research Paper <span class="dot"></span> Labor &amp; Workforce</div>
+      <h2>Human Capital Investments of Young Cohorts: The Bright Side of the Great Recession?</h2>
+      <div class="authors">Solo-authored</div>
+      <div class="teaser">How labor demand shocks from the Great Recession reshaped schooling decisions of young cohorts.</div>
+      <span class="toggle-hint">Read more &amp; guess the impact
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+    </button>
+    <div class="card-body"><div class="card-body-inner">
+      <p>This paper examines how labor demand shocks from the Great Recession affected schooling decisions of young cohorts. Using group-specific labor demand shocks at the metropolitan level, I show that cohorts more exposed to the recession increased their schooling investments more than others. The results underscore how changes in opportunity costs can shape human capital investment.</p>
+
+      <div class="guess" data-actual="55" data-min="0" data-max="100" data-step="5" data-unit="%" data-decimals="0"
+           data-explain="Differential responsiveness to the recession's labor demand shocks can explain more than half of the observed convergence in high school dropout and college attendance rates across groups after the recession.">
+        <div class="guess-label">Guess the impact</div>
+        <div class="guess-q">What share of the post-recession convergence in dropout and college attendance rates can this mechanism explain?</div>
+        <div class="slider-row">
+          <input type="range" aria-label="Your guess as a percentage">
+          <div class="guess-val"></div>
+        </div>
+        <button class="reveal-btn">Reveal the estimate</button>
+        <div class="result"></div>
+      </div>
+    </div></div>
+  </article>
+
+  <!-- ============ GENESYS WORKS ============ -->
+  <article class="card" data-tags="labor progress">
+    <button class="card-head" aria-expanded="false">
+      <div class="eyebrow">Work in Progress <span class="dot"></span> Labor &amp; Workforce</div>
+      <h2>Do Paid Corporate Internships in High School Change Educational and Career Trajectories? Experimental Evidence from Genesys Works</h2>
+      <div class="authors">with Kelly Hallberg, Cris Pinto &amp; Monica Bhatt</div>
+      <div class="teaser">A six-year randomized evaluation of a program placing high school seniors in paid, year-long corporate internships.</div>
+      <span class="toggle-hint">Read more
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+    </button>
+    <div class="card-body"><div class="card-body-inner">
+      <p>We evaluate Genesys Works, a national workforce development program that offers high school students an 8-week professional skills bootcamp followed by a paid, year-long corporate internship during senior year. Roughly 460 Chicago Public Schools students were randomized via admissions lottery in 2017, and we track them for up to six years after expected graduation using CPS records, National Student Clearinghouse data, and state unemployment insurance wage records. Participation raised senior-year GPA, driven entirely by elective coursework, and substantially reduced course failures, but had little effect on high school graduation or college enrollment and completion. Analyses of longer-term employment and earnings outcomes are ongoing.</p>
+    </div></div>
+  </article>
+
+  <!-- ============ LONG-TERM HDT ============ -->
+  <article class="card" data-tags="tutoring progress">
+    <button class="card-head" aria-expanded="false">
+      <div class="eyebrow">Work in Progress <span class="dot"></span> Tutoring &amp; Personalized Learning</div>
+      <h2>Long-Term Educational Effects of High-Dosage Tutoring</h2>
+      <div class="teaser">Following ~3,600 Chicago students over multiple years to measure the persistence of early HDT gains.</div>
+      <span class="toggle-hint">Read more
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+    </button>
+    <div class="card-body"><div class="card-body-inner">
+      <p>Following ~3,600 Chicago students over multiple years to measure the persistence of early high-dosage tutoring gains on later academic and postsecondary outcomes.</p>
+    </div></div>
+  </article>
+
+  <!-- ============ ELEVATE ============ -->
+  <article class="card" data-tags="tutoring progress">
+    <button class="card-head" aria-expanded="false">
+      <div class="eyebrow">Work in Progress <span class="dot"></span> Tutoring &amp; Personalized Learning</div>
+      <h2>Elevate: Personalized Learning in CPS</h2>
+      <div class="teaser">An RCT of a tech-enabled personalized learning model in Chicago high schools.</div>
+      <span class="toggle-hint">Read more
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+    </button>
+    <div class="card-body"><div class="card-body-inner">
+      <p>RCT of a tech-enabled personalized learning model implemented in high schools, examining effects on math achievement and student engagement.</p>
+    </div></div>
+  </article>
+
+  <!-- ============ LADY HEALTH WORKERS ============ -->
+  <article class="card" data-tags="development progress">
+    <button class="card-head" aria-expanded="false">
+      <div class="eyebrow">Work in Progress <span class="dot"></span> Development</div>
+      <h2>Lady Health Workers and Fertility</h2>
+      <div class="teaser">How Pakistan's community health worker program shaped fertility and reproductive health outcomes.</div>
+      <span class="toggle-hint">Read more
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+    </button>
+    <div class="card-body"><div class="card-body-inner">
+      <p>Using administrative and survey data to study how Pakistan's community health worker program shaped fertility and reproductive health outcomes.</p>
+    </div></div>
+  </article>
+
+  <div class="empty">No projects under this filter yet.</div>
+
+  <div class="foot">Effect sizes shown in the interactive elements are each paper's headline estimate; see the linked papers for the exact estimand (ITT vs. TOT) and confidence intervals. Guesses are not recorded or stored.</div>
+</div>
+
+<script>
+(function(){
+  // ---------- Filters ----------
+  var chips=document.querySelectorAll('.chip');
+  var cards=document.querySelectorAll('.card');
+  var empty=document.querySelector('.empty');
+  chips.forEach(function(chip){
+    chip.addEventListener('click',function(){
+      chips.forEach(function(c){c.classList.remove('active')});
+      chip.classList.add('active');
+      var f=chip.getAttribute('data-filter');
+      var shown=0;
+      cards.forEach(function(card){
+        var tags=card.getAttribute('data-tags').split(' ');
+        var show=(f==='all')||tags.indexOf(f)>-1;
+        card.classList.toggle('hidden',!show);
+        if(show)shown++;
+      });
+      empty.style.display=shown?'none':'block';
+    });
+  });
+
+  // ---------- Expand / collapse ----------
+  document.querySelectorAll('.card-head').forEach(function(head){
+    head.addEventListener('click',function(){
+      var card=head.closest('.card');
+      var open=card.classList.toggle('open');
+      head.setAttribute('aria-expanded',open?'true':'false');
+    });
+  });
+
+  // ---------- Guess widgets ----------
+  document.querySelectorAll('.guess').forEach(function(g){
+    var actual=parseFloat(g.dataset.actual);
+    var min=parseFloat(g.dataset.min), max=parseFloat(g.dataset.max);
+    var step=parseFloat(g.dataset.step);
+    var unit=g.dataset.unit||'';
+    var dec=parseInt(g.dataset.decimals||'2',10);
+    var ciLo=g.dataset.cilo?parseFloat(g.dataset.cilo):null;
+    var ciHi=g.dataset.cihi?parseFloat(g.dataset.cihi):null;
+    var slider=g.querySelector('input[type=range]');
+    var val=g.querySelector('.guess-val');
+    var btn=g.querySelector('.reveal-btn');
+    var result=g.querySelector('.result');
+
+    slider.min=min;slider.max=max;slider.step=step;
+    slider.value=((min+max)/2).toFixed(dec);
+
+    function fmt(x){return parseFloat(x).toFixed(dec)+unit;}
+    function paint(){
+      val.textContent=fmt(slider.value);
+      var pct=100*(slider.value-min)/(max-min);
+      slider.style.setProperty('--fill',pct+'%');
+    }
+    slider.addEventListener('input',paint);
+    paint();
+
+    btn.addEventListener('click',function(){
+      var guess=parseFloat(slider.value);
+      var pos=function(x){return (100*(x-min)/(max-min)).toFixed(2)+'%';};
+      var band='';
+      if(ciLo!==null&&ciHi!==null){
+        var l=100*(ciLo-min)/(max-min), r=100*(ciHi-min)/(max-min);
+        band='<div class="ci-band" style="left:'+l+'%;width:'+(r-l)+'%"></div>';
+      }
+      var sep=Math.abs(guess-actual)/(max-min);
+      var youLabel = sep<0.055 ? '' : '<div class="marker-label you" style="left:'+pos(guess)+'">Your guess: '+fmt(guess)+'</div>';
+      result.innerHTML=
+        '<div class="axis">'+
+          '<div class="axis-line"></div>'+band+
+          '<div class="marker you" style="left:'+pos(guess)+'"></div>'+
+          '<div class="marker actual" style="left:'+pos(actual)+'"></div>'+
+          '<div class="marker-label actual" style="left:'+pos(actual)+'">Estimate: '+fmt(actual)+'</div>'+
+          (sep<0.055?'<div class="marker-label you" style="left:'+pos(guess)+'">You: '+fmt(guess)+'</div>':youLabel)+
+          '<div class="axis-end" style="left:0">'+fmt(min)+'</div>'+
+          '<div class="axis-end" style="right:0">'+fmt(max)+'</div>'+
+        '</div>'+
+        '<div class="result-text">'+g.dataset.explain+'</div>';
+      g.classList.add('revealed');
+    });
+  });
+})();
+</script>
+</body>
+</html>

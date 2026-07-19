@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teaching — Salman A. Khan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#20242c; --ink-soft:#5a6070; --maroon:#7d1e2e; --maroon-soft:#f6ecee;
+    --line:#e3e1dc; --paper:#ffffff;
+    --sans:'Public Sans',system-ui,sans-serif; --serif:'Spectral',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:24px 16px 64px}
+
+  h2{font-family:var(--serif);font-weight:600;font-size:22px;margin:34px 0 14px}
+  h2:first-of-type{margin-top:8px}
+
+  /* Feature card: instructor of record */
+  .feature{border:1px solid var(--maroon);border-radius:10px;overflow:hidden}
+  .feature-top{padding:20px 22px;background:var(--maroon-soft)}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--maroon);margin-bottom:6px}
+  .feature h3{font-family:var(--serif);font-weight:600;font-size:20px}
+  .feature .terms{font-size:13.5px;color:var(--ink-soft);margin-top:4px}
+  .feature-body{padding:18px 22px 20px}
+  .feature-body ul{list-style:none}
+  .feature-body li{font-size:14.5px;color:var(--ink-soft);padding-left:18px;position:relative;margin-bottom:8px}
+  .feature-body li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--maroon);opacity:.55}
+  .rating{display:inline-flex;align-items:baseline;gap:8px;margin-top:8px;padding:8px 14px;border:1px solid var(--line);border-radius:8px}
+  .rating b{font-family:var(--serif);font-size:22px;color:var(--maroon)}
+  .rating span{font-size:12.5px;color:var(--ink-soft)}
+
+  /* TA table */
+  .ta{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .ta-row{display:flex;justify-content:space-between;gap:16px;padding:12px 18px;font-size:14.5px;border-bottom:1px solid var(--line)}
+  .ta-row:last-child{border-bottom:none}
+  .ta-row .course{font-weight:600}
+  .ta-row .where{color:var(--ink-soft);white-space:nowrap;font-size:13.5px}
+  .ta-note{font-size:13px;color:var(--ink-soft);margin-top:10px}
+
+  /* Philosophy */
+  .phil{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .phil-item{border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+  .phil-item h4{font-family:var(--serif);font-size:16px;font-weight:600;margin-bottom:4px}
+  .phil-item p{font-size:13.5px;color:var(--ink-soft)}
+  .phil-lede{font-size:15px;color:var(--ink-soft);margin-bottom:16px;max-width:46em}
+
+  /* Quote rotator */
+  .quotes{border:1px solid var(--line);border-radius:10px;background:var(--maroon-soft);padding:26px 26px 20px;position:relative}
+  .quotes::before{content:'\201C';font-family:var(--serif);font-size:64px;line-height:0;color:var(--maroon);opacity:.35;position:absolute;top:34px;left:20px}
+  .quote{font-family:var(--serif);font-size:17.5px;line-height:1.55;font-style:italic;min-height:84px;padding-left:26px;transition:opacity .3s ease}
+  .quote.fading{opacity:0}
+  .quote-src{font-size:12.5px;color:var(--ink-soft);padding-left:26px;margin-top:8px}
+  .quote-nav{display:flex;gap:8px;padding-left:26px;margin-top:14px}
+  .qdot{width:9px;height:9px;border-radius:50%;border:none;background:#d8cfd1;cursor:pointer;padding:0}
+  .qdot.active{background:var(--maroon)}
+  .qdot:focus-visible{outline:2px solid var(--maroon);outline-offset:2px}
+
+  @media (max-width:560px){
+    .ta-row{flex-direction:column;gap:2px}
+    .quote{font-size:16px;min-height:110px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h2>Instructor of Record</h2>
+  <div class="feature">
+    <div class="feature-top">
+      <div class="eyebrow">University of Illinois at Chicago</div>
+      <h3>Econometrics (Undergraduate)</h3>
+      <div class="terms">Spring 2019 &middot; Spring 2020 &middot; Fall 2020</div>
+    </div>
+    <div class="feature-body">
+      <ul>
+        <li>Designed and delivered the full course curriculum, including lectures, problem sets, and exams.</li>
+        <li>Integrated applied datasets to illustrate real-world use of econometric tools.</li>
+      </ul>
+      <div class="rating"><b>4.3&ndash;4.4</b><span>/ 5 overall effectiveness, student evaluations</span></div>
+    </div>
+  </div>
+
+  <h2>Teaching Assistant</h2>
+  <div class="ta">
+    <div class="ta-row"><span class="course">Econometrics</span><span class="where">UIC &middot; Fall 2019</span></div>
+    <div class="ta-row"><span class="course">Principles of Microeconomics</span><span class="where">UIC &middot; Summer 2016, Fall 2015</span></div>
+    <div class="ta-row"><span class="course">Microeconomics: Theory &amp; Applications</span><span class="where">UIC &middot; Spring 2016</span></div>
+    <div class="ta-row"><span class="course">Empirical Macroeconomics</span><span class="where">LUMS &middot; Spring 2011</span></div>
+    <div class="ta-row"><span class="course">Principles of Macroeconomics</span><span class="where">LUMS &middot; Fall 2010</span></div>
+    <div class="ta-row"><span class="course">Calculus I&ndash;II &amp; Multivariate Calculus</span><span class="where">LUMS &middot; 2009&ndash;2010</span></div>
+  </div>
+  <p class="ta-note">Responsibilities included leading discussion sections, holding office hours, grading, and exam review sessions.</p>
+
+  <h2>Teaching Philosophy</h2>
+  <p class="phil-lede">I aim to make economics accessible and engaging by blending theory with data-driven applications. My approach emphasizes:</p>
+  <div class="phil">
+    <div class="phil-item"><h4>Clarity and structure</h4><p>Step-by-step coverage of econometric tools, building intuition before formalism.</p></div>
+    <div class="phil-item"><h4>Active learning</h4><p>Problem-solving and applied examples with real datasets in every unit.</p></div>
+    <div class="phil-item"><h4>Supportive mentorship</h4><p>Building confidence for students with limited prior exposure to quantitative methods.</p></div>
+  </div>
+
+  <h2>What Students Said</h2>
+  <div class="quotes" aria-live="polite">
+    <div class="quote" id="quote-text"></div>
+    <div class="quote-src">Undergraduate Econometrics, UIC student evaluations</div>
+    <div class="quote-nav" id="quote-nav" role="group" aria-label="Choose a quote"></div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var quotes=[
+    "Professor Khan's kindness, fairness, and his desire to ensure everyone understood the material made this a comfortable class to be in.",
+    "Professor Khan was the best Economics professor I've had at UIC. His lectures were clear and detailed, and he went out of his way to make sure we comprehended the material.",
+    "Always engaging and enthusiastic. He made a tough subject enjoyable.",
+    "Students were encouraged to ask questions, and he always gave meaningful answers.",
+    "He really cared for his students! I enjoyed the effort Professor Khan put in.",
+    "Thank you for an enjoyable class during a not-so enjoyable time in my life."
+  ];
+  var i=0, el=document.getElementById('quote-text'), nav=document.getElementById('quote-nav');
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var timer;
+
+  quotes.forEach(function(_,idx){
+    var d=document.createElement('button');
+    d.className='qdot'+(idx===0?' active':'');
+    d.setAttribute('aria-label','Quote '+(idx+1));
+    d.addEventListener('click',function(){show(idx);restart();});
+    nav.appendChild(d);
+  });
+  var dots=nav.querySelectorAll('.qdot');
+
+  function show(idx){
+    i=idx;
+    if(reduced){el.textContent='\u201C'+quotes[i]+'\u201D';}
+    else{
+      el.classList.add('fading');
+      setTimeout(function(){el.textContent='\u201C'+quotes[i]+'\u201D';el.classList.remove('fading');},280);
+    }
+    dots.forEach(function(d,k){d.classList.toggle('active',k===i)});
+  }
+  function restart(){
+    clearInterval(timer);
+    if(!reduced)timer=setInterval(function(){show((i+1)%quotes.length)},7000);
+  }
+  show(0);restart();
+})();
+</script>
+</body>
+</html>

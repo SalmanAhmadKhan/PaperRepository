@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutoring &amp; Early Literacy Evidence Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FFFFFF;
+    --card:#FFFFFF;
+    --ink:#20242C;
+    --ink-soft:#5A6070;
+    --steel:#7D1E2E;
+    --marker:#E9D9DC;
+    --marker-soft:#F6ECEE;
+    --line:#E3E1DC;
+    --null:#A8ADB8;
+    --neg:#C56B5C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:'Public Sans',system-ui,sans-serif;font-size:16px;line-height:1.55}
+
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+
+  /* ---------- Header ---------- */
+  header{padding:56px 0 32px;border-bottom:2px solid var(--ink)}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);margin-bottom:14px}
+  h1{font-family:'Spectral',Georgia,serif;font-weight:700;font-size:clamp(30px,5vw,48px);line-height:1.08;max-width:18ch}
+  h1 .hl{background:linear-gradient(transparent 58%, var(--marker) 58%, var(--marker) 92%, transparent 92%)}
+  .intro{margin-top:18px;max-width:62ch;color:var(--ink-soft);font-size:16.5px}
+  .legend{margin-top:26px;display:flex;flex-wrap:wrap;gap:22px;align-items:center}
+  .legend .rl{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft)}
+  .dot{width:11px;height:11px;border-radius:50%;flex:none}
+  .dot.sig{background:var(--ink);outline:3px solid var(--marker)}
+  .dot.ns{background:var(--card);border:2px solid var(--null)}
+  .dot.desc{background:var(--steel)}
+
+  /* ---------- Filter bar ---------- */
+  .controls{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line);padding:14px 0}
+  .controls-inner{display:flex;flex-direction:column;gap:10px}
+  .filter-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .filter-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);width:72px;flex:none}
+  .chip{border:1.5px solid var(--line);background:var(--card);color:var(--ink-soft);font-family:'Public Sans',sans-serif;font-size:13px;font-weight:600;padding:5px 13px;border-radius:999px;cursor:pointer;transition:all .15s}
+  .chip:hover{border-color:var(--steel);color:var(--ink)}
+  .chip.active{background:var(--ink);border-color:var(--ink);color:#fff}
+  .chip.active.mk{background:var(--marker);border-color:var(--marker);color:var(--ink)}
+  .search-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  #search{flex:1;min-width:220px;border:1.5px solid var(--line);border-radius:8px;background:var(--card);padding:9px 14px;font:inherit;font-size:14px;color:var(--ink)}
+  #search:focus{outline:2px solid var(--marker);border-color:var(--marker)}
+  .count{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);white-space:nowrap}
+  .clear-btn{background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--steel);cursor:pointer;text-decoration:underline;padding:4px}
+
+  /* ---------- Cards ---------- */
+  main{padding:30px 0 80px}
+  .grid{display:flex;flex-direction:column;gap:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:border-color .15s}
+  .card:hover{border-color:var(--steel)}
+  .card-head{display:grid;grid-template-columns:1fr 230px;gap:20px;padding:20px 22px;cursor:pointer;align-items:center}
+  .card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:2.5px 8px;border-radius:4px;background:var(--paper);border:1px solid var(--line);color:var(--ink-soft)}
+  .tag.type{background:var(--marker-soft);border-color:#EED9A0;color:#7A5B12}
+  .card-title{font-family:'Spectral',Georgia,serif;font-weight:600;font-size:19.5px;line-height:1.25}
+  .card-authors{margin-top:5px;font-size:13px;color:var(--ink-soft)}
+  .takeaway{margin-top:9px;font-size:14.5px;color:var(--ink)}
+  .takeaway strong{font-weight:700}
+
+  /* the ruler — effect size number line */
+  .ruler{width:230px}
+  .ruler-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-soft);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em}
+  .ruler-track{position:relative;height:34px}
+  .ruler-line{position:absolute;top:16px;left:0;right:0;height:2px;background:var(--line)}
+  .tick{position:absolute;top:12px;width:1px;height:10px;background:#CFCBBE}
+  .tick-num{position:absolute;top:24px;transform:translateX(-50%);font-family:'IBM Plex Mono',monospace;font-size:9px;color:#A6A290}
+  .es-dot{position:absolute;top:16px;transform:translate(-50%,-50%);width:13px;height:13px;border-radius:50%}
+  .es-dot.sig{background:var(--ink);box-shadow:0 0 0 4px var(--marker)}
+  .es-dot.ns{background:var(--card);border:2.5px solid var(--null)}
+  .es-val{position:absolute;top:-6px;transform:translateX(-50%);font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;color:var(--ink)}
+  .es-val.ns{color:var(--null)}
+  .no-ruler{width:230px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--steel);display:flex;align-items:center;gap:8px}
+  .no-ruler::before{content:'';width:11px;height:11px;border-radius:50%;background:var(--steel);flex:none}
+
+  /* details */
+  .card-body{display:none;border-top:1px dashed var(--line);padding:20px 22px;background:#FBF8F8}
+  .card.open .card-body{display:block}
+  .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px}
+  .detail h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel);margin-bottom:6px}
+  .detail p{font-size:14px;color:var(--ink-soft)}
+  .detail p b{color:var(--ink)}
+  .cite{grid-column:1/-1;font-size:13px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:14px;margin-top:4px}
+  .cite a{color:var(--steel);font-weight:600}
+  .expand-hint{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--steel);margin-top:10px}
+  .card.open .expand-hint .more{display:none}
+  .card:not(.open) .expand-hint .less{display:none}
+
+  .empty{text-align:center;padding:60px 0;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;font-size:14px;display:none}
+
+  footer{border-top:2px solid var(--ink);padding:26px 0 60px;font-size:13px;color:var(--ink-soft)}
+
+  @media(max-width:720px){
+    .card-head{grid-template-columns:1fr;gap:14px}
+    .ruler,.no-ruler{width:100%;max-width:280px}
+    .filter-label{width:100%}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  .chip:focus-visible,#search:focus-visible,.card-head:focus-visible{outline:2px solid var(--marker);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">A working library · updated July 2026</div>
+    <h1>What does the research say about <span class="hl">tutoring</span>?</h1>
+    <p class="intro">Plain-language summaries of key working papers and studies on tutoring interventions in reading and math — from kindergarten programs through community college and school-to-work transitions. Each entry shows the headline effect size on a common scale, what was studied, and why it matters. Click any study to expand.</p>
+    <div class="legend">
+      <span class="rl"><span class="dot sig"></span> statistically significant effect</span>
+      <span class="rl"><span class="dot ns"></span> not significant</span>
+      <span class="rl"><span class="dot desc"></span> descriptive / synthesis (no single effect size)</span>
+      <span class="rl">scale: standard deviations (SD)</span>
+    </div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="wrap controls-inner">
+    <div class="search-row">
+      <input id="search" type="search" placeholder="Search titles, authors, findings… (e.g. 'virtual', 'Kraft', 'dosage')" aria-label="Search studies">
+      <span class="count" id="count"></span>
+      <button class="clear-btn" id="clearAll">reset filters</button>
+    </div>
+    <div class="filter-row" data-group="topic">
+      <span class="filter-label">Topic</span>
+      <button class="chip mk" data-val="effects">Tutoring effects</button>
+      <button class="chip mk" data-val="virtual">Virtual &amp; AI</button>
+      <button class="chip mk" data-val="implementation">Implementation &amp; scaling</button>
+      <button class="chip mk" data-val="design">Program design</button>
+      <button class="chip mk" data-val="policy">Literacy policy</button>
+      <button class="chip mk" data-val="beyond">Beyond test scores</button>
+    </div>
+    <div class="filter-row" data-group="grade">
+      <span class="filter-label">Grades</span>
+      <button class="chip" data-val="early">Early elementary (K–2)</button>
+      <button class="chip" data-val="upper-elem">Upper elementary (3–5)</button>
+      <button class="chip" data-val="middle">Middle</button>
+      <button class="chip" data-val="high">High school</button>
+      <button class="chip" data-val="college">College</button>
+      <button class="chip" data-val="stw">School-to-work</button>
+    </div>
+    <div class="filter-row" data-group="subject">
+      <span class="filter-label">Subject</span>
+      <button class="chip" data-val="reading">Reading / literacy</button>
+      <button class="chip" data-val="math">Math</button>
+    </div>
+    <div class="filter-row" data-group="method">
+      <span class="filter-label">Design</span>
+      <button class="chip" data-val="rct">RCT</button>
+      <button class="chip" data-val="quasi">Quasi-experimental</button>
+      <button class="chip" data-val="meta">Meta-analysis / review</button>
+      <button class="chip" data-val="qual">Qualitative / descriptive</button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty">No studies match — try removing a filter.</div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Summaries are simplified for accessibility; always consult the full paper before citing. Effect sizes shown are each study's headline estimate — see expanded entries for subgroup results and caveats. Most papers are open-access via the Annenberg Institute's EdWorkingPapers series.
+  </div>
+</footer>
+
+<script>
+const studies = [
+{
+  title:"The Impressive Effects of Tutoring on PreK-12 Learning",
+  authors:"Nickow, Oreopoulos & Quan (2020)",
+  topic:["effects"], grade:["early","upper-elem","middle","high"], subject:["reading","math"], method:["meta"],
+  tags:["Meta-analysis","PreK–12","96 RCTs"],
+  es:0.37, sig:true, esLabel:"pooled effect",
+  takeaway:"The foundational meta-analysis: across 96 randomized experiments, tutoring raises achievement by <strong>0.37 SD</strong> on average — one of the largest, most consistent effects of any education intervention.",
+  studied:"Systematic review and meta-analysis of PreK–12 tutoring RCTs (one-on-one or small-group instruction by teachers, paraprofessionals, volunteers, or parents).",
+  found:"Pooled effect of <b>0.37 SD</b>. Effects strongest with teacher and paraprofessional tutors, in earlier grades, and during the school day. Reading tutoring works best in early grades; math tutoring in later grades.",
+  matters:"This is the paper that put 'high-impact tutoring' on the policy map. When people say tutoring is among the best-evidenced interventions in education, this is usually the citation.",
+  cite:"Nickow, A., Oreopoulos, P., & Quan, V. (2020). EdWorkingPaper No. 20-267, Annenberg Institute at Brown University.",
+  link:"https://edworkingpapers.com/ai20-267"
+},
+{
+  title:"What Impacts Should We Expect from Tutoring at Scale?",
+  authors:"Kraft, Schueler & Falken (2024)",
+  topic:["effects","implementation"], grade:["early","upper-elem","middle","high"], subject:["reading","math"], method:["meta"],
+  tags:["Meta-analysis","265 RCTs","Scale"],
+  es:0.15, sig:true, esLabel:"at-scale estimate",
+  takeaway:"The reality check: when you restrict to studies that look like real large-scale U.S. programs, expected effects shrink to <strong>a third to a half</strong> of the classic 0.37 SD figure.",
+  studied:"Expanded meta-analysis of 265 tutoring RCTs, re-weighted toward a policy-relevant target: large-scale U.S. programs measured on standardized tests.",
+  found:"Pooled effects decline sharply as program scale increases. Target-equivalent estimates are roughly <b>0.10–0.20 SD</b> — still meaningful, but far below small-pilot results. A bundle of recommended design features (in-school, high-dosage, consistent tutors) partially protects programs from this attenuation.",
+  matters:"Essential for setting realistic expectations. Districts planning tutoring at scale should benchmark against these numbers, not boutique-pilot effect sizes.",
+  cite:"Kraft, M. A., Schueler, B. E., & Falken, G. (2024). EdWorkingPaper No. 24-1031, Annenberg Institute at Brown University.",
+  link:"https://edworkingpapers.com/ai24-1031"
+},
+{
+  title:"High-Impact Tutoring: State of the Research and Priorities for Future Learning",
+  authors:"Robinson & Loeb (2021)",
+  topic:["effects","design"], grade:["early","upper-elem","middle","high"], subject:["reading","math"], method:["meta"],
+  tags:["Research synthesis","Design framework"],
+  es:null, sig:null,
+  takeaway:"The National Student Support Accelerator's synthesis of <strong>what makes tutoring 'high-impact'</strong>: frequency, consistent tutor–student relationships, data use, and in-school delivery.",
+  studied:"Narrative synthesis of the tutoring evidence base, organized into an evidence-based framework for delivering and evaluating tutoring.",
+  found:"Effectiveness varies widely across programs. Evidence supports: 3+ sessions/week, sustained tutor–student pairings, trained tutors with support, curriculum-aligned materials, data-informed instruction, and embedding tutoring in the school day.",
+  matters:"The go-to design checklist. If you want to know which program characteristics the evidence actually supports, start here.",
+  cite:"Robinson, C. D., & Loeb, S. (2021). National Student Support Accelerator research agenda.",
+  link:"https://studentsupportaccelerator.org/research"
+},
+{
+  title:"The Effects of Virtual Tutoring on Young Readers (OnYourMark)",
+  authors:"Robinson, Pollard, Novicoff, White & Loeb",
+  topic:["effects","virtual"], grade:["early"], subject:["reading"], method:["rct"],
+  tags:["RCT","K–2","~2,000 students","Virtual"],
+  es:0.05, sig:true, esLabel:"overall effect",
+  takeaway:"First RCT of fully virtual tutoring for young children: early literacy gains of <strong>0.05 SD overall</strong> — and <strong>0.15 SD</strong> for the lowest-scoring students in 1:1 tutoring.",
+  studied:"~2,000 K–2 students randomized to 1:1 virtual tutoring, 2:1 virtual tutoring, or control, in a fully virtual reading program (OnYourMark) embedded in the school day.",
+  found:"<b>+0.05 SD</b> overall; <b>+0.08 SD</b> excluding English learners and students with disabilities; <b>+0.15 SD</b> for students well below benchmark in 1:1. One-on-one tended to beat 2:1. Effects are smaller than typical in-person early literacy tutoring but positive and significant.",
+  matters:"Shows virtual tutoring can work even for 5–7 year olds — a group many assumed couldn't learn over video — while quantifying the trade-off versus in-person.",
+  cite:"Robinson, C. D., Pollard, C., Novicoff, S., White, S., & Loeb, S. Working paper, Stanford University / National Student Support Accelerator.",
+  link:"https://studentsupportaccelerator.org/research"
+},
+{
+  title:"Online Tutoring by College Volunteers: Evidence from a Pilot Program",
+  authors:"Kraft, List, Livingston & Sadoff (2022)",
+  topic:["effects","virtual"], grade:["middle"], subject:["reading","math"], method:["rct"],
+  tags:["RCT","Middle school","Volunteers","COVID era"],
+  es:0.07, sig:false, esLabel:"math (ns)",
+  takeaway:"Low-cost volunteer tutoring online produced <strong>positive but not significant</strong> effects (0.07 SD math, 0.04 SD reading) — with evidence that more hours means bigger effects.",
+  studied:"RCT of CovEducation: volunteer college tutors across the U.S. met 1:1 online with middle schoolers during the school day, during the pandemic.",
+  found:"Consistently positive but statistically insignificant effects: <b>0.07σ math</b>, <b>0.04σ reading</b>. Results are consistent with a dosage model — additional tutoring hours yield larger effects.",
+  matters:"A key data point on the cost–impact frontier: cheap, volunteer-based, remote tutoring delivers modest effects — the question is whether the price makes the trade worthwhile.",
+  cite:"Kraft, M. A., List, J. A., Livingston, J. A., & Sadoff, S. (2022). EdWorkingPaper No. 22-568.",
+  link:"https://edworkingpapers.com/ai22-568"
+},
+{
+  title:"A Systematic Review of Research on Tutoring Implementation",
+  authors:"White, Groom-Thomas & Loeb (2023)",
+  topic:["implementation"], grade:["early","upper-elem","middle","high"], subject:["reading","math"], method:["meta","qual"],
+  tags:["Systematic review","33 studies","Implementation"],
+  es:null, sig:null,
+  takeaway:"Synthesizes 33 studies on <strong>how tutoring programs actually get implemented</strong> — and finds success hinges on school-leader support and strong tutor–student relationships.",
+  studied:"Systematic review of 33 articles on K–12 tutoring implementation: facilitators and barriers across policy, launch, staffing, scheduling, and instruction.",
+  found:"Federal funding and policy shape program design; launches succeed via school–provider relationships and transparent quality assessment; leaders who control funding, space, and time are pivotal. Tutoring is most meaningful when tutors build relationships and use them to target instruction.",
+  matters:"Effect sizes tell you tutoring <i>can</i> work; this tells you what it takes to make it work in real schools.",
+  cite:"White, S., Groom-Thomas, L., & Loeb, S. (2023). EdWorkingPaper No. 22-652.",
+  link:"https://edworkingpapers.com/ai22-652"
+},
+{
+  title:"The Scaling Dynamics and Causal Effects of a District-Operated Tutoring Program",
+  authors:"Kraft, Sanderson Edwards & Cannata (2024)",
+  topic:["effects","implementation"], grade:["early","upper-elem","middle","high"], subject:["reading","math"], method:["rct","quasi","qual"],
+  tags:["Mixed methods","Nashville","6,800+ students"],
+  es:0.07, sig:true, esLabel:"reading (0.04–0.09)",
+  takeaway:"Nashville scaled tutoring to 6,800+ students and 125,000 hours: <strong>small positive reading effects (0.04–0.09 SD)</strong>, but no average effect on math or grades.",
+  studied:"Three-year mixed-methods evaluation of Metro Nashville's district-operated, standards-based tutoring program, using experimental and quasi-experimental designs plus interviews and surveys.",
+  found:"Consistent small-to-medium positive effects on <b>reading (0.04–0.09 SD)</b>; null effects on math and course grades. The district scaled by shifting from volunteers to teacher tutors and adding before/after-school slots. Authors weigh four explanations, including limited treatment–control contrast and miscalibrated expectations at scale.",
+  matters:"One of the most honest looks at what a district-run program achieves in the wild — a companion piece to the 'tutoring at scale' meta-analysis.",
+  cite:"Kraft, M. A., Sanderson Edwards, D., & Cannata, M. (2024). EdWorkingPaper No. 24-1030.",
+  link:"https://edworkingpapers.com/ai24-1030"
+},
+{
+  title:"The Effects of High-Impact Tutoring on Student Attendance",
+  authors:"Lee, Loeb & Robinson",
+  topic:["beyond","effects"], grade:["early","upper-elem","middle","high"], subject:["reading","math"], method:["quasi"],
+  tags:["Quasi-experimental","Washington DC","Attendance"],
+  es:null, sig:null,
+  takeaway:"Students were <strong>1.2 percentage points (7%) less likely to be absent</strong> on days they had tutoring scheduled — tutoring boosts engagement, not just test scores.",
+  studied:"Washington DC's High-Impact Tutoring Initiative, analyzed with daily attendance data and within-student fixed effects.",
+  found:"A <b>7.0% reduction in absence</b> on scheduled tutoring days. The effect grows when programs bundle high-impact features: in-school delivery, smaller ratios, more frequent sessions.",
+  matters:"Expands the case for tutoring beyond achievement: a consistent relationship with a tutor gives students a reason to show up, which matters amid post-pandemic absenteeism.",
+  cite:"Lee, M. G., Loeb, S., & Robinson, C. D. Working paper, Stanford University (EdWorkingPaper No. 24-1107).",
+  link:"https://edworkingpapers.com/ai24-1107"
+},
+{
+  title:"Scaling High-Impact Tutoring: School-Level Perspectives",
+  authors:"Makori, Burch & Loeb (2024)",
+  topic:["implementation"], grade:["early","upper-elem","middle","high"], subject:["reading","math"], method:["qual"],
+  tags:["Qualitative","Surveys + interviews"],
+  es:null, sig:null,
+  takeaway:"From the school's side, the biggest barriers to scaling tutoring are <strong>time, space, tutor supply, data systems, and cost</strong> — and the biggest asset is teacher buy-in.",
+  studied:"Survey and interview data from teachers and administrators in an urban district and an urban charter network on facilitators and barriers to scaling high-impact tutoring.",
+  found:"Major barriers: scheduling time and physical space, tutor supply and quality, outdated data systems, and school-level costs. Key facilitator: teacher buy-in. Ends with concrete recommendations for strategic growth.",
+  matters:"Useful for practitioners: the constraint on tutoring is rarely 'does it work?' — it's logistics, staffing, and trust inside buildings.",
+  cite:"Makori, A., Burch, P., & Loeb, S. (2024). EdWorkingPaper No. 24-923.",
+  link:"https://edworkingpapers.com/ai24-923"
+},
+{
+  title:"In-Person vs. Remote: Experimental Evidence on Tutoring Format and Tutors",
+  authors:"Hashim, Pace Miles & Croke (2025)",
+  topic:["virtual","design","effects"], grade:["early"], subject:["reading"], method:["rct"],
+  tags:["RCT","Within-tutor","Summer program"],
+  es:0.0, sig:false, esLabel:"modality gap (ns)",
+  takeaway:"The first within-tutor experiment comparing modalities: <strong>no significant difference</strong> between in-person and remote tutoring — but big differences <strong>between tutors</strong>.",
+  studied:"Early literacy tutoring by university students in Summer 2023; the same tutors taught both in-person and remote students, isolating the modality effect.",
+  found:"No significant literacy differences by modality. In-person students attended more and tutors reported closer relationships. Substantial variation in outcomes across tutors — and that variation doesn't depend on modality.",
+  matters:"Who tutors matters more than whether it's over Zoom. Argues for investing in tutor selection, training (including interpersonal skills), and retention over fixating on format.",
+  cite:"Hashim, S., Pace Miles, K., & Croke, E. (2025). EdWorkingPaper No. 25-1176.",
+  link:"https://edworkingpapers.com/ai25-1176"
+},
+{
+  title:"The Power of Personalized Attention: 1:1 vs. Small-Group Tutoring",
+  authors:"Hsieh, Gormley, Robinson & Loeb (2025)",
+  topic:["design","virtual"], grade:["early"], subject:["reading"], method:["qual"],
+  tags:["NLP analysis","16,629 sessions","3.7M utterances"],
+  es:null, sig:null,
+  takeaway:"Why does 1:1 beat 2:1? Machine analysis of 16,629 session transcripts shows 1:1 students simply get <strong>more attention and personalized support</strong> per minute.",
+  studied:"NLP and machine learning analysis of transcripts from the OnYourMark RCT, comparing how tutors allocate time across instruction, relationship building, and management in 1:1 vs 2:1 formats.",
+  found:"Tutors spend similar time on content and relationships in both formats, but 1:1 students receive more direct attention and personalization. In 2:1, downtime and disengagement creep in.",
+  matters:"Opens the black box of tutoring: the active ingredient looks like personalized attention. Suggests training 2:1 tutors to engage both students simultaneously could close the gap cheaply.",
+  cite:"Hsieh, H., Gormley, D., Robinson, C. D., & Loeb, S. (2025). EdWorkingPaper No. 25-1289.",
+  link:"https://edworkingpapers.com/ai25-1289"
+},
+{
+  title:"Creating Coherence: Does Instructional Alignment Affect the Impact of Tutoring?",
+  authors:"Jackson & Shakeel (2025)",
+  topic:["design","effects"], grade:["early","upper-elem"], subject:["reading"], method:["rct"],
+  tags:["RCT","K–3","296 students"],
+  es:0.12, sig:true, esLabel:"alignment effect",
+  takeaway:"Tutoring aligned with classroom core instruction beat unaligned tutoring by <strong>0.12 SD</strong> — coherence itself is an active ingredient.",
+  studied:"RCT with 296 K–3 students in four suburban schools: treatment tutoring used strategies and materials aligned with core instruction; control tutoring used distinct supplemental materials.",
+  found:"<b>+0.12 SD</b> for aligned tutoring, with larger effects for boys and lower-performing students. Exploratory results suggest stronger effects in groups of four and — surprisingly — with tutors who don't hold a master's degree.",
+  matters:"A rare experiment where both arms get tutoring, isolating a design choice. Supports connecting tutoring to what students see in class rather than running a parallel curriculum.",
+  cite:"Jackson, C., & Shakeel, A. (2025). EdWorkingPaper No. 25-1332.",
+  link:"https://edworkingpapers.com/ai25-1332"
+},
+{
+  title:"Beyond the Classroom: A High-Dosage Tutoring Program and Literacy Achievement",
+  authors:"Shakeel (2025)",
+  topic:["effects","design"], grade:["upper-elem"], subject:["reading"], method:["rct"],
+  tags:["RCT","Grades 2–5","333 students","1:3 ratio"],
+  es:0.20, sig:true, esLabel:"low-baseline students",
+  takeaway:"No average effect overall — but <strong>+0.20 SD for students below the median</strong> at baseline, and a negative effect for higher achievers pulled out of class.",
+  studied:"Student-level RCT: 333 students in grades 2–5 randomized to high-dosage 1:3 literacy tutoring during an intervention period of the school day vs. business as usual.",
+  found:"Null average treatment effect, masking strong heterogeneity: <b>+0.20 SD (p&lt;.05)</b> for students with lower prior achievement, negative effects for higher achievers. Implementation fidelity was tracked throughout.",
+  matters:"A targeting lesson: high-dosage tutoring is a treatment for students who need it, not a universal supplement — blanket assignment can even backfire for students it displaces from other instruction.",
+  cite:"Shakeel, A. (2025). EdWorkingPaper No. 25-1348.",
+  link:"https://edworkingpapers.com/ai25-1348"
+},
+{
+  title:"Online Tutoring, School Performance, and School-to-Work Transitions",
+  authors:"Anger, Christoph, Galkiewicz, Margaryan, Sandner & Siedler (2025)",
+  topic:["effects","virtual","beyond"], grade:["middle","high","stw"], subject:["math"], method:["rct"],
+  tags:["RCT","Germany","839 students","Longer-term"],
+  es:0.14, sig:true, esLabel:"no-prior-tutoring group",
+  takeaway:"Online tutoring for low-performers improved math grades (<strong>0.14 SD</strong> for first-time tutees) and made school-to-work transitions smoother: <strong>+5pp vocational training take-up</strong> 18 months later.",
+  studied:"RCT with 839 secondary students in Germany: online tutoring for low-performing students, tracking academic performance and school-to-work transitions.",
+  found:"ITT effect of 0.06 SD on math grades (ns) overall, but <b>+0.14 SD</b> among students with no prior tutoring. Non-academic-track students saw vocational training take-up rise <b>5pp</b> (12pp among first-time tutees) 18 months later.",
+  matters:"One of the only studies following tutoring into the labor market — evidence that benefits can persist beyond report cards, and that tutoring helps most where it isn't already available.",
+  cite:"Anger, S., et al. (2025). EdWorkingPaper No. 25-1357.",
+  link:"https://edworkingpapers.com/ai25-1357"
+},
+{
+  title:"Access is Not Enough: Human Support Improves Engagement with AI Tutoring",
+  authors:"Robinson, Gormley, Trindade Ribeiro & Loeb (2026)",
+  topic:["virtual","implementation","effects"], grade:["early","upper-elem"], subject:["reading"], method:["rct"],
+  tags:["2 RCTs","AI platform","Elementary"],
+  es:0.0, sig:false, esLabel:"reading (ns)",
+  takeaway:"Given an AI literacy platform, <strong>nearly half of students never used it</strong>. Human tutors boosted engagement 71–80% — but usage stayed low and reading didn't improve.",
+  studied:"Two RCTs where elementary students used an AI literacy platform independently vs. with an in-person tutor focused on engagement (not instruction).",
+  found:"Control students who used the platform averaged only 2–5 minutes/week. Human support added 1–4 minutes weekly and raised engagement <b>71–80%</b>, but overall usage remained low and reading achievement did not improve.",
+  matters:"A caution for the AI-tutor moment: access alone does nothing. The binding constraint is getting kids to actually engage — which, ironically, still takes humans.",
+  cite:"Robinson, C. D., Gormley, D., Trindade Ribeiro, A., & Loeb, S. (2026). EdWorkingPaper No. 26-1451.",
+  link:"https://edworkingpapers.com/ai26-1451"
+},
+{
+  title:"The Achievement Effects of Scaling Early Literacy Reforms",
+  authors:"Novicoff & Dee (2025)",
+  topic:["policy"], grade:["early","upper-elem"], subject:["reading"], method:["quasi"],
+  tags:["Quasi-experimental","California","Science of reading"],
+  es:0.14, sig:true, esLabel:"ELA effect",
+  takeaway:"California's science-of-reading block grant (~$1,000/student) for its lowest-performing schools raised ELA achievement by <strong>0.14 SD</strong> in two years — cost-effectively.",
+  studied:"Pre-registered quasi-experimental evaluation of California's Early Literacy Support Block Grant: teacher PD grounded in the science of reading, aligned assessments and interventions, funding flexibility, and expert facilitation.",
+  found:"<b>+0.14 SD in ELA</b> over the first two years, plus smaller math improvements. The authors judge the reform cost-effective relative to comparable interventions.",
+  matters:"Context for tutoring: comprehensive school-level literacy reform can produce gains rivaling tutoring at scale, offering a benchmark for how to spend a literacy dollar.",
+  cite:"Novicoff, S., & Dee, T. S. (2025). EdWorkingPaper No. 23-887.",
+  link:"https://edworkingpapers.com/ai23-887"
+},
+{
+  title:"The Effects of Early Literacy Policies on Student Achievement",
+  authors:"Westall & Cummings (2023)",
+  topic:["policy"], grade:["early","upper-elem"], subject:["reading","math"], method:["quasi"],
+  tags:["Event study","41 states","Third-grade laws"],
+  es:null, sig:null,
+  takeaway:"State early-literacy laws (adopted by 41 states + DC) <strong>improve third-grade reading on high-stakes tests</strong> — especially comprehensive policies with retention requirements.",
+  studied:"Event-study analysis of state early literacy policy adoption on high- and low-stakes test scores nationwide.",
+  found:"Reading gains concentrate in third grade and in states with comprehensive policies and retention requirements. Suggestive evidence of narrowed socioeconomic and racial gaps and positive math spillovers — but little movement on low-stakes tests outside comprehensive-policy states.",
+  matters:"The policy backdrop for tutoring mandates: many state literacy laws now require tutoring for struggling readers. Content and incentives determine whether these laws move the needle.",
+  cite:"Westall, J., & Cummings, A. (2023). Education Policy Innovation Collaborative, Michigan State University.",
+  link:"https://epicedpolicy.org"
+},
+{
+  title:"Racial and Socioeconomic Disparities in Early Literacy and Third-Grade Outcomes",
+  authors:"Herring, Bassok, McGinty, Miller & Wyckoff (2021)",
+  topic:["policy"], grade:["early","upper-elem"], subject:["reading"], method:["quasi"],
+  tags:["Descriptive","Virginia statewide","Equity"],
+  es:null, sig:null,
+  takeaway:"Even among children with <strong>identical literacy skills at kindergarten entry</strong>, significant racial and socioeconomic gaps emerge in third-grade reading proficiency.",
+  studied:"Kindergarten readiness assessment data from nearly every Virginia district, linked to third-grade reading outcomes.",
+  found:"Comparing children with similar skills at kindergarten entry, the likelihood of third-grade proficiency differs significantly by race and socioeconomic status — disparities develop during the school years, not just before them.",
+  matters:"Motivates early, targeted intervention: waiting for third-grade test scores to flag struggling readers means intervening after gaps have already widened. Early tutoring is one response.",
+  cite:"Herring, W., Bassok, D., McGinty, A., Miller, L. C., & Wyckoff, J. H. (2021). EdWorkingPaper No. 21-429.",
+  link:"https://edworkingpapers.com/ai21-429"
+},
+{
+  title:"The Trade-off between Quality and Quantity in Tutoring",
+  authors:"Shah (2026)",
+  topic:["effects","design"], grade:["middle"], subject:["math"], method:["rct"],
+  tags:["RCT","Middle school","Group size vs. frequency"],
+  es:0.23, sig:true, esLabel:"small-group effect",
+  takeaway:"With a fixed budget, is it better to tutor in smaller groups or more often? <strong>Small-group math tutoring won (0.23 SD)</strong>; the equal-cost, more-frequent, larger-group version didn't.",
+  studied:"Field experiment at a Midwestern middle school testing group size (quality) against session frequency (quantity) in an in-school math tutoring program, holding cost constant.",
+  found:"Small-group tutoring produced a significant <b>0.23 SD</b> improvement in math skills, while the equal-cost arm with larger groups meeting more frequently did not produce comparable gains.",
+  matters:"Directly answers a question every budget-constrained district faces: when forced to choose, prioritize small ratios over extra sessions.",
+  cite:"Shah, R. (2026). EdWorkingPaper No. 26-1379.",
+  link:"https://edworkingpapers.com/ai26-1379"
+},
+{
+  title:"The Effect of Student-Tutor Ratios: Evidence from an Online Math Tutoring Pilot",
+  authors:"Kraft & Lovison (2024)",
+  topic:["design","virtual","effects"], grade:["middle"], subject:["math"], method:["rct"],
+  tags:["RCT","Online","Ratios"],
+  es:null, sig:null, esNote:"experimental · see paper",
+  takeaway:"As districts pivot from 1:1 in-person to small-group online tutoring to stretch budgets, this experiment tests <strong>what larger student-tutor ratios cost in math learning</strong>.",
+  studied:"Field experiment varying student-tutor ratios in an online math tutoring program for middle schoolers, measuring effects on math achievement, growth, and student behavior.",
+  found:"Examines how moving from individual toward small-group online formats affects achievement and session dynamics — a direct test of the ratio lever districts use to expand access.",
+  matters:"Pairs naturally with the 1:1 vs 2:1 literacy findings: the ratio question is the central cost-effectiveness trade-off in tutoring design.",
+  cite:"Kraft, M. A., & Lovison, V. S. (2024). EdWorkingPaper No. 24-976.",
+  link:"https://edworkingpapers.com/ai24-976"
+},
+{
+  title:"Online Tutoring Works: Evidence from a Program with Vulnerable Children (Menttores)",
+  authors:"Gortazar, Hupkau & Roldán (2023)",
+  topic:["effects","virtual"], grade:["middle","high"], subject:["math"], method:["rct"],
+  tags:["RCT","Spain","2:1 online"],
+  es:0.26, sig:true, esLabel:"math effect",
+  takeaway:"An intensive 8-week online math program for disadvantaged secondary students in Spain — qualified teachers tutoring pairs of students after school — raised math scores by <strong>~0.26 SD</strong>.",
+  studied:"RCT of a fully online math tutoring program targeted at secondary students from highly disadvantaged neighborhoods, delivered by qualified math teachers in groups of two during after-school hours.",
+  found:"Significant increases in standardized math scores of roughly <b>0.26 SD</b>, alongside improvements in student effort and aspirations — among the strongest results for fully online tutoring.",
+  matters:"A proof point that online tutoring can deliver in-person-sized effects when it's intensive, uses qualified teachers, and keeps ratios tiny.",
+  cite:"Gortazar, L., Hupkau, C., & Roldán, A. (2023). EdWorkingPaper No. 23-743.",
+  link:"https://edworkingpapers.com/ai23-743"
+},
+{
+  title:"From Pilot to Policy: Experimental Evidence from Scaling Online Tutoring",
+  authors:"Calle, Gortazar, Hernández-de-Benito, Hupkau, Molina-Millán & Roldán-Monés (2026)",
+  topic:["effects","virtual","implementation"], grade:["middle","high"], subject:["math"], method:["rct"],
+  tags:["RCT","Spain","Government-run at scale"],
+  es:0.11, sig:true, esLabel:"math test scores",
+  takeaway:"The Menttores follow-up: when regional governments ran the program themselves with interim public-school teachers, effects were <strong>0.11 SD on math tests — about one-third of the pilot</strong>.",
+  studied:"RCT of the online math tutoring program scaled from the successful pilot, implemented entirely by regional education authorities in Spain using interim public-school teachers rather than specially recruited tutors.",
+  found:"Assignment to tutoring increased end-of-year grades by <b>0.15σ</b> and standardized math scores by <b>0.11σ</b> — roughly one-third of pilot effect sizes.",
+  matters:"A rare pilot-to-policy comparison within the same program. The attenuation matches the Kraft-Schueler-Falken meta-analytic prediction almost exactly: real, but smaller at scale.",
+  cite:"Calle, M., et al. (2026). EdWorkingPaper No. 26-1496.",
+  link:"https://edworkingpapers.com/ai26-1496"
+},
+{
+  title:"Apart but Connected: Online Tutoring During the COVID-19 Pandemic",
+  authors:"Carlana & La Ferrara (2021)",
+  topic:["effects","virtual"], grade:["middle"], subject:["math","reading"], method:["rct"],
+  tags:["RCT","Italy","Volunteer tutors"],
+  es:0.26, sig:true, esLabel:"achievement effect",
+  takeaway:"Free online tutoring by volunteer university students for disadvantaged Italian middle schoolers during lockdown improved achievement by <strong>~0.26 SD</strong> — plus gains in well-being and aspirations.",
+  studied:"RCT of an online volunteer tutoring program (3–6 hours weekly) for disadvantaged middle school students in Italy during COVID-19 school closures, covering math and other subjects.",
+  found:"Achievement rose about <b>0.26 SD</b> across subjects, with improvements in socio-emotional skills, aspirations, and psychological well-being — largest for immigrant children.",
+  matters:"One of the most-cited online tutoring studies globally, showing volunteer models can produce meaningful effects — a contrast worth exploring against the smaller U.S. CovEd results.",
+  cite:"Carlana, M., & La Ferrara, E. (2021). EdWorkingPaper No. 21-350.",
+  link:"https://edworkingpapers.com/ai21-350"
+},
+{
+  title:"Investing in Human Capital During Wartime: Evidence from Ukraine",
+  authors:"Dinarte-Diaz, Gresham, Lemos, Patrinos & Rodriguez-Ramirez (2025)",
+  topic:["effects","virtual"], grade:["early","upper-elem","middle","high"], subject:["math","reading"], method:["rct"],
+  tags:["3 RCTs","Ukraine","~10,000 students"],
+  es:0.49, sig:true, esLabel:"math (up to)",
+  takeaway:"Online small-group tutoring for Ukrainian students during the war produced gains of up to <strong>0.49 SD in math</strong> and 0.40 SD in Ukrainian language across three experiments.",
+  studied:"Three RCTs of an online tutoring program reaching nearly 10,000 students across all regions of Ukraine (2023–2024): three hours weekly of small-group tutoring in math and Ukrainian language over six weeks.",
+  found:"Substantial learning improvements — up to <b>0.49 SD math</b> and <b>0.40 SD language</b> — demonstrating that intensive online tutoring can work even amid extreme disruption.",
+  matters:"The upper bound of what online tutoring has achieved: evidence that human capital investment remains possible, and unusually valuable, during crisis.",
+  cite:"Dinarte-Diaz, L., et al. (2025). EdWorkingPaper No. 25-1292.",
+  link:"https://edworkingpapers.com/ai25-1292"
+},
+{
+  title:"A Cautionary Tale of Tutoring Hard-to-Reach Students in Kenya",
+  authors:"Schueler & Rodriguez-Segura (2021)",
+  topic:["effects","virtual"], grade:["upper-elem","middle"], subject:["math"], method:["rct"],
+  tags:["RCT","Kenya","Phone-based"],
+  es:0.0, sig:false, esLabel:"math (null)",
+  takeaway:"Teacher-student phone-call tutoring during COVID school closures in Kenya <strong>had no effect on math performance</strong> — a caution that remote delivery has real limits.",
+  studied:"105 schools randomized during closures: students received either 5-minute accountability check-ins or math-focused phone tutoring for 7 weeks.",
+  found:"Despite students reporting that teachers cared, the interventions produced <b>no effect on math</b> up to four months later — remote tutoring by phone did not replicate in-person results.",
+  matters:"An important null on the boundary conditions of tutoring: low-dosage, low-bandwidth remote formats may not clear the bar, especially for hard-to-reach populations.",
+  cite:"Schueler, B. E., & Rodriguez-Segura, D. (2021). EdWorkingPaper No. 21-432.",
+  link:"https://edworkingpapers.com/ai21-432"
+},
+{
+  title:"Beyond the One-Teacher Model: Embedded Paraprofessionals as Personalized Instructors",
+  authors:"Huffaker, Lee, Zhou, Robinson & Loeb (2025)",
+  topic:["effects","design","implementation"], grade:["early"], subject:["math","reading"], method:["rct"],
+  tags:["2 RCTs","Paraprofessionals","Early grades"],
+  es:0.0, sig:false, esLabel:"ITT (null)",
+  takeaway:"Two RCTs of paraprofessional-led tutoring in early-grade math and literacy found <strong>no overall achievement impacts</strong> — with dosage shortfalls a likely culprit.",
+  studied:"Two randomized trials using embedded paraprofessionals to deliver personalized math and literacy instruction within classrooms in the early grades.",
+  found:"Intent-to-treat analyses showed no overall effects for either program. The authors probe two central efficacy moderators from the tutoring literature — dosage and implementation — to explain the nulls.",
+  matters:"Embedding existing staff as tutors is an appealing low-cost model; these results show why realized dosage, not just the staffing model, determines whether it works.",
+  cite:"Huffaker, E., Lee, M. G., Zhou, H., Robinson, C. D., & Loeb, S. (2025). EdWorkingPaper No. 25-1326.",
+  link:"https://edworkingpapers.com/ai25-1326"
+},
+{
+  title:"When Interventions Don't Move the Needle: Insights from Null Results",
+  authors:"Huffaker, Robinson, Bardelli, White & Loeb (2025)",
+  topic:["effects","virtual","implementation"], grade:["upper-elem","middle"], subject:["math","reading"], method:["quasi"],
+  tags:["Null results","Third-party virtual providers"],
+  es:0.0, sig:false, esLabel:"math (null)",
+  takeaway:"A widely-adopted model — outsourcing to third-party virtual tutoring providers — showed <strong>no effect on math achievement</strong> and only moderate reading effects.",
+  studied:"Evaluation of district partnerships with third-party virtual tutoring providers deployed for pandemic learning recovery, examining why evidence-supported practices can fail in implementation.",
+  found:"No effect of assignment to virtual tutoring on math; moderate effects for reading. The paper uses these results to draw broader lessons about learning from null findings.",
+  matters:"Districts spent heavily on exactly this model with ESSER funds. Understanding why implementations miss is as valuable as knowing the best-case effect sizes.",
+  cite:"Huffaker, E., Robinson, C. D., Bardelli, E., White, S., & Loeb, S. (2025). EdWorkingPaper No. 25-1295.",
+  link:"https://edworkingpapers.com/ai25-1295"
+},
+{
+  title:"Sustained Effects of Small-Group Instruction in Mathematics",
+  authors:"Finseraas, Nyhus, Salvanes & Sandsør (2024)",
+  topic:["effects","design"], grade:["early","upper-elem"], subject:["math"], method:["rct"],
+  tags:["RCT","Norway","Persistence"],
+  es:null, sig:null, esNote:"experimental · see paper",
+  takeaway:"Do tutoring gains last? This Norwegian large-scale experiment tracks whether <strong>small-group math instruction effects persist</strong> after the program ends.",
+  studied:"Large-scale Norwegian field experiment using additional teachers to deliver small-group math instruction, following students over time to test effect persistence.",
+  found:"Examines whether initial test-score gains from small-group instruction fade out or endure — addressing one of the most common critiques of intervention research.",
+  matters:"Fade-out determines whether tutoring is a lasting investment or a temporary boost; longer-run evidence like this is scarce and valuable.",
+  cite:"Finseraas, H., Nyhus, O. H., Salvanes, K. V., & Sandsør, A. M. J. (2024). EdWorkingPaper No. 24-931.",
+  link:"https://edworkingpapers.com/ai24-931"
+},
+{
+  title:"Cheaper (and More Effective) by the Dozen: 12 Randomized A/B Tests Optimizing Tutoring for Scale",
+  authors:"Angrist, Cullen & Magat (2025)",
+  topic:["design","implementation","virtual"], grade:["early","upper-elem"], subject:["math"], method:["rct"],
+  tags:["12 rapid RCTs","Cost-effectiveness"],
+  es:null, sig:null, esNote:"12 experiments · see paper",
+  takeaway:"Rather than one big evaluation, this program ran <strong>12 rapid A/B tests</strong> to iteratively optimize a technology-enabled tutoring program — 7 of 12 improved efficiency.",
+  studied:"Twelve sequential randomized experiments adaptively testing and refining a technology-enabled math tutoring program to improve cost-effectiveness and scalability.",
+  found:"Seven of twelve tests led to efficiency improvements, demonstrating a tech-industry-style optimization approach applied to an education intervention.",
+  matters:"A methodological blueprint: instead of asking 'does tutoring work?', it asks 'how do we make this program cheaper and better, iteratively?' — the question that matters most at scale.",
+  cite:"Angrist, N., Cullen, C., & Magat, J. (2025). EdWorkingPaper No. 25-1333.",
+  link:"https://edworkingpapers.com/ai25-1333"
+},
+{
+  title:"Does Feedback on Talk Time Increase Student Engagement?",
+  authors:"Demszky, Wang, Geraghty & Yu (2023)",
+  topic:["design","virtual"], grade:["upper-elem","middle","high"], subject:["math"], method:["rct"],
+  tags:["RCT","742 tutors","NLP feedback tool"],
+  es:null, sig:null, esNote:"tutor-level RCT",
+  takeaway:"An automated 'Talk Meter' gave math tutors real-time feedback on student-teacher talk ratios — testing whether <strong>nudging tutors to talk less gets students talking more</strong>.",
+  studied:"RCT with 742 tutors on a virtual math tutoring platform, evaluating in-the-moment automated feedback on talk-time ratios.",
+  found:"Tests whether lightweight, automated feedback shifts tutor behavior toward giving students more opportunities to express mathematical thinking.",
+  matters:"Tutor quality drives outcomes (see the modality study), and this shows a scalable, cheap way to improve tutoring practice without human coaching.",
+  cite:"Demszky, D., Wang, R. E., Geraghty, S., & Yu, C. (2023). EdWorkingPaper No. 23-891.",
+  link:"https://edworkingpapers.com/ai23-891"
+},
+{
+  title:"The Impact of Tutor Gender Match on Girls' STEM Interest, Engagement, and Performance",
+  authors:"Bleiberg, Robinson, Bennett & Loeb (2026)",
+  topic:["design","beyond"], grade:["high"], subject:["math"], method:["rct"],
+  tags:["RCT","Algebra 1","422 students","Role models"],
+  es:null, sig:null, esNote:"experimental · see paper",
+  takeaway:"422 ninth-graders in Algebra 1 were randomly assigned same- or opposite-gender math tutors to test whether <strong>female tutors shift girls' STEM interest and engagement</strong>.",
+  studied:"Random assignment of ninth-grade Algebra 1 students to same-gender or opposite-gender tutors, measuring girls' STEM interest, attendance, and performance.",
+  found:"Examines the role-model hypothesis within tutoring: whether tutor identity, not just tutoring itself, shapes girls' engagement with STEM.",
+  matters:"If tutor-student matching moves engagement, it's a nearly free design lever for programs already hiring tutors — relevant to both effectiveness and equity goals.",
+  cite:"Bleiberg, J., Robinson, C. D., Bennett, E., & Loeb, S. (2026). EdWorkingPaper No. 25-1178.",
+  link:"https://edworkingpapers.com/ai25-1178"
+},
+{
+  title:"Understanding Disruptions: Causes of and Variation in Lost Instructional Time",
+  authors:"Beberman, Novicoff, Trindade Ribeiro, Robinson & Loeb (2025)",
+  topic:["implementation","virtual"], grade:["early","upper-elem"], subject:["reading","math"], method:["qual"],
+  tags:["NLP analysis","26,000+ sessions"],
+  es:null, sig:null,
+  takeaway:"Analysis of 26,000+ virtual tutoring sessions inside in-person schools finds <strong>fewer disruptions when tutoring happens in dedicated spaces</strong> like libraries rather than busy classrooms.",
+  studied:"Natural language processing analysis of over 26,000 virtual tutoring sessions conducted within in-person schools, identifying causes and patterns of lost instructional time.",
+  found:"Substantial variation across schools in disruptions; sessions in dedicated environments (libraries, tutoring-specific rooms) lost less time than those in shared or noisy spaces.",
+  matters:"A concrete, cheap implementation lever: where you put the student during virtual tutoring measurably changes how much instruction actually happens.",
+  cite:"Beberman, X., Novicoff, S., Trindade Ribeiro, A., Robinson, C. D., & Loeb, S. (2025). EdWorkingPaper No. 25-1239.",
+  link:"https://edworkingpapers.com/ai25-1239"
+},
+{
+  title:"Study More Tomorrow: A Commitment Contract for College Tutoring",
+  authors:"Pugatch, Schroeder & Wilson (2022)",
+  topic:["design","beyond"], grade:["college"], subject:["math"], method:["rct"],
+  tags:["RCT","Higher ed","Behavioral"],
+  es:null, sig:null, esNote:"experimental · see paper",
+  takeaway:"Can commitment devices get college students to actually use tutoring? Students signed contracts — with financial penalties — committing to <strong>attend peer tutoring if their midterm grade slipped</strong>.",
+  studied:"RCT of a commitment contract ('Study More Tomorrow') committing college students to attend peer tutoring if midterm grades fell below a pre-specified threshold, with financial penalties for noncompliance.",
+  found:"Students with the highest perceived value of peer tutoring showed greater demand for commitment — consistent with sophisticated awareness of their own follow-through problems.",
+  matters:"The take-up problem dominates at the college level: support services exist but go unused. This tests a behavioral-economics fix for the gap between intending and attending.",
+  cite:"Pugatch, T., Schroeder, E., & Wilson, N. (2022). EdWorkingPaper No. 22-592.",
+  link:"https://edworkingpapers.com/ai22-592"
+},
+{
+  title:"The Benefits of Math Corequisite Support for Students in Texas",
+  authors:"Austin, Martorell, Miller & Daugherty (2024)",
+  topic:["effects","policy"], grade:["college"], subject:["math"], method:["quasi"],
+  tags:["Quasi-experimental","Developmental ed","Texas"],
+  es:null, sig:null,
+  takeaway:"Disentangles the two ingredients of corequisite remediation: <strong>direct placement into college-level math</strong> versus the <strong>added academic support</strong> alongside it.",
+  studied:"Quasi-experimental analysis exploiting variation in how Texas colleges implemented math corequisites, separating the effect of college-level course placement from the effect of concurrent support.",
+  found:"College-level math placement itself drives course progression gains; the study isolates how much the accompanying support (often tutoring-like labs) adds on top.",
+  matters:"Corequisite reform is the dominant developmental-ed policy nationally. Knowing which ingredient works determines whether the support component is worth its cost.",
+  cite:"Austin, M., Martorell, P., Miller, T., & Daugherty, L. (2024). EdWorkingPaper No. 24-903.",
+  link:"https://edworkingpapers.com/ai24-903"
+},
+{
+  title:"Embedded Tutoring in California Community Colleges",
+  authors:"Duffy & Burkander (2024)",
+  topic:["implementation"], grade:["college"], subject:["math","reading"], method:["qual"],
+  tags:["Qualitative","AB 705","Community college"],
+  es:null, sig:null,
+  takeaway:"Field perspectives on <strong>embedding tutors directly into introductory math and English courses</strong> — a promising practice emerging from California's developmental education reforms.",
+  studied:"Qualitative study of embedded tutoring rollout in California community colleges under AB 705 corequisite reforms, drawing on data from a sample of colleges.",
+  found:"Identifies promising practices for integrating tutors into course sections — bringing support to where students already are rather than requiring them to seek it out.",
+  matters:"The college-level analogue of in-school K-12 tutoring: embedding support in the default path is the common thread in what works across levels.",
+  cite:"Duffy, M., & Burkander, K. (2024). EdWorkingPaper No. 24-984.",
+  link:"https://edworkingpapers.com/ai24-984"
+},
+{
+  title:"Meeting People Where They Are: Embedded Supports, Service Use, and Educational Outcomes",
+  authors:"Bird & Castleman (2026)",
+  topic:["effects","implementation","design"], grade:["college"], subject:["math","reading"], method:["rct"],
+  tags:["RCT","Community college","Take-up"],
+  es:null, sig:null, esNote:"experimental · see paper",
+  takeaway:"An RCT testing whether <strong>embedding tutors and advisors directly in course sections</strong> beats offering the same services through centralized campus offices.",
+  studied:"RCT in which treatment sections had tutoring and advising staff embedded directly in the classroom, while control students had access to identical on-demand services through centralized offices.",
+  found:"Tests whether hassle costs and default access points — not information — are the binding constraint on support-service use, and whether embedding changes outcomes for underserved students.",
+  matters:"Completes the arc of your library into higher ed: from K-2 reading tutors to community college, the same lesson recurs — placement and defaults determine whether support gets used.",
+  cite:"Bird, K. A., & Castleman, B. L. (2026). EdWorkingPaper No. 26-1485.",
+  link:"https://edworkingpapers.com/ai26-1485"
+},
+{
+  title:"A Scalable Approach to High-Impact Tutoring for Young Readers (Chapter One)",
+  authors:"Cortes, Kortecamp, Loeb & Robinson (2024)",
+  topic:["effects","design"], grade:["early"], subject:["reading"], method:["rct"],
+  tags:["RCT","Kindergarten","N=818","Embedded tutors"],
+  es:null, sig:null, esNote:"experimental · see paper",
+  takeaway:"Chapter One embeds part-time tutors <strong>inside the classroom</strong> to deliver short bursts of 1:1 reading instruction — a model built for scalability from the start.",
+  studied:"RCT of Chapter One with 818 eligible kindergartners in a large Southeastern district (2021–22): part-time tutors embedded in classrooms providing brief, frequent 1:1 instruction rather than pull-out sessions.",
+  found:"The study evaluates whether short-burst, in-classroom tutoring can deliver personalized reading instruction sustainably at scale — a deliberate contrast to intensive pull-out models.",
+  matters:"Most high-impact tutoring is expensive precisely because of its intensity; Chapter One tests whether restructuring delivery (short bursts, embedded staff) preserves impact at lower cost.",
+  cite:"Cortes, K. E., Kortecamp, K., Loeb, S., & Robinson, C. D. (2024). EdWorkingPaper No. 24-893.",
+  link:"https://edworkingpapers.com/ai24-893"
+},
+{
+  title:"A Blueprint for Scaling Tutoring Across Public Schools",
+  authors:"Kraft & Falken (2021)",
+  topic:["policy","implementation"], grade:["early","upper-elem","middle","high"], subject:["reading","math"], method:["qual"],
+  tags:["Policy blueprint","National scale","Cost estimates"],
+  es:null, sig:null,
+  takeaway:"The thought experiment behind the tutoring movement: a national architecture where <strong>high schoolers tutor in elementary schools and college graduates tutor in high schools</strong>, at $5–15 billion annually.",
+  studied:"A policy blueprint exploring how tutoring could scale nationally to address COVID learning loss and become a permanent feature of U.S. public education, built on ten core principles with federal support and local ownership.",
+  found:"Targeted approaches — such as focusing school-wide tutoring on K–8 Title I schools, staffed through AmeriCorps and work-study pipelines — would cost an estimated <b>$5–15 billion per year</b>.",
+  matters:"Much of the post-pandemic tutoring policy conversation, including federal funding pushes, traces back to this framework. Useful context for every evaluation in this library.",
+  cite:"Kraft, M. A., & Falken, G. (2021). EdWorkingPaper No. 20-335.",
+  link:"https://edworkingpapers.com/ai20-335"
+},
+{
+  title:"Off to a Great Start: Tutoring Paired with Foundational Literacy for Adolescent Newcomer English Learners",
+  authors:"Hanson & Bates (2025)",
+  topic:["effects","design"], grade:["middle","high"], subject:["reading"], method:["rct"],
+  tags:["RCT","Newcomer ELs","Virtual","Off2Class"],
+  es:null, sig:null, esNote:"experimental · see paper",
+  takeaway:"Adolescent newcomers must learn English while still learning to read. This RCT pairs <strong>high-impact tutoring with a foundational literacy curriculum</strong> for exactly that population.",
+  studied:"RCT of the Off2Class Foundational Literacy curriculum delivered through high-impact virtual tutoring (averaging 618 minutes, groups of 1–3) versus business as usual, for adolescent English learners with low literacy.",
+  found:"Tests whether structured foundational literacy tutoring can accelerate English reading proficiency for newcomer students in middle and high school — where teachers expect students to read to learn, not learn to read.",
+  matters:"One of the only rigorous tutoring studies focused on adolescent newcomer ELs, a fast-growing group that standard tutoring evidence largely overlooks.",
+  cite:"Hanson, H., & Bates, L. (2025). EdWorkingPaper No. 25-1311.",
+  link:"https://edworkingpapers.com/ai25-1311"
+},
+{
+  title:"Kumon In: The Recent, Rapid Rise of Private Tutoring Centers",
+  authors:"Kim, Goodman & West (2024)",
+  topic:["policy"], grade:["early","upper-elem","middle","high"], subject:["reading","math"], method:["quasi"],
+  tags:["Descriptive","25 years of data","Private market"],
+  es:null, sig:null,
+  takeaway:"The private tutoring industry has grown rapidly since 1997 — and centers are <strong>heavily concentrated in high-income, highly-educated areas</strong>, widening the out-of-school opportunity gap.",
+  studied:"Over 25 years of geocoded data on the universe of U.S. private tutoring centers, estimating industry size and growth and identifying predictors of where centers locate.",
+  found:"The number of centers grew dramatically from 1997–2022, with locations concentrated in areas with high income and parental education — private tutoring is largely a resource for already-advantaged families.",
+  matters:"The equity backdrop for public tutoring programs: affluent families already buy tutoring privately. Public high-impact tutoring is, in part, an attempt to democratize access to what the market provides unequally.",
+  cite:"Kim, E., Goodman, J., & West, M. R. (2024). EdWorkingPaper No. 21-367.",
+  link:"https://edworkingpapers.com/ai21-367"
+},
+{
+  title:"The Causal Impact of Charter Schools on Private Tutoring Prevalence",
+  authors:"Kim & Miratrix (2023)",
+  topic:["policy"], grade:["early","upper-elem","middle","high"], subject:["reading","math"], method:["quasi"],
+  tags:["Event study","School choice","Private market"],
+  es:null, sig:null,
+  takeaway:"Contrary to international evidence, charter school openings in the U.S. <strong>increase</strong> — rather than decrease — nearby private tutoring prevalence.",
+  studied:"Comparative event study with longitudinal matching estimating the causal effect of charter school appearances on private tutoring prevalence in surrounding neighborhoods.",
+  found:"Charter schools increase local private tutoring presence, contradicting the international pattern where school choice substitutes for tutoring demand.",
+  matters:"Suggests school choice and private supplementation are complements in the U.S. — families layering advantages rather than substituting between them, with implications for equity debates around both.",
+  cite:"Kim, E. J., & Miratrix, L. W. (2023). EdWorkingPaper No. 23-756.",
+  link:"https://edworkingpapers.com/ai23-756"
+},
+{
+  title:"The Effect of College Entrance Exam Policies on Test Preparation and Tutoring Services",
+  authors:"Bell & Kim (2025)",
+  topic:["policy"], grade:["high"], subject:["math","reading"], method:["quasi"],
+  tags:["Quasi-experimental","Test prep market"],
+  es:null, sig:null,
+  takeaway:"State policies mandating college entrance exams trigger a <strong>16% increase in private tutoring prevalence</strong> — concentrated in high-income, highly-educated areas.",
+  studied:"Quasi-experimental analysis of how statewide mandatory ACT/SAT testing policies affect the private test-prep and tutoring market.",
+  found:"Mandatory testing policies cause an additional <b>16% increase</b> in private tutoring prevalence, with effects most pronounced in high-income, highly-educated, and high-proportion-Asian areas.",
+  matters:"A cautionary equity finding: policies designed to expand college access for disadvantaged students also intensify private supplementation among advantaged families competing to stay ahead.",
+  cite:"Bell, D., & Kim, E. J. (2025). EdWorkingPaper No. 25-1304.",
+  link:"https://edworkingpapers.com/ai25-1304"
+}
+];
+
+// ---------- render ----------
+const MIN=-0.1, MAX=0.55;
+function pct(v){return ((Math.min(Math.max(v,MIN),MAX)-MIN)/(MAX-MIN)*100).toFixed(1)+'%'}
+function rulerHTML(s){
+  if(s.es===null){
+    return `<div class="no-ruler">${s.esNote||'synthesis / descriptive'}</div>`;
+  }
+  const ticks=[0,0.1,0.2,0.3,0.4,0.5].map(t=>
+    `<span class="tick" style="left:${pct(t)}"></span><span class="tick-num" style="left:${pct(t)}">${t===0?'0':t.toFixed(1)}</span>`).join('');
+  const cls=s.sig?'sig':'ns';
+  return `<div class="ruler" aria-label="Effect size ${s.es} standard deviations">
+    <div class="ruler-label">${s.esLabel||'effect size'} · SD</div>
+    <div class="ruler-track">
+      <div class="ruler-line"></div>${ticks}
+      <span class="es-val ${cls}" style="left:${pct(s.es)}">${s.es>0?'+':''}${s.es.toFixed(2)}</span>
+      <span class="es-dot ${cls}" style="left:${pct(s.es)}"></span>
+    </div>
+  </div>`;
+}
+const grid=document.getElementById('grid');
+grid.innerHTML=studies.map((s,i)=>`
+  <article class="card" data-i="${i}">
+    <div class="card-head" tabindex="0" role="button" aria-expanded="false">
+      <div>
+        <div class="card-tags">${s.tags.map((t,j)=>`<span class="tag ${j===0?'type':''}">${t}</span>`).join('')}</div>
+        <h2 class="card-title">${s.title}</h2>
+        <div class="card-authors">${s.authors}</div>
+        <p class="takeaway">${s.takeaway}</p>
+        <div class="expand-hint"><span class="more">+ what they studied, found &amp; why it matters</span><span class="less">− collapse</span></div>
+      </div>
+      ${rulerHTML(s)}
+    </div>
+    <div class="card-body">
+      <div class="detail-grid">
+        <div class="detail"><h4>What they studied</h4><p>${s.studied}</p></div>
+        <div class="detail"><h4>What they found</h4><p>${s.found}</p></div>
+        <div class="detail" style="grid-column:1/-1"><h4>Why it matters</h4><p>${s.matters}</p></div>
+        <div class="cite">${s.cite} &nbsp;→&nbsp; <a href="${s.link}" target="_blank" rel="noopener">Read the paper</a></div>
+      </div>
+    </div>
+  </article>`).join('');
+
+// expand/collapse
+grid.querySelectorAll('.card-head').forEach(h=>{
+  const toggle=()=>{const c=h.closest('.card');c.classList.toggle('open');h.setAttribute('aria-expanded',c.classList.contains('open'))};
+  h.addEventListener('click',e=>{if(e.target.tagName!=='A')toggle()});
+  h.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}});
+});
+
+// ---------- filtering ----------
+const active={topic:new Set(),grade:new Set(),subject:new Set(),method:new Set()};
+let q='';
+document.querySelectorAll('.filter-row').forEach(row=>{
+  const g=row.dataset.group;
+  row.querySelectorAll('.chip').forEach(chip=>{
+    chip.addEventListener('click',()=>{
+      const v=chip.dataset.val;
+      if(active[g].has(v)){active[g].delete(v);chip.classList.remove('active')}
+      else{active[g].add(v);chip.classList.add('active')}
+      apply();
+    });
+  });
+});
+document.getElementById('search').addEventListener('input',e=>{q=e.target.value.toLowerCase();apply()});
+document.getElementById('clearAll').addEventListener('click',()=>{
+  Object.values(active).forEach(s=>s.clear());
+  document.querySelectorAll('.chip.active').forEach(c=>c.classList.remove('active'));
+  document.getElementById('search').value='';q='';apply();
+});
+function apply(){
+  let shown=0;
+  document.querySelectorAll('.card').forEach(card=>{
+    const s=studies[+card.dataset.i];
+    let ok=true;
+    for(const g of ['topic','grade','subject','method']){
+      if(active[g].size && ![...active[g]].some(v=>s[g].includes(v))) ok=false;
+    }
+    if(ok && q){
+      const hay=(s.title+' '+s.authors+' '+s.takeaway+' '+s.found+' '+s.tags.join(' ')).toLowerCase();
+      if(!hay.includes(q)) ok=false;
+    }
+    card.style.display=ok?'':'none';
+    if(ok)shown++;
+  });
+  document.getElementById('count').textContent=`${shown} of ${studies.length} studies`;
+  document.getElementById('empty').style.display=shown?'none':'block';
+}
+apply();
+</script>
+</body>
+</html>
