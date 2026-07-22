@@ -1,31 +1,26 @@
 /* ============================================================
-   Shared site navigation for papers.sal-khan.com (GitHub Pages)
+   Shared site navigation for sal-khan.com (GitHub Pages)
    ------------------------------------------------------------
-   Usage: add this line right after <body> on every HTML page:
-
+   Single-platform setup: the entire site is served from GitHub
+   Pages at the root domain sal-khan.com. To change nav links or
+   labels, edit the LINKS array below — one file updates every page.
+   Add this line just after <body> on every HTML page:
      <script src="nav.js"></script>
-
-   Why this exists: the main site (www.sal-khan.com) runs on
-   Google Sites and the document/tool pages run on GitHub Pages.
-   Google Sites cannot add its header to pages it doesn't host,
-   so every GitHub-hosted page injects this nav itself.
-   All cross-host links must be ABSOLUTE URLs.
-
-   To change links: edit the LINKS array below. One file, all pages.
    ============================================================ */
 (function () {
   var LINKS = [
-    { label: "Home",             href: "https://papers.sal-khan.com/home.html" },
-    { label: "Research",         href: "https://www.sal-khan.com/research" },
-    { label: "Teaching",         href: "https://www.sal-khan.com/teaching" },
-    { label: "Tutoring Studies", href: "https://papers.sal-khan.com/tutoring-evidence-library.html" },
-    { label: "CV",               href: "https://papers.sal-khan.com/CV_Khan.pdf" }
+    { label: "Home",             href: "https://sal-khan.com/" },
+    { label: "Research",         href: "https://sal-khan.com/research.html" },
+    { label: "Teaching",         href: "https://sal-khan.com/teaching.html" },
+    { label: "Tutoring Studies", href: "https://sal-khan.com/tutoring-evidence-library.html" },
+    { label: "CV",               href: "https://sal-khan.com/CV_Khan.pdf" }
   ];
   var SITE_NAME = "Salman A. Khan";
-  var HOME_URL  = "https://papers.sal-khan.com/home.html";
+  var HOME_URL  = "https://sal-khan.com/";
 
-  /* Highlight the link matching the current page's filename */
-  var here = window.location.pathname.split("/").pop() || "home.html";
+  /* Highlight current page by filename ("" and "index.html" both = Home) */
+  var here = window.location.pathname.split("/").pop() || "index.html";
+  if (here === "") here = "index.html";
 
   var css = [
     ".sk-nav{background:#20242c;border-bottom:3px solid #7d1e2e;font-family:'Public Sans',system-ui,-apple-system,sans-serif}",
@@ -47,7 +42,7 @@
   nav.setAttribute("aria-label", "Site");
 
   var linksHtml = LINKS.map(function (l) {
-    var file = l.href.split("/").pop();
+    var file = l.href.replace(/\/$/, "/index.html").split("/").pop();
     var isCurrent = file === here;
     return '<a href="' + l.href + '"' +
       (isCurrent ? ' class="sk-current" aria-current="page"' : "") +
