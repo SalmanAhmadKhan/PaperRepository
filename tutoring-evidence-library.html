@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tutoring &amp; Early Literacy Evidence Library</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#FFFFFF;
+    --paper:#FAF9F4;
     --card:#FFFFFF;
-    --ink:#20242C;
-    --ink-soft:#5A6070;
-    --steel:#7D1E2E;
-    --marker:#E9D9DC;
-    --marker-soft:#F6ECEE;
-    --line:#E3E1DC;
+    --ink:#1C2B4A;
+    --ink-soft:#44506B;
+    --steel:#4A6FA5;
+    --marker:#F5C64F;
+    --marker-soft:#FBEBC2;
+    --line:#E4E1D6;
     --null:#A8ADB8;
     --neg:#C56B5C;
   }
@@ -28,7 +28,7 @@
   /* ---------- Header ---------- */
   header{padding:56px 0 32px;border-bottom:2px solid var(--ink)}
   .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);margin-bottom:14px}
-  h1{font-family:'Spectral',Georgia,serif;font-weight:700;font-size:clamp(30px,5vw,48px);line-height:1.08;max-width:18ch}
+  h1{font-family:'Zilla Slab',serif;font-weight:700;font-size:clamp(30px,5vw,48px);line-height:1.08;max-width:18ch}
   h1 .hl{background:linear-gradient(transparent 58%, var(--marker) 58%, var(--marker) 92%, transparent 92%)}
   .intro{margin-top:18px;max-width:62ch;color:var(--ink-soft);font-size:16.5px}
   .legend{margin-top:26px;display:flex;flex-wrap:wrap;gap:22px;align-items:center}
@@ -62,7 +62,7 @@
   .card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px}
   .tag{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:2.5px 8px;border-radius:4px;background:var(--paper);border:1px solid var(--line);color:var(--ink-soft)}
   .tag.type{background:var(--marker-soft);border-color:#EED9A0;color:#7A5B12}
-  .card-title{font-family:'Spectral',Georgia,serif;font-weight:600;font-size:19.5px;line-height:1.25}
+  .card-title{font-family:'Zilla Slab',serif;font-weight:600;font-size:19.5px;line-height:1.25}
   .card-authors{margin-top:5px;font-size:13px;color:var(--ink-soft)}
   .takeaway{margin-top:9px;font-size:14.5px;color:var(--ink)}
   .takeaway strong{font-weight:700}
@@ -83,7 +83,7 @@
   .no-ruler::before{content:'';width:11px;height:11px;border-radius:50%;background:var(--steel);flex:none}
 
   /* details */
-  .card-body{display:none;border-top:1px dashed var(--line);padding:20px 22px;background:#FBF8F8}
+  .card-body{display:none;border-top:1px dashed var(--line);padding:20px 22px;background:#FDFCF9}
   .card.open .card-body{display:block}
   .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px}
   .detail h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel);margin-bottom:6px}
@@ -109,6 +109,9 @@
 </style>
 </head>
 <body>
+
+<script src="nav.js"></script>
+
 
 <header>
   <div class="wrap">
