@@ -15,15 +15,14 @@
    ============================================================ */
 (function () {
   var LINKS = [
-    { label: "Home",             href: "https://www.sal-khan.com/home_1" },
-    { label: "Profile",          href: "https://papers.sal-khan.com/home.html" },
+    { label: "Home",             href: "https://papers.sal-khan.com/home.html" },
     { label: "Research",         href: "https://www.sal-khan.com/research" },
     { label: "Teaching",         href: "https://www.sal-khan.com/teaching" },
     { label: "Tutoring Studies", href: "https://papers.sal-khan.com/tutoring-evidence-library.html" },
     { label: "CV",               href: "https://papers.sal-khan.com/CV_Khan.pdf" }
   ];
   var SITE_NAME = "Salman A. Khan";
-  var HOME_URL  = "https://www.sal-khan.com/home_1";
+  var HOME_URL  = "https://papers.sal-khan.com/home.html";
 
   /* Highlight the link matching the current page's filename */
   var here = window.location.pathname.split("/").pop() || "home.html";
