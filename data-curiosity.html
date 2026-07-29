@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data & Curiosity — Salman A. Khan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#20242c; --ink-soft:#5a6070; --maroon:#7d1e2e; --maroon-soft:#f6ecee;
+    --line:#e3e1dc; --paper:#ffffff;
+    --sans:'Public Sans',system-ui,sans-serif; --serif:'Spectral',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:24px 16px 64px}
+
+  .role{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--maroon);margin-bottom:10px}
+  h1{font-family:var(--serif);font-weight:700;font-size:clamp(30px,5vw,42px);line-height:1.15;margin-bottom:18px}
+  .lede{font-family:var(--serif);font-size:19px;line-height:1.6;color:var(--ink);max-width:44em}
+  .body-text{margin-top:16px;font-size:15.5px;color:var(--ink-soft);max-width:46em}
+
+  h2{font-family:var(--serif);font-weight:600;font-size:22px;margin:36px 0 14px}
+  .areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .area{border:1px solid var(--line);border-radius:10px;padding:18px;transition:border-color .15s}
+  .area:hover{border-color:var(--maroon)}
+  .area h3{font-family:var(--serif);font-size:16.5px;font-weight:600;margin-bottom:6px}
+  .area p{font-size:14px;color:var(--ink-soft)}
+  .area .tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--maroon);margin-bottom:8px;display:block}
+  .area a{display:inline-block;margin-top:10px;font-size:13px;font-weight:700;color:var(--maroon);text-decoration:none}
+  .area a:hover{text-decoration:underline}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<script src="nav.js"></script>
+<div class="wrap">
+  <div class="role">Side Projects</div>
+  <h1>Data &amp; Curiosity</h1>
+  <p class="lede">Independent projects where I dig into public data purely out of curiosity, outside my day job at the Education Lab.</p>
+  <p class="body-text">These are personal explorations, not affiliated with or endorsed by any employer. Methods, caveats, and code are documented on each project's page.</p>
+
+  <h2>Projects</h2>
+  <div class="areas">
+    <div class="area">
+      <span class="tag">Transit &middot; Chicago</span>
+      <h3>What Your Average Bus Frequency Isn&rsquo;t Telling You</h3>
+      <p>Three weeks tracking every bus on eight of Chicago&rsquo;s busiest routes to measure how uneven spacing costs riders time, and where it starts.</p>
+      <a href="https://sal-khan.com/bus-bunching.html">Read the analysis &rarr;</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

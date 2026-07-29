@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Your Average Bus Frequency Isn't Telling You — a three-week measurement of Chicago bus bunching</title>
+<meta name="description" content="Two buses arrive a minute apart, the next takes half an hour, and the average still says every 10 minutes. I logged every bus on eight busy Chicago routes for three weeks to measure how often that happens, what it costs riders, and where it starts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pave:#10141c;        /* night pavement / sign housing */
+  --pave-2:#171d29;
+  --led:#ffb000;         /* dot-matrix amber */
+  --led-dim:#7a5a10;
+  --alert:#e0533d;       /* bunched pair */
+  --paper:#f7f5ef;       /* reading surface */
+  --ink:#22262e;
+  --ink-soft:#5a6070;
+  --line:#d9d4c8;
+  --blue:#1a5fb4;        /* route pill */
+  --ok:#3f9d63;
+  --maxw:700px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:"Source Serif 4",Georgia,serif;font-size:1.075rem;line-height:1.72}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 1.25rem}
+h1,h2,h3{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:.01em;line-height:1.08;text-transform:uppercase}
+h2{font-size:1.7rem;margin:3.2rem 0 1rem;color:var(--ink)}
+h3{font-size:1.15rem;margin:2rem 0 .7rem;color:var(--ink)}
+p{margin:0 0 1.15rem}
+a{color:var(--blue)}
+strong{font-weight:600}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase}
+.mono{font-family:"IBM Plex Mono",monospace}
+
+/* ---------- hero ---------- */
+.hero{background:var(--pave);color:#e8e4da;padding:3.6rem 0 3rem;border-bottom:6px solid var(--led)}
+.hero .eyebrow{color:var(--led);margin-bottom:1.2rem}
+.hero h1{font-size:clamp(2.5rem,7.2vw,4.4rem);color:#fff;margin:0 0 1.2rem}
+.hero h1 .avg{color:var(--led)}
+.hero .dek{font-size:1.15rem;line-height:1.65;color:#c9c4b8;max-width:600px}
+.hero .byline{margin-top:1.6rem;font-family:"IBM Plex Mono",monospace;font-size:.8rem;color:#8b8574}
+
+/* ---------- LED board styling ---------- */
+.board{background:var(--pave);border:1px solid #2a3140;border-radius:10px;padding:1.1rem 1.2rem;margin:1.4rem 0;
+  font-family:"IBM Plex Mono",monospace;color:var(--led);
+  text-shadow:0 0 6px rgba(255,176,0,.55);box-shadow:inset 0 0 40px rgba(0,0,0,.55)}
+.board .brow{font-size:.68rem;letter-spacing:.24em;color:#6f7787;text-shadow:none;margin-bottom:.55rem;text-transform:uppercase}
+.board .row{display:flex;justify-content:space-between;align-items:baseline;padding:.28rem 0;font-size:clamp(.95rem,2.9vw,1.25rem);letter-spacing:.06em}
+.board .row .min{font-weight:700}
+.board .row.ghost{color:var(--led-dim);text-shadow:none}
+.board .alert{color:var(--alert);text-shadow:0 0 6px rgba(224,83,61,.5)}
+
+/* ---------- dark full-bleed widget bands ---------- */
+.band{background:var(--pave-2);color:#ddd8cc;padding:2.4rem 0;margin:2.6rem 0;border-top:1px solid #262e3d;border-bottom:1px solid #262e3d}
+.band h3{color:#fff;margin-top:0}
+.band p{color:#b9b3a5}
+.band .eyebrow{color:var(--led)}
+
+/* ---------- buttons & chips ---------- */
+button{font-family:"IBM Plex Mono",monospace;font-size:.85rem;cursor:pointer;border-radius:8px;border:1px solid #39435a;background:#1c2433;color:#e8e4da;padding:.6rem 1rem;transition:transform .06s ease,background .15s}
+button:hover{background:#253048}
+button:active{transform:scale(.97)}
+button:focus-visible{outline:3px solid var(--led);outline-offset:2px}
+button.amber{background:var(--led);border-color:var(--led);color:#231a02;font-weight:700}
+button.amber:hover{background:#ffc233}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0 1rem}
+.chip{border-radius:999px;padding:.42rem .95rem}
+.chip[aria-pressed="true"]{background:var(--led);border-color:var(--led);color:#231a02;font-weight:700}
+.chip:disabled{opacity:.35;cursor:not-allowed}
+
+/* ---------- route pills ---------- */
+.pill{display:inline-flex;align-items:center;justify-content:center;min-width:2.6rem;padding:.15rem .5rem;border-radius:6px;background:var(--blue);color:#fff;font-family:Anton,sans-serif;font-size:1rem;letter-spacing:.03em}
+
+/* ---------- poll ---------- */
+.poll{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.4rem;margin:1.8rem 0}
+.poll .q{font-weight:600;margin-bottom:.9rem}
+.poll .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.6rem}
+.poll .opts button{background:#f0ede4;border-color:var(--line);color:var(--ink)}
+.poll .opts button:hover{background:#e7e2d4}
+.poll .opts button.picked{background:var(--pave);color:var(--led);border-color:var(--pave)}
+.poll .reveal{display:none;margin-top:1.1rem;padding-top:1rem;border-top:1px dashed var(--line)}
+.poll .reveal.show{display:block}
+.poll .big{font-family:Anton,sans-serif;font-size:2.6rem;color:var(--alert);line-height:1.1}
+.poll .note{font-size:.92rem;color:var(--ink-soft)}
+
+/* ---------- stat strip ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:1.6rem 0}
+.stats>div{background:#fff;padding:1rem .9rem}
+.stats .n{font-family:Anton,sans-serif;font-size:1.7rem;line-height:1.1}
+.stats .l{font-size:.8rem;color:var(--ink-soft);font-family:"IBM Plex Mono",monospace;letter-spacing:.04em;margin-top:.25rem}
+
+/* ---------- CV decoder ---------- */
+.cvrow{margin:.9rem 0}
+.cvrow .lab{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:#9a937f;margin-bottom:.3rem}
+.cvrow svg{width:100%;height:34px;display:block}
+
+/* ---------- sim panel ---------- */
+.panel{background:var(--pave);border:1px solid #2a3140;border-radius:12px;padding:1.2rem;margin:1.2rem 0}
+.result{font-family:"IBM Plex Mono",monospace;margin-top:.9rem;font-size:.92rem;line-height:1.7;color:#cfc9ba}
+.result .you{color:var(--led);font-weight:700}
+.result .ideal{color:#7fd0a0}
+.result .tax{color:var(--alert);font-weight:700}
+
+/* ---------- canvas toy ---------- */
+canvas{width:100%;height:150px;display:block;border-radius:10px;background:var(--pave)}
+.toyrow{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem}
+
+/* ---------- explorer ---------- */
+.rgrid{display:flex;flex-wrap:wrap;gap:.55rem;margin:1rem 0 1.2rem}
+.rbtn{display:flex;flex-direction:column;align-items:center;gap:.15rem;min-width:74px;padding:.55rem .6rem;background:#fff;border:1px solid var(--line);color:var(--ink)}
+.rbtn small{font-family:"IBM Plex Mono",monospace;font-size:.62rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em}
+.rbtn[aria-pressed="true"]{border-color:var(--pave);background:var(--pave);color:#fff}
+.rbtn[aria-pressed="true"] small{color:var(--led)}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.3rem;margin-bottom:1.5rem}
+.card .tag{font-style:italic;color:var(--ink-soft);margin-bottom:1rem}
+.bars{margin:.9rem 0}
+.bar{display:grid;grid-template-columns:88px 1fr 52px;align-items:center;gap:.7rem;margin:.45rem 0;font-family:"IBM Plex Mono",monospace;font-size:.8rem}
+.bar .trk{position:relative;background:#efece2;height:16px;border-radius:4px;overflow:hidden}
+.bar .fill{position:absolute;inset:0 auto 0 0;background:var(--alert);border-radius:4px;transition:width .5s ease}
+.bar .ref{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ok)}
+.bar.na .trk{opacity:.35}
+.legend{font-size:.78rem;color:var(--ink-soft);font-family:"IBM Plex Mono",monospace}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.8rem;margin-top:1rem}
+.kv .n{font-family:Anton,sans-serif;font-size:1.35rem}
+.kv .l{font-size:.72rem;font-family:"IBM Plex Mono",monospace;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase}
+
+/* ---------- slider ---------- */
+.slidebox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.3rem;margin:1.4rem 0}
+input[type=range]{width:100%;accent-color:var(--alert)}
+.slidebox .out{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-top:1rem}
+.slidebox .n{font-family:Anton,sans-serif;font-size:1.6rem}
+.slidebox .l{font-size:.72rem;font-family:"IBM Plex Mono",monospace;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em}
+
+/* ---------- caveats ---------- */
+.cavs{display:grid;gap:.7rem;margin:1.2rem 0}
+.cav{background:#fff;border:1px solid var(--line);border-left:5px solid var(--led);border-radius:8px;padding:.85rem 1rem;font-size:.98rem}
+.cav b{font-family:"IBM Plex Mono",monospace;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:.2rem;color:var(--ink-soft)}
+
+/* ---------- table ---------- */
+table{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:.8rem;margin:1.2rem 0}
+th,td{text-align:right;padding:.5rem .55rem;border-bottom:1px solid var(--line)}
+th{font-weight:500;color:var(--ink-soft);text-transform:uppercase;font-size:.68rem;letter-spacing:.05em}
+td:first-child,th:first-child{text-align:left}
+tr.tot td{font-weight:700;border-top:2px solid var(--ink);border-bottom:none}
+
+.foot{background:var(--pave);color:#a7a192;padding:2.6rem 0 3rem;margin-top:4rem;font-size:.92rem}
+.foot a{color:var(--led)}
+.formula{background:#fff;border:1px dashed var(--line);border-radius:10px;padding:1rem 1.2rem;font-family:"IBM Plex Mono",monospace;font-size:.92rem;margin:1.2rem 0;overflow-x:auto}
+.smallnote{font-size:.85rem;color:var(--ink-soft)}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .bar .fill{transition:none}
+}
+</style>
+</head>
+<body>
+<script src="nav.js"></script>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">A three-week, eight-route field measurement &middot; Chicago</div>
+    <h1>What your average <span class="avg">bus frequency</span> isn&rsquo;t telling you</h1>
+    <p class="dek">Three weeks, eight of Chicago&rsquo;s busiest bus routes, every arrival logged. Turns out &ldquo;every 10 minutes&rdquo; and the actual experience of waiting are not the same thing. Here&rsquo;s what I found, why it happens, and what it costs.</p>
+    <div class="byline">Practicing Economist &middot; July 2026 &middot; a personal project, written in my personal capacity: views mine alone, not any employer&rsquo;s or the CTA&rsquo;s</div>
+
+    <div class="board" aria-label="Simulated bus tracker arrival board">
+      <div class="brow">&#9679; live-style demo &middot; simulated from measured data &middot; route 22 clark</div>
+      <div class="row"><span>#22 CLARK</span><span class="min" id="heroA">2 MIN</span></div>
+      <div class="row"><span>#22 CLARK</span><span class="min" id="heroB">3 MIN</span></div>
+      <div class="row ghost"><span>#22 CLARK</span><span class="min" id="heroC">27 MIN</span></div>
+    </div>
+    <p class="dek" style="font-size:.95rem;color:#8b8574">&uarr; Two buses nose-to-tail, then a hole. If this board looks like your commute, the next few minutes explain why, and put a price on it.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ INTRO PROSE ============ -->
+<p>Waiting at a bus stop can feel like an eternity, even when the sign insists the bus is only a few minutes out. For a while I figured that was just my own impatience talking. Then it kept happening, often enough that I started wondering whether it was actually me, or whether there was something real behind the feeling. So I decided to check. I will admit up front that I ended up spending considerably more evenings and weekends on this than any reasonable person should spend confirming a hunch about a bus schedule.</p>
+
+<p>Here&rsquo;s the arithmetic that got me hooked in the first place. Picture three buses on a route that&rsquo;s scheduled to run every ten minutes. In reality, the first two arrive bunched, one minute apart. The third doesn&rsquo;t show up for another twenty-eight minutes. Average those three gaps: (1 + 1 + 28) &divide; 3 = <strong>exactly ten minutes.</strong> On paper, and in whatever statistic the agency reports, this route is running perfectly to schedule.</p>
+
+<p>Now stand at the stop instead of looking at the spreadsheet. Almost the entire half hour is that one 28-minute gap: it's 93% of the time between buses. So if you show up at a random moment, more than 9 times in 10 you land inside it, not inside the lucky 1-minute gaps that dragged the average down. Work out the actual expected wait for a random rider in this pattern and you get about <strong>13 minutes</strong>, not the 5 minutes you&rsquo;d expect from a true, even, every-10-minutes service. The average was fine. The experience was more than double what the average implied.</p>
+
+<p>That gap between the reported average and the felt wait is the whole subject of this post. It&rsquo;s not a rounding error or a fluke of one bad route. It&rsquo;s a predictable consequence of how uneven the spacing is, and it&rsquo;s something you can actually measure, route by route, city by city. I measured it for Chicago.</p>
+
+<p>To go looking for it rather than just feel it, I picked eight of Chicago&rsquo;s busiest bus routes (Halsted, Ashland, Clark, Broadway, Western, Belmont, 79th and Sheridan), spread across the North, West and South Sides. Busy routes are where bunching does the most damage and where the most riders would actually feel it, so that&rsquo;s where I pointed the instrument.</p>
+
+<!-- ============ METHOD ============ -->
+<h2>How it was measured (the fun part)</h2>
+<p>This entire project ran on a <strong>2014 MacBook Air a friend handed down to me</strong>: a laptop that started the week locked with a forgotten password. Wiped it, installed Python, and put it to work:</p>
+<p><strong>Collection.</strong> A ~60-line Python script polls the CTA Bus Tracker API&rsquo;s <span class="mono">getvehicles</span> endpoint for all eight routes in a single request, every 30 seconds, and appends every bus&rsquo;s position (including <span class="mono">pdist</span>, its distance traveled along the route in feet) to a SQLite database. The CTA refreshes positions about once a minute, which sets the effective resolution.</p>
+<p><strong>Headways.</strong> For each route and direction I take the route&rsquo;s midpoint and record the moment each bus crosses it. The gaps between consecutive crossings are the realized headways: their mean and CV, computed within each hour of the day, are the engine of the cost figures further down. I also measured the same thing at six points along each run (10% through 85% of the way), which is what later lets me separate &ldquo;born at the terminal&rdquo; from &ldquo;bred on the street.&rdquo;</p>
+<p><strong>The benchmark.</strong> The CTA publishes its full schedule as GTFS data. Differencing the scheduled departures at each route&rsquo;s midpoint stop gives the promised gap, hour by hour, and computing excess wait <em>within</em> hours means intentional frequency changes (rush vs evening) are never mistaken for unreliability.</p>
+<p><strong>Ridership.</strong> Average boardings per route and day-type from the City of Chicago open data portal, averaged over the latest twelve months of reports.</p>
+<p>Total cost of the apparatus: $0 and one aging laptop, no special hardware. Everything here is reproducible from public data by anyone, which is either an indictment or an invitation, depending on your mood.</p>
+
+<div class="stats" style="grid-template-columns:repeat(2,1fr)">
+  <div><div class="n">8</div><div class="l">routes tracked</div></div>
+  <div><div class="n">21 days</div><div class="l">continuous logging</div></div>
+</div>
+
+</main>
+<section class="band">
+  <div class="wrap">
+    <!-- ============ WAIT SIMULATOR ============ -->
+    <div class="eyebrow">Interactive &middot; drawn from the measured distributions</div>
+    <h3>Stand at the stop yourself</h3>
+    <p>Pick a route, a day, and where along the route you&rsquo;re catching it. I&rsquo;ll simulate a full day of arrivals using that route&rsquo;s <em>actual measured</em> gap and spacing pattern, drop you at the stop at a random moment, and see how long you wait. Do it a few times: the average of your waits converges to the real tax.</p>
+
+    <div class="chips" id="simRoutes" role="group" aria-label="Choose a route"></div>
+    <div class="chips" id="simDays" role="group" aria-label="Choose a day type">
+      <button class="chip" data-day="weekday" aria-pressed="true">Weekday</button>
+      <button class="chip" data-day="sat" aria-pressed="false">Saturday</button>
+      <button class="chip" data-day="sun" aria-pressed="false">Sunday</button>
+    </div>
+    <div class="chips" id="simSpots" role="group" aria-label="Choose where along the route you board">
+      <button class="chip" data-frac="0" aria-pressed="false">Near the terminal</button>
+      <button class="chip" data-frac="1" aria-pressed="false">Early in the route</button>
+      <button class="chip" data-frac="3" aria-pressed="true">Mid-route</button>
+      <button class="chip" data-frac="5" aria-pressed="false">Near the end</button>
+    </div>
+
+    <div class="panel">
+      <div class="board" style="margin:0 0 1rem">
+        <div class="brow" id="simBrow">&#9679; simulated board</div>
+        <div class="row"><span id="simName">#22 CLARK</span><span class="min" id="simNext">— MIN</span></div>
+        <div class="row ghost"><span id="simName2">#22 CLARK</span><span class="min" id="simNext2">— MIN</span></div>
+      </div>
+      <button class="amber" id="simGo">Arrive at the stop</button>
+      <button id="simReset">Reset my day</button>
+      <div class="result" id="simOut">Press the button. You&rsquo;re walking to the stop at a random time…</div>
+    </div>
+    <p class="smallnote" style="color:#8b8574">Where you board matters because spacing gets worse the further a bus has traveled from the garage. More on exactly why below. Boarding &ldquo;near the terminal&rdquo; draws on the same buses that are, on average, still fairly evenly spaced; &ldquo;near the end&rdquo; draws on buses that have had the whole route to drift apart.</p>
+  </div>
+</section>
+<main class="wrap">
+
+<!-- ============ CV EXPLAINER ============ -->
+<h2>One number tells you how bad it is</h2>
+<p>Transit researchers have a name for the wobbliness in that arithmetic example: the <strong>coefficient of variation (CV)</strong> of the gaps between buses, the standard deviation of the gaps divided by their mean. My 1-1-28 example has a CV of about 1.3. A route where every bus comes exactly 10 minutes apart has a CV of 0. Real service sits somewhere in between, and where it sits determines how much of the &ldquo;average is fine&rdquo; story is actually true. Watch what the same &ldquo;bus every 10 minutes&rdquo; looks like at different CVs. Each tick below is a bus arriving:</p>
+
+<div id="cvRows"></div>
+
+<p style="margin-top:1.2rem">That 0.3 line isn&rsquo;t mine. The <strong>Transit Capacity and Quality of Service Manual</strong> (the Transportation Research Board reference that US agencies actually use) grades frequent bus service on a letter scale by exactly this statistic, with CV below 0.3 counting as excellent reliability. At <strong>CV &asymp; 1.0</strong> (not far from my illustrative example), the standard deviation of the gap equals the gap itself, and a &ldquo;10-minute bus&rdquo; might come in 2 minutes or 25 with no way to know which in advance.</p>
+<p>So that&rsquo;s your benchmark before any real data: <strong>0.3 is reliable, and CV near 1 means the schedule is closer to a suggestion than a promise.</strong> Here is where Chicago actually falls, pooled across three weeks of measurement: the eight routes I tracked ran between <strong>CV 0.59 and 0.76 on an ordinary weekday</strong>: every single one at least double the reliability benchmark, and got markedly worse on weekends, with the <strong>9 Ashland reaching CV 1.11 on an ordinary Saturday</strong>, past the territory of my made-up worst-case example.</p>
+
+<!-- ============ WHY BUNCHING ============ -->
+<h2>Why buses clump (it&rsquo;s physics, not laziness)</h2>
+<p>Bunching is a feedback loop, and once you see it you can&rsquo;t unsee it. A bus falls slightly behind: one red light, one wheelchair ramp. Now it has a bigger gap in front of it, which means <strong>more passengers have accumulated</strong> at every stop ahead. More passengers means longer boarding, which means it falls further behind. Meanwhile the bus behind finds emptier stops, boards faster, speeds up, and closes in. Even spacing is <em>unstable</em>: any wobble amplifies until buses travel in pairs with a hole behind them.</p>
+
+</main>
+<section class="band">
+  <div class="wrap">
+    <div class="eyebrow">Interactive &middot; a tiny physics model</div>
+    <h3>Watch even service fall apart</h3>
+    <p>Six buses on a loop, perfectly spaced. Turn on real-world friction (the more passengers waiting ahead of a bus, the slower it moves) and watch the clumps form on their own. No bad drivers required.</p>
+    <canvas id="toy" width="900" height="150" aria-label="Animation of buses on a loop bunching together"></canvas>
+    <div class="toyrow">
+      <button class="amber" id="toyFriction" aria-pressed="false">Turn on real-world friction</button>
+      <button id="toyReset">Reset to even spacing</button>
+      <span class="mono" id="toyStatus" style="font-size:.8rem;color:#9a937f;align-self:center">friction: off, spacing holds</span>
+    </div>
+  </div>
+</section>
+<main class="wrap">
+
+<!-- ============ WHERE BORN ============ -->
+<h2>Where is the bunching actually born?</h2>
+<p>The toy proves the loop <em>can</em> happen. But on Chicago&rsquo;s actual streets, which is it: do buses leave the terminal already clumped (a dispatch problem), or leave evenly and decay as they travel (the feedback loop)? Three weeks of data can answer that: I measured headway CV not just at each route&rsquo;s midpoint but at <strong>six points along every run</strong> (10%, 25%, 40%, 55%, 70% and 85% of the way). Reading across is reading the biography of the bunching. It&rsquo;s the same six points the simulator above let you stand at.</p>
+
+</main>
+<section class="band">
+  <div class="wrap">
+    <div class="eyebrow">Interactive &middot; three weeks of data, both directions averaged</div>
+    <h3>The spacing decay curve, route by route</h3>
+    <p>Tap a route. Height = CV of the gaps at that point in the run. The green line is the 0.3 &ldquo;reliable&rdquo; benchmark. Notice that nothing ever gets near it, at any point, on any route.</p>
+    <div class="chips" id="profChips" role="group" aria-label="Choose a route to highlight"></div>
+    <div class="panel" style="padding:.9rem">
+      <svg id="profChart" viewBox="0 0 640 300" style="width:100%;height:auto;display:block" role="img" aria-label="CV of bus headways at six points along each route"></svg>
+      <div class="result" id="profOut"></div>
+    </div>
+  </div>
+</section>
+<main class="wrap">
+
+<p>Two things are true at once, and both matter.</p>
+<p><strong>First: the buses leave the garage already uneven.</strong> At just 10% into the run (barely out of the terminal), every route is already at CV 0.5 or worse, far past the reliability line. Most of the spacing tax is loaded onto the bus before it has met its first traffic jam.</p>
+<p><strong>Second: the street then reliably makes it worse.</strong> All sixteen route-directions I measured (sixteen out of sixteen, no exceptions) show CV climbing steadily from the start of the run to the end. The 22 Clark decays from 0.63 to 0.79; the 151 Sheridan from 0.62 to 0.81. That relentless, same-shaped climb on every route is the fingerprint of the boarding feedback loop, not random traffic: congestion throws the dice, but the loop is what compounds them. In excess-wait terms, the en-route decay adds roughly another <strong>third to a half</strong> on top of what dispatch already baked in.</p>
+<p>The 8 Halsted is the quiet star: the flattest curve of the eight. Whatever its schedulers and supervisors are doing differently, it&rsquo;s working. It&rsquo;s the natural control case for everything below.</p>
+<p>One more thing the data volunteered: buses joining <em>mid-route</em> (garage pull-outs, gap-fillers) are real but rare, roughly <strong>85–90% of vehicle-days begin at a terminal</strong>, and the remainder first appear somewhere later along the run. That matters for how this measurement works: a bus that starts before my midpoint still gets counted normally once it crosses it, same as any full-route bus. A bus that first appears <em>after</em> the midpoint is invisible to this method entirely: there's no earlier sighting to pair with a later one, so it never registers as a crossing at all. In practice this trims a modest slice of buses from the headway count on each route, not a large one, but it&rsquo;s a real, direction-specific blind spot rather than random noise.</p>
+
+<!-- ============ POLL ============ -->
+<div class="poll" id="poll">
+  <div class="eyebrow" style="color:var(--ink-soft);margin-bottom:.5rem">Now that you have a benchmark, take a guess</div>
+  <div class="q">Given those CVs, what do you think uneven bus spacing costs Chicago riders per year in wasted waiting time across just these eight routes (valuing time at a conservative $10/hour)?</div>
+  <div class="opts">
+    <button data-g="a">~ $1.5 million</button>
+    <button data-g="b">~ $6 million</button>
+    <button data-g="c">~ $14 million</button>
+    <button data-g="d">~ $40 million</button>
+  </div>
+  <div class="reveal" id="pollReveal">
+    <div class="big">$<span id="countup">0.0</span> million / year</div>
+    <p class="note" id="pollNote"></p>
+  </div>
+</div>
+
+<!-- ============ ROUTE EXPLORER ============ -->
+<h2>Eight routes: the numbers</h2>
+<p>Tap a route. The bars show measured CV by day type against the green <strong>0.3 reliability line</strong>; the figures below it come straight from the analysis. &ldquo;Excess wait&rdquo; is the extra minutes an average boarding spends waiting <em>because spacing is uneven</em>, beyond what the same frequency would cost if buses were perfectly even.</p>
+
+<div class="rgrid" id="rgrid"></div>
+<div class="card" id="rcard"></div>
+
+<p class="smallnote legend">Weekend figures unavailable for the 36 and 151 (added to the tracker midway). Weekday excess-wait for the 9, 77 and 79 should be read as upper bounds. See the caveats section.</p>
+
+<h3>The full weekday table (14 pooled weekdays)</h3>
+<table aria-label="Weekday results per route">
+  <thead><tr><th>Route</th><th>CV</th><th>Real gap</th><th>Sched gap</th><th>Excess wait</th><th>Boardings</th><th>$/year</th></tr></thead>
+  <tbody id="wdTable"></tbody>
+</table>
+<p class="smallnote">Real vs scheduled gap is the quiet bombshell of this table: they nearly match everywhere. The buses are out there, running at roughly the promised frequency. The problem is spacing. That&rsquo;s exactly the thing the average conceals.</p>
+
+<!-- ============ COST ============ -->
+<h2>Putting a price on the wait</h2>
+<p>For frequent service, riders don&rsquo;t time their arrival to a timetable. They just show up. Queueing theory gives a clean result for that world: the average wait isn&rsquo;t half the average gap, it&rsquo;s</p>
+<div class="formula">E[wait] = (average gap / 2) &times; (1 + CV&sup2;)</div>
+<p>Perfectly even service (CV = 0) costs you half a gap. Everything above that, the <span class="mono">(gap/2)&nbsp;&times;&nbsp;CV&sup2;</span> part, is pure spacing tax: waiting that exists only because the buses clump. Multiply that per-boarding tax by each route&rsquo;s actual ridership (from the City of Chicago data portal), and by a value of time, and you get dollars.</p>
+<p>At <strong>$10/hour</strong> (about a third of the median Chicago wage, a deliberately conservative floor), the measurements imply:</p>
+
+<div class="slidebox">
+  <div class="eyebrow" style="color:var(--ink-soft)">What is an hour of your time worth? Drag to re-price the whole thing.</div>
+  <div style="display:flex;align-items:center;gap:1rem;margin:.8rem 0 .2rem">
+    <input type="range" id="vot" min="5" max="30" step="1" value="10" aria-label="Value of time in dollars per hour">
+    <div class="n mono" id="votVal" style="min-width:74px;font-weight:700">$10/hr</div>
+  </div>
+  <div class="out">
+    <div><div class="n" id="oWd">$10.7M</div><div class="l">weekdays / yr (&times;255)</div></div>
+    <div><div class="n" id="oWe">$4.0M</div><div class="l">weekends / yr (Sat&times;52 + Sun&times;59)</div></div>
+    <div><div class="n" id="oTot" style="color:var(--alert)">$14.7M</div><div class="l">combined / yr &middot; 8 routes</div></div>
+    <div><div class="n" id="oHrs">1.47M</div><div class="l">rider-hours / yr (doesn&rsquo;t move)</div></div>
+  </div>
+</div>
+
+<p>Whatever you set the slider to, the <strong>1.47 million rider-hours</strong> stay fixed: that&rsquo;s time actually spent standing at stops, not a modeling choice. It&rsquo;s the equivalent of about <strong>168 person-years of waiting, every year, on eight routes</strong>, not waiting for buses to exist, but waiting for buses that exist to be evenly spaced.</p>
+<p>And resist the urge to multiply up: these are eight of the busiest routes in a network of ~125, and busy routes both bunch more and carry more people. The honest claim is &ldquo;$14M on eight routes alone&rdquo;. The systemwide number is bigger, but I didn&rsquo;t measure it.</p>
+<p class="smallnote">Why 255 / 52 / 59: the CTA runs three schedule types (weekday, Saturday, and Sunday), and Sunday service also covers major holidays. A year works out to roughly 255 weekdays, 52 Saturdays, and 52 Sundays plus about 7 holidays running Sunday service, which rounds to 59. All three add up to the ~365 days in a year, with each day counted exactly once.</p>
+
+<!-- ============ ODD DAYS ============ -->
+<h2>The strangest day in the data</h2>
+<p>The worst single <em>day</em> I measured wasn&rsquo;t a rush-hour weekday. It was <strong>Friday, July 3rd</strong>, the observed holiday, when the CTA runs its Sunday schedule. Riders lost roughly <strong>4,100 hours</strong> to uneven spacing that day, rivaling a full weekday despite far fewer buses: the 79th hit <strong>CV 1.09</strong>, among the highest single-day figures I recorded anywhere in the project. (The single highest CV in the full three-week dataset turned out to belong to the 9 Ashland, at 1.11, pooled across three ordinary Saturdays, see the route explorer above. July 3rd remains the worst single <em>day</em>, not the worst single number.) Holiday traffic plus a skeleton schedule is apparently a strong bunching combination.</p>
+<p>July 4th itself was the opposite: the calmest, cheapest day of the week (~2,200 hours lost). The buses, like everyone else, had the day off from being stuck behind each other.</p>
+
+<!-- ============ SOLUTIONS ============ -->
+<h2>So what could the CTA actually do?</h2>
+<p>Here&rsquo;s where the decay curves and the dollar figures stop being trivia and start being a to-do list, because each part of the curve points at a different, and differently priced, fix:</p>
+<div class="cavs">
+  <div class="cav"><b>1 &middot; Fix the launch: terminal headway discipline</b>The curves say most of the problem exists by the 10% mark, so the cheapest lever is at the garage door: don&rsquo;t release a bus until the gap behind its leader is right. No new buses, no capital, pure operations. If the 8 Halsted&rsquo;s flat curve reflects tighter dispatch, the playbook already exists in-house.</div>
+  <div class="cav"><b>2 &middot; Break the loop: holding points and faster boarding</b>The steady en-route climb is the feedback loop compounding, and it has known antidotes: brief headway-based holds at one or two mid-route control points (a bus that&rsquo;s too close behind its leader waits 30&ndash;90 seconds: on-board riders pay a small delay so waiting riders avoid a big one), and anything that shrinks boarding time itself (all-door boarding, off-board fares), which lowers the loop&rsquo;s gain directly. Bus lanes and signal priority reduce the random shocks that start the spiral.</div>
+  <div class="cav"><b>3 &middot; Plug the holes: smarter mid-route insertion</b>Starting a fresh bus in the middle of a developing gap, or short-turning one to fill a hole in the opposite direction, is the surgical fix for the worst moments. The data shows the CTA does this sparingly today; the same real-time feed I used to measure the problem could target exactly where the gap is opening.</div>
+</div>
+<p class="smallnote">This is mostly not about driver discretion. Even spacing is physically unstable on its own: a driver's individual choices can nudge things at the margin, but the pattern doesn't require anyone doing anything wrong to emerge. The real question is which stabilizers get installed, and the curves above say where: first at the terminal, then at the choke points where the climb is steepest.</p>
+
+<!-- ============ CAPTURE RATE ============ -->
+<h2>Did every scheduled bus even show up?</h2>
+<p>The natural follow-up question, and the one where I have to be most careful. I can compare the number of bus passings I <em>observed</em> at each route&rsquo;s midpoint against the number the schedule implies. Pooled across all three weeks of data (14 weekdays, 3 Saturdays, 4 Sundays), here&rsquo;s that ratio:</p>
+<table aria-label="Share of scheduled passings captured by the measurement">
+  <thead><tr><th>Route</th><th>Weekday</th><th>Saturday</th><th>Sunday</th></tr></thead>
+  <tbody>
+    <tr><td>#8 HALSTED</td><td>75%</td><td>98%</td><td>92%</td></tr>
+    <tr><td>#9 ASHLAND</td><td>47%*</td><td>79%</td><td>78%</td></tr>
+    <tr><td>#22 CLARK</td><td>82%</td><td>87%</td><td>77%</td></tr>
+    <tr><td>#49 WESTERN</td><td>91%</td><td>95%</td><td>93%</td></tr>
+    <tr><td>#77 BELMONT</td><td>75%</td><td>90%</td><td>84%</td></tr>
+    <tr><td>#79 79TH</td><td>61%</td><td>77%</td><td>74%</td></tr>
+  </tbody>
+</table>
+<p><strong>Read this as the share of scheduled service my instrument captured: a floor on what ran, not a verdict on what didn&rsquo;t.</strong> The shortfall is provably contaminated by my own measurement: my laptop&rsquo;s collection holes eat passings, my detector needs to see a bus on both sides of the line to count it, and (the big one) on weekdays several routes run extra short-turn buses over their busiest segments on separate service patterns that my full-route measurement only partly sees. That asterisk on the 9 is exactly this: its weekday service splits across a dozen patterns, and my method captures about half of them. The same route runs mostly one or two patterns on weekends, which is why its weekend capture rate looks completely different (79%, 78%) from its weekday one. Says everything about my instrument and route structure, nothing about missing Ashland buses.</p>
+<p>Worth noting: a single day of measurement would have understated this table, especially on weekends: a lone Saturday would have shown Route 8&rsquo;s capture rate around 92%; pooled across three ordinary Saturdays it&rsquo;s 98%. Same direction as the CV figures earlier: more days made the numbers more honest, not more alarming.</p>
+<p>So this table is deliberately <em>not</em> headlined &ldquo;a quarter of scheduled buses never come.&rdquo; The honest claim is narrower: I can verify that <strong>at least</strong> this much of the schedule physically ran past the midpoint, and the true figure is higher. Answering the question properly requires matching each observed bus to its scheduled trip ID, which the CTA feed supports, my collector didn&rsquo;t record, and part two of this project will. If the gap survives trip-level matching, <em>that</em> becomes a story. Until then, the strong, clean evidence stays where it&rsquo;s been all along: spacing.</p>
+
+<!-- ============ CAVEATS ============ -->
+<h2>What this does <em>not</em> say</h2>
+<p>This is one person, one laptop, three weeks. The pattern is unambiguous; the precise figures deserve their error bars listed out loud:</p>
+<div class="cavs">
+  <div class="cav"><b>Three weeks of data</b>June 26 – July 19, 2026. The spacing decay curves pool all collected days; the dollar figures pool 14 ordinary weekdays, 3 ordinary Saturdays and 4 ordinary Sundays (a holiday-schedule Friday and July 4th itself are shown separately, excluded from the totals). Still a careful estimate, not an audit.</div>
+  <div class="cav"><b>$10/hour is an assumption</b>Deliberately conservative, about a third of the median Chicago wage. That&rsquo;s why the slider exists: pick your own and the hours don&rsquo;t change.</div>
+  <div class="cav"><b>Upper bounds on three routes</b>On weekdays the 9, 77 and 79 run extra short-turn buses over their busiest segments that my full-route measurement only partially captures. Riders there likely wait somewhat less than my figures imply. (The 8, 22, 36, 49, 151 and all weekend figures don&rsquo;t have this issue.)</div>
+  <div class="cav"><b>Two assumptions baked into the cost math</b>The wait-time formula assumes riders show up at random moments within each hour, which is standard for frequent service (nobody times a 10-minute bus to the timetable), but it also uses <em>one</em> measurement point per route, the midpoint, as a stand-in for the whole route. The decay-curve section above shows CV actually gets worse the further a bus has traveled, so a boarding near the terminal experiences a better spacing than the midpoint number, and one near the end experiences worse. The midpoint is a reasonable average <em>if</em> riders board roughly evenly along the route; if ridership actually clusters more at one end, the true systemwide figure could run somewhat higher or lower than what&rsquo;s reported here. I didn&rsquo;t have per-stop boarding data to check this.</div>
+  <div class="cav"><b>Known gaps excluded</b>My laptop slept through parts of three separate mornings before I fully learned my lesson about <span class="mono">caffeinate</span> and power cords. Those windows are excluded from every calculation, and marked in the code.</div>
+  <div class="cav"><b>No claim about missing buses</b>My bus counts run below scheduled counts, but the shortfall matches my measurement holes, not vanished service. This post makes no claim that the CTA is skipping runs: the evidence here is about <em>spacing</em>, where it is very strong.</div>
+  <div class="cav"><b>Busy routes only</b>Eight high-ridership routes. Nothing here extrapolates to the other ~117.</div>
+  <div class="cav"><b>Chicago only</b>Every number in this post is measured from Chicago data. I have not measured any other city, and I&rsquo;m not assuming these figures or even this CV range carry over to yours.</div>
+</div>
+
+<h2>If you want to check whether this holds where you live</h2>
+<p>Everything above is a Chicago finding, measured from Chicago data, and I&rsquo;m not assuming it carries over anywhere else. But the <em>method</em> isn&rsquo;t Chicago-specific, and if you&rsquo;re curious whether your own city&rsquo;s buses behave the same way, here&rsquo;s what it took.</p>
+<p><strong>What you need.</strong> Two things, both usually free. A <em>realtime vehicle feed</em>: many agencies publish <span class="mono">GTFS-Realtime</span>, a common standard, and some run their own (Chicago&rsquo;s Bus Tracker, New York&rsquo;s MTA Bus Time on the SIRI standard). And a <em>static schedule</em>: <span class="mono">GTFS</span>, a zip of CSVs that most agencies of any size publish, which gives you the promised headway to measure against.</p>
+<p><strong>The recipe, in four steps.</strong> Poll the realtime feed every 30–60 seconds and append each bus&rsquo;s position to a database: that&rsquo;s the only part that takes patience, because you need days of it. Pick a point along each route and record the moment each bus crosses it; the gaps between consecutive crossings are your realized headways. Take the mean and the coefficient of variation <em>within each hour</em>, so the schedule&rsquo;s own frequency changes never masquerade as unreliability. Then multiply the excess wait by ridership and a value of time. Most agencies publish boardings by route.</p>
+<p>The whole analysis is a few hundred lines of Python and no special hardware. If you run it somewhere else, I&rsquo;d genuinely like to see what you find, including whether it looks nothing like Chicago. I don&rsquo;t have a prior on that either way.</p>
+<p class="smallnote">Two things I&rsquo;d do differently if starting over: record each bus&rsquo;s scheduled trip ID from the start (it makes &ldquo;did this run actually operate?&rdquo; answerable), and detect crossings at a fixed lat/long line rather than a route-relative distance, so branch and short-turn services are counted automatically.</p>
+
+</main>
+
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--led);margin-bottom:.8rem">Practicing Economist</div>
+    <p>Questions, pushback, or a route you want measured next? <a href="mailto:practicingEconomist@gmail.com">practicingEconomist@gmail.com</a></p>
+    <p style="margin-top:.6rem;font-size:.82rem">Everything here is written in my personal capacity and reflects my personal views only, not those of any employer or institution or the CTA. Independent analysis, not affiliated with or endorsed by the Chicago Transit Authority. Built from the CTA&rsquo;s public Bus Tracker API and GTFS schedule feed, and the City of Chicago ridership data portal. Value-of-time figures are illustrative estimates. Data collected June 26 – July 19, 2026.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ================= DATA (measured) ================= */
+var NAMES = {"8":"HALSTED","9":"ASHLAND","22":"CLARK","36":"BROADWAY","49":"WESTERN","77":"BELMONT","79":"79TH","151":"SHERIDAN"};
+var TAGS = {
+ "8":"The route that started this project: a friend's hand-me-down laptop and a bus that wouldn't come.",
+ "9":"Weekday figures are upper bounds: extra short-turn buses serve its middle that this measurement only partly sees. Its Saturday CV of 1.11 is the roughest single number measured, pooled over three weeks.",
+ "22":"The most expensive line in the dataset, weekday and weekend alike.",
+ "36":"Added mid-week, weekday data only.",
+ "49":"Cleanest measurement of the eight (its service uses just two patterns).",
+ "77":"The best-behaved route measured. Still twice the reliability benchmark.",
+ "79":"The busiest route in the set, and still bad on weekends, but no longer the single worst figure measured.",
+ "151":"Lakefront local, added mid-week, weekday data only."
+};
+/* per route: [cv, realH, schedH, ew, boardings, $/yr], pooled across multiple days */
+var D = {
+ weekday: {label:"Weekday (14 days, Jun 29\u2013Jul 17)", rows:{
+  "8":[0.61,12.7,12.2,1.7,16166,1769700],"9":[0.76,12.5,13.3,2.6,17519,2848161],
+  "22":[0.69,13.7,14.7,2.7,13450,2297052],"36":[0.59,16.4,15.8,2.2,10027,1426271],
+  "49":[0.75,11.6,13.2,2.3,13987,2046793],"77":[0.62,10.0,12.1,1.7,14471,1536000],
+  "79":[0.69,8.2,8.4,1.8,17726,1982909],"151":[0.68,13.5,13.9,2.8,11892,2129146]}},
+ sat: {label:"Saturday (3 days: Jun 27, Jul 11, Jul 18)", rows:{
+  "8":[0.93,14.8,15.2,2.6,11899,397266],"9":[1.11,12.0,13.1,4.7,16691,1012850],
+  "22":[0.95,13.8,14.7,4.8,13323,826398],"49":[0.96,12.5,13.9,2.9,12612,481580],
+  "77":[0.85,10.8,14.2,2.9,10722,403316],"79":[0.91,7.9,9.9,2.2,13248,380940]}},
+ sun: {label:"Sunday (4 days: Jun 28, Jul 5, 12, 19)", rows:{
+  "8":[0.49,17.1,17.5,1.9,8621,242520],"9":[0.94,14.0,14.1,2.4,13218,470920],
+  "22":[0.81,16.6,16.9,4.9,9720,708934],"49":[0.73,13.4,15.0,2.1,9884,301501],
+  "77":[0.59,11.3,15.3,1.8,8123,210019],"79":[1.02,11.9,12.6,3.3,11125,541899]}}
+};
+var TOT15 = {wd:16036032, we:5978142};          // measured at $15/hr, pooled over 14 weekdays / 3 Sat / 4 Sun
+var VOTK = 10/15;                                // display default: $10/hr
+var HOURS = {wd:4192*255, sat:4490*52, sun:2798*59};
+var ROUTES = ["8","9","22","36","49","77","79","151"];
+var FR=[10,25,40,55,70,85];
+/* CV at 10/25/40/55/70/85% of run, two directions averaged, all days pooled */
+var PROF={
+ "8":[0.535,0.58,0.59,0.595,0.62,0.61],
+ "9":[0.645,0.69,0.75,0.755,0.785,0.78],
+ "22":[0.63,0.665,0.69,0.735,0.765,0.79],
+ "36":[0.52,0.575,0.60,0.615,0.635,0.645],
+ "49":[0.645,0.685,0.725,0.755,0.78,0.785],
+ "77":[0.535,0.585,0.625,0.64,0.675,0.70],
+ "79":[0.60,0.675,0.705,0.73,0.735,0.785],
+ "151":[0.62,0.66,0.705,0.745,0.785,0.805]};
+
+/* ================= helpers ================= */
+function $(id){return document.getElementById(id);}
+function fmtM(x){return "$"+(x/1e6).toFixed(1)+"M";}
+function mulberry(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function lognormal(rng, mean, cv){
+  var s2=Math.log(1+cv*cv), mu=Math.log(mean)-s2/2;
+  var u1=rng(),u2=rng();
+  var z=Math.sqrt(-2*Math.log(u1||1e-9))*Math.cos(2*Math.PI*u2);
+  return Math.exp(mu+Math.sqrt(s2)*z);
+}
+
+/* ================= hero board flicker ================= */
+(function(){
+  var states=[["2 MIN","3 MIN","27 MIN"],["DUE","1 MIN","24 MIN"],["1 MIN","2 MIN","26 MIN"],["DUE","DUE","25 MIN"]];
+  var i=0;
+  function tick(){
+    var s=states[i%states.length];
+    $("heroA").textContent=s[0]; $("heroB").textContent=s[1]; $("heroC").textContent=s[2];
+    $("heroA").className = (s[0]==="DUE")?"min alert":"min";
+    $("heroB").className = (s[1]==="DUE")?"min alert":"min";
+    i++;
+  }
+  tick();
+  if(!reduced) setInterval(tick, 3200);
+})();
+
+/* ================= poll ================= */
+(function(){
+  var poll=$("poll"), picked=false;
+  poll.querySelectorAll(".opts button").forEach(function(b){
+    b.addEventListener("click", function(){
+      if(picked) return; picked=true;
+      b.classList.add("picked");
+      var g=b.getAttribute("data-g");
+      var notes={
+        a:"Higher. About ten times higher.",
+        b:"Higher still, more than double that.",
+        c:"Exactly right, nicely calibrated (or you peeked).",
+        d:"Lower, happily, though give it more routes and you'd get there."
+      };
+      $("pollNote").textContent = notes[g] + " Measured total: $14.7M/year across eight routes at $10/hr, pooled over three weeks of data, from real gaps between real buses, priced conservatively. Every piece of that number is broken down below.";
+      $("pollReveal").classList.add("show");
+      var target=14.7, el=$("countup");
+      if(reduced){ el.textContent=target.toFixed(1); return; }
+      var t0=null;
+      function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/1200,1);
+        el.textContent=(target*(1-Math.pow(1-p,3))).toFixed(1);
+        if(p<1) requestAnimationFrame(step); }
+      requestAnimationFrame(step);
+    });
+  });
+})();
+
+/* ================= CV decoder rows ================= */
+(function(){
+  var host=$("cvRows");
+  var rows=[[0.0,11,"CV 0.0: clockwork"],[0.3,22,"CV 0.3: the \u201creliable\u201d benchmark"],[0.7,33,"CV 0.7: a typical weekday in this data"],[1.0,44,"CV 1.0: 79th on a Sunday"]];
+  rows.forEach(function(r){
+    var cv=r[0], seed=r[1], label=r[2];
+    var rng=mulberry(seed);
+    var div=document.createElement("div"); div.className="cvrow";
+    var t=0, ticks=[], W=600;
+    while(t<W){
+      var h = cv===0 ? 60 : Math.max(6, Math.min(200, lognormal(rng,60,cv)));
+      t+=h; if(t<W) ticks.push(t);
+    }
+    var svg='<svg viewBox="0 0 600 34" preserveAspectRatio="none" role="img" aria-label="'+label+'">';
+    svg+='<line x1="0" y1="17" x2="600" y2="17" stroke="#d9d4c8" stroke-width="2"/>';
+    ticks.forEach(function(x,i){
+      var prev = i===0?0:ticks[i-1];
+      var bunched = (x-prev)<20;
+      svg+='<rect x="'+(x-2.5)+'" y="4" width="5" height="26" rx="1.5" fill="'+(bunched?"#e0533d":"#10141c")+'"/>';
+    });
+    svg+='</svg>';
+    div.innerHTML='<div class="lab"><span>'+label+'</span><span>same average: one bus / 10 min</span></div>'+svg;
+    host.appendChild(div);
+  });
+})();
+
+/* ================= wait simulator ================= */
+(function(){
+  var route="22", day="weekday", fracIdx=3;
+  var waits=[], arrivals=null, rng=mulberry(Date.now()&0xffff);
+  var SPOT_LABELS=["near the terminal","early in the route","","mid-route","","near the end"];
+
+  var chipHost=$("simRoutes");
+  ROUTES.forEach(function(r){
+    var b=document.createElement("button");
+    b.className="chip"; b.textContent="#"+r;
+    b.setAttribute("data-r",r);
+    b.setAttribute("aria-pressed", r===route?"true":"false");
+    b.addEventListener("click", function(){ route=r; syncChips(); resetDay(); });
+    chipHost.appendChild(b);
+  });
+  document.querySelectorAll("#simDays .chip").forEach(function(b){
+    b.addEventListener("click", function(){
+      var d=b.getAttribute("data-day");
+      if(!D[d].rows[route]) return;
+      day=d; syncChips(); resetDay();
+    });
+  });
+  document.querySelectorAll("#simSpots .chip").forEach(function(b){
+    b.addEventListener("click", function(){
+      fracIdx=+b.getAttribute("data-frac");
+      document.querySelectorAll("#simSpots .chip").forEach(function(c){
+        c.setAttribute("aria-pressed", c===b?"true":"false");
+      });
+      resetDay();
+    });
+  });
+  function syncChips(){
+    chipHost.querySelectorAll(".chip").forEach(function(b){
+      b.setAttribute("aria-pressed", b.getAttribute("data-r")===route?"true":"false");
+    });
+    document.querySelectorAll("#simDays .chip").forEach(function(b){
+      var d=b.getAttribute("data-day");
+      b.disabled = !D[d].rows[route];
+      if(b.disabled && d===day){ day="weekday"; }
+      b.setAttribute("aria-pressed", d===day?"true":"false");
+    });
+    var cv=spotCV();
+    $("simName").textContent="#"+route+" "+NAMES[route];
+    $("simName2").textContent="#"+route+" "+NAMES[route];
+    $("simBrow").innerHTML="&#9679; simulated from measured data &middot; "+D[day].label.toLowerCase()+
+      " &middot; "+SPOT_LABELS[fracIdx]+" &middot; mean gap "+D[day].rows[route][1]+" min &middot; CV "+cv.toFixed(2);
+  }
+  function spotCV(){
+    // Blend the day-type's mean gap with the position-specific CV from the
+    // decay-curve measurement (PROF), so boarding point actually changes the wait.
+    return PROF[route] ? PROF[route][fracIdx] : D[day].rows[route][0];
+  }
+  function buildDay(){
+    var row=D[day].rows[route], mean=row[1], cv=spotCV();
+    var t=0, arr=[];
+    for(var i=0;i<220;i++){ t+=Math.max(0.4, lognormal(rng,mean,cv)); arr.push(t); }
+    return arr;
+  }
+  function resetDay(){ arrivals=buildDay(); waits=[]; syncChips();
+    $("simOut").innerHTML="Fresh day generated from this route&rsquo;s measured gaps at this spot. Walk to the stop&hellip;";
+    $("simNext").textContent="\u2014 MIN"; $("simNext2").textContent="\u2014 MIN";
+  }
+  $("simGo").addEventListener("click", function(){
+    if(!arrivals) resetDay();
+    var row=D[day].rows[route], mean=row[1];
+    var span=arrivals[arrivals.length-1]-60;
+    var you=30+rng()*span;
+    var next=null, second=null;
+    for(var i=0;i<arrivals.length;i++){ if(arrivals[i]>=you){ next=arrivals[i]; second=arrivals[i+1]||null; break; } }
+    if(next===null){ resetDay(); return; }
+    var w=next-you; waits.push(w);
+    var avg=waits.reduce(function(a,b){return a+b;},0)/waits.length;
+    var ideal=mean/2;
+    $("simNext").textContent=(w<1?"DUE":Math.round(w)+" MIN");
+    $("simNext").className = w<1 ? "min alert" : "min";
+    $("simNext2").textContent = second? Math.round(second-you)+" MIN" : "\u2014";
+    var tax=avg-ideal;
+    $("simOut").innerHTML=
+      "This visit you waited <span class='you'>"+w.toFixed(1)+" min</span>."+
+      "<br>Your average over "+waits.length+" visit"+(waits.length>1?"s":"")+": <span class='you'>"+avg.toFixed(1)+" min</span>"+
+      " &nbsp;vs&nbsp; <span class='ideal'>"+ideal.toFixed(1)+" min</span> if these same buses were perfectly even."+
+      (waits.length>=5 ? "<br>Your personal spacing tax so far: <span class='tax'>+"+Math.max(0,tax).toFixed(1)+" min per visit</span>." :
+        "<br><span style='color:#8b8574'>Keep arriving. The tax shows up in the average.</span>");
+  });
+  $("simReset").addEventListener("click", resetDay);
+  syncChips(); resetDay();
+})();
+
+/* ================= bunching toy ================= */
+(function(){
+  var cv=$("toy"), ctx=cv.getContext("2d");
+  var N=6, pos=[], friction=false, raf=null, last=null, elapsed=0;
+  function reset(){ pos=[]; for(var i=0;i<N;i++) pos.push((i/N + (Math.random()-0.5)*0.02 + 1)%1); elapsed=0; draw(0); }
+  function step(dt){
+    var base=0.028; // loops per second
+    var next=pos.slice();
+    for(var i=0;i<N;i++){
+      var ahead=(function(){var m=1e9,mi=0;for(var j=0;j<N;j++){if(j===i)continue;var g=(pos[j]-pos[i]+1)%1;if(g<m){m=g;mi=j;}}return m;})();
+      var sp=base;
+      if(friction){
+        var even=1/N;
+        var f=1-0.85*((ahead-even)/even);
+        sp=base*Math.min(1.8,Math.max(0.25,f));
+      }
+      next[i]=(pos[i]+sp*dt)%1;
+    }
+    pos=next;
+  }
+  function draw(){
+    var w=cv.width,h=cv.height;
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle="#171d29"; ctx.fillRect(0,0,w,h);
+    // road
+    ctx.strokeStyle="#2a3140"; ctx.lineWidth=14; ctx.beginPath(); ctx.moveTo(30,h/2); ctx.lineTo(w-30,h/2); ctx.stroke();
+    ctx.setLineDash([10,14]); ctx.strokeStyle="#39435a"; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(30,h/2); ctx.lineTo(w-30,h/2); ctx.stroke(); ctx.setLineDash([]);
+    // buses
+    for(var i=0;i<N;i++){
+      var x=30+pos[i]*(w-60);
+      // bunched?
+      var m=1e9; for(var j=0;j<N;j++){ if(j===i)continue; var g=Math.abs(pos[j]-pos[i]); g=Math.min(g,1-g); if(g<m)m=g; }
+      var bunched = m < 0.045;
+      ctx.fillStyle = bunched ? "#e0533d" : "#ffb000";
+      ctx.beginPath();
+      if (ctx.roundRect) { ctx.roundRect(x-16,h/2-11,32,22,5); } else { ctx.rect(x-16,h/2-11,32,22); }
+      ctx.fill();
+      ctx.fillStyle="#10141c";
+      ctx.fillRect(x-11,h/2-6,8,6); ctx.fillRect(x-1,h/2-6,8,6);
+    }
+    ctx.fillStyle="#6f7787"; ctx.font="12px 'IBM Plex Mono',monospace";
+    ctx.fillText("same loop, same six buses: amber = spaced, red = bunched", 30, h-14);
+  }
+  function loop(ts){
+    if(last===null) last=ts;
+    var dt=Math.min(0.05,(ts-last)/1000); last=ts; elapsed+=dt;
+    step(dt); draw();
+    raf=requestAnimationFrame(loop);
+  }
+  $("toyFriction").addEventListener("click", function(){
+    friction=!friction;
+    this.setAttribute("aria-pressed", friction?"true":"false");
+    this.textContent = friction? "Turn friction off" : "Turn on real-world friction";
+    $("toyStatus").textContent = friction? "friction: ON, watch the clumps form" : "friction: off, spacing holds";
+  });
+  $("toyReset").addEventListener("click", function(){ reset(); });
+  reset();
+  if(!reduced){ raf=requestAnimationFrame(loop); }
+  else { // static frames on demand for reduced motion
+    $("toyFriction").addEventListener("click", function(){ for(var k=0;k<2400;k++) step(1/60); draw(); });
+  }
+})();
+
+/* ================= route explorer ================= */
+(function(){
+  var sel="22";
+  var grid=$("rgrid");
+  ROUTES.forEach(function(r){
+    var b=document.createElement("button");
+    b.className="rbtn"; b.setAttribute("data-r",r);
+    b.innerHTML='<span class="pill">'+r+'</span><small>'+NAMES[r]+'</small>';
+    b.setAttribute("aria-pressed", r===sel?"true":"false");
+    b.addEventListener("click", function(){ sel=r; sync(); render(); });
+    grid.appendChild(b);
+  });
+  function sync(){
+    grid.querySelectorAll(".rbtn").forEach(function(b){
+      b.setAttribute("aria-pressed", b.getAttribute("data-r")===sel?"true":"false");
+    });
+  }
+  function barRow(label, cvVal){
+    if(cvVal===null){
+      return '<div class="bar na"><span>'+label+'</span><span class="trk"></span><span>n/a</span></div>';
+    }
+    var pct=Math.min(100, cvVal/1.2*100);
+    var ref=0.3/1.2*100;
+    return '<div class="bar"><span>'+label+'</span><span class="trk"><span class="fill" style="width:'+pct+'%"></span><span class="ref" style="left:'+ref+'%"></span></span><span>'+cvVal.toFixed(2)+'</span></div>';
+  }
+  function render(){
+    var wd=D.weekday.rows[sel], sa=D.sat.rows[sel]||null, su=D.sun.rows[sel]||null;
+    var html='<h3 style="margin-top:0"><span class="pill" style="font-size:1.2rem;margin-right:.5rem">'+sel+'</span>'+NAMES[sel]+'</h3>';
+    html+='<div class="tag">'+TAGS[sel]+'</div>';
+    html+='<div class="bars">'+
+      barRow("Weekday", wd[0])+
+      barRow("Saturday", sa?sa[0]:null)+
+      barRow("Sunday", su?su[0]:null)+
+    '</div>';
+    html+='<div class="legend">bar = measured CV (scale to 1.2) &middot; <span style="color:var(--ok)">green line = 0.3 reliability benchmark</span> &middot; red past it = spacing tax</div>';
+    html+='<div class="kv">'+
+      '<div><div class="n">'+wd[3].toFixed(1)+' min</div><div class="l">excess wait / boarding (wkdy)</div></div>'+
+      '<div><div class="n">'+wd[4].toLocaleString()+'</div><div class="l">weekday boardings</div></div>'+
+      '<div><div class="n">'+wd[1]+' vs '+wd[2]+'</div><div class="l">real vs sched gap (min)</div></div>'+
+      '<div><div class="n">'+fmtM(wd[5]*VOTK)+'</div><div class="l">weekday spacing cost / yr @ $10</div></div>'+
+    '</div>';
+    $("rcard").innerHTML=html;
+  }
+  sync(); render();
+})();
+
+/* ================= weekday table ================= */
+(function(){
+  var tb=$("wdTable"), html="";
+  ROUTES.forEach(function(r){
+    var d=D.weekday.rows[r];
+    html+="<tr><td>#"+r+" "+NAMES[r]+"</td><td>"+d[0].toFixed(2)+"</td><td>"+d[1]+"m</td><td>"+d[2]+"m</td><td>"+d[3].toFixed(1)+"m</td><td>"+d[4].toLocaleString()+"</td><td>"+fmtM(d[5]*VOTK)+"</td></tr>";
+  });
+  html+="<tr class='tot'><td>All eight</td><td></td><td></td><td></td><td></td><td></td><td>$10.7M</td></tr>";
+  tb.innerHTML=html;
+})();
+
+/* ================= value-of-time slider ================= */
+(function(){
+  var s=$("vot");
+  function upd(){
+    var v=+s.value, k=v/15;
+    $("votVal").textContent="$"+v+"/hr";
+    $("oWd").textContent=fmtM(TOT15.wd*k);
+    $("oWe").textContent=fmtM(TOT15.we*k);
+    $("oTot").textContent=fmtM((TOT15.wd+TOT15.we)*k);
+    $("oHrs").textContent=((HOURS.wd+HOURS.sat+HOURS.sun)/1e6).toFixed(2)+"M";
+  }
+  s.addEventListener("input", upd); upd();
+})();
+
+/* ================= spacing decay curves ================= */
+(function(){
+  var sel="22";
+  var svg=$("profChart");
+  var W=640,H=300,L=52,R=16,T=18,B=34;
+  var y0=0.25,y1=0.90;
+  function X(f){return L+(f-10)/(85-10)*(W-L-R);}
+  function Y(v){return T+(y1-v)/(y1-y0)*(H-T-B);}
+  function render(){
+    var s='';
+    [0.3,0.5,0.7,0.9].forEach(function(g){
+      var col=g===0.3?"#3f9d63":"#2a3140";
+      s+='<line x1="'+L+'" y1="'+Y(g)+'" x2="'+(W-R)+'" y2="'+Y(g)+'" stroke="'+col+'" stroke-width="'+(g===0.3?2:1)+'"'+(g===0.3?'':' stroke-dasharray="3,5"')+'/>';
+      s+='<text x="'+(L-8)+'" y="'+(Y(g)+4)+'" text-anchor="end" fill="'+(g===0.3?"#7fd0a0":"#6f7787")+'" font-family="IBM Plex Mono,monospace" font-size="11">'+g.toFixed(1)+'</text>';
+    });
+    s+='<text x="'+(L+6)+'" y="'+(Y(0.3)-6)+'" fill="#7fd0a0" font-family="IBM Plex Mono,monospace" font-size="10">reliable (0.3)</text>';
+    FR.forEach(function(f){
+      s+='<text x="'+X(f)+'" y="'+(H-10)+'" text-anchor="middle" fill="#6f7787" font-family="IBM Plex Mono,monospace" font-size="11">'+f+'%</text>';
+    });
+    var order=ROUTES.filter(function(r){return r!==sel;}).concat([sel]);
+    order.forEach(function(r){
+      var d=PROF[r], on=(r===sel);
+      var pts=d.map(function(v,i){return X(FR[i])+","+Y(v);}).join(" ");
+      s+='<polyline points="'+pts+'" fill="none" stroke="'+(on?"#ffb000":"#39435a")+'" stroke-width="'+(on?3.5:1.5)+'" stroke-linejoin="round" stroke-linecap="round"'+(on?' style="filter:drop-shadow(0 0 4px rgba(255,176,0,.5))"':'')+'/>';
+      if(on){
+        d.forEach(function(v,i){ s+='<circle cx="'+X(FR[i])+'" cy="'+Y(v)+'" r="4.5" fill="#ffb000"/>'; });
+        s+='<text x="'+(X(85)+2)+'" y="'+(Y(d[5])-10)+'" text-anchor="end" fill="#ffb000" font-family="Anton,sans-serif" font-size="15">#'+r+'</text>';
+      }
+    });
+    svg.innerHTML=s;
+    var d=PROF[sel], grow=d[5]-d[0];
+    $("profOut").innerHTML='#'+sel+' '+NAMES[sel]+': leaves the terminal at <span class="you">CV '+d[0].toFixed(2)+'</span> &rarr; ends the run at <span class="tax">CV '+d[5].toFixed(2)+'</span> (+'+grow.toFixed(2)+'). '+(grow>=0.15?'A clear en-route climb: the feedback loop compounding.':'One of the flatter curves: most of its unevenness ships from the terminal.');
+  }
+  var host=$("profChips");
+  ROUTES.forEach(function(r){
+    var b=document.createElement("button");
+    b.className="chip"; b.textContent="#"+r;
+    b.setAttribute("aria-pressed", r===sel?"true":"false");
+    b.addEventListener("click", function(){
+      sel=r;
+      host.querySelectorAll(".chip").forEach(function(c){c.setAttribute("aria-pressed", c.textContent==="#"+sel?"true":"false");});
+      render();
+    });
+    host.appendChild(b);
+  });
+  render();
+})();
+
+})();
+</script>
+</body>
+</html>
