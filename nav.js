@@ -13,6 +13,7 @@
     { label: "Research",         href: "https://sal-khan.com/research.html" },
     { label: "Teaching",         href: "https://sal-khan.com/teaching.html" },
     { label: "Tutoring Studies", href: "https://sal-khan.com/tutoring-evidence-library.html" },
+    { label: "Data & Curiosity", href: "https://sal-khan.com/data-curiosity.html" },
     { label: "CV",               href: "https://sal-khan.com/CV_Khan.pdf" }
   ];
   var SITE_NAME = "Salman A. Khan";
