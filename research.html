@@ -107,6 +107,16 @@
 
   .foot{margin-top:36px;font-size:12.5px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:14px}
 
+  .section-head{font-family:var(--serif);font-weight:600;font-size:24px;color:var(--ink);margin:38px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--band)}
+  .writing{display:flex;flex-direction:column;gap:2px}
+  .write-item{padding:16px 0;border-bottom:1px solid var(--line)}
+  .write-item:last-child{border-bottom:none}
+  .write-item h3{font-family:var(--serif);font-weight:600;font-size:18px;line-height:1.35}
+  .write-item h3 a{color:var(--maroon);text-decoration:none;border-bottom:1px solid var(--band)}
+  .write-item h3 a:hover{border-bottom-color:var(--maroon)}
+  .write-meta{font-size:13px;color:var(--ink-soft);margin-top:3px;font-style:italic;font-family:var(--serif)}
+  .write-item p{font-size:14.5px;color:var(--ink-soft);margin-top:8px;max-width:48em}
+
   @media (max-width:560px){
     .card h2{font-size:18.5px}
     .card-head{padding:16px}
@@ -123,6 +133,7 @@
     <button class="chip" data-filter="tutoring">Tutoring &amp; Personalized Learning</button>
     <button class="chip" data-filter="development">Development</button>
     <button class="chip" data-filter="labor">Labor &amp; Workforce</button>
+    <button class="chip" data-filter="metascience">Metascience</button>
     <button class="chip" data-filter="progress">Work in Progress</button>
   </div>
 
@@ -153,7 +164,8 @@
       </div>
 
       <p class="links" style="margin-top:16px">Learn more: <a href="https://www.nber.org/papers/w32510" target="_blank" rel="noopener">NBER working paper</a> &middot; <a href="https://educationlab.uchicago.edu/projects/saga-tech/" target="_blank" rel="noopener">Saga Tech project page</a></p>
-      <p class="recog">Policy influence &amp; recognition: <a href="https://educationlab.uchicago.edu/resources/2025-economic-report-of-the-president/" target="_blank" rel="noopener">2025 Economic Report of the President</a>; <a href="https://www.bls.gov/opub/mlr/2024/beyond-bls/is-computer-assisted-learning-the-key-to-widespread-high-dosage-tutoring.htm" target="_blank" rel="noopener">BLS Monthly Labor Review</a>; <a href="https://www.evidencebasedpolicy.org/study-reviews-1/saga-tech-math-tutoring" target="_blank" rel="noopener">Evidence Based Policy</a>; <a href="https://commonwealthbeacon.org/education/study-shows-technology-can-help-scale-tutoring-efforts/" target="_blank" rel="noopener">CommonWealth Beacon</a>; <a href="https://www.k12dive.com/news/ed-tech-high-dosage-tutoring-cut-costs-reduce-staffing/718013/" target="_blank" rel="noopener">K-12 Dive</a></p>
+      <p class="recog"><strong>Cited in:</strong> <a href="https://www.worldbank.org/en/publication/wdr2026" target="_blank" rel="noopener">World Bank, World Development Report 2026</a>; <a href="https://educationlab.uchicago.edu/resources/2025-economic-report-of-the-president/" target="_blank" rel="noopener">2025 Economic Report of the President</a>; <a href="https://www.bls.gov/opub/mlr/2024/beyond-bls/is-computer-assisted-learning-the-key-to-widespread-high-dosage-tutoring.htm" target="_blank" rel="noopener">BLS Monthly Labor Review</a>; <a href="https://www.evidencebasedpolicy.org/study-reviews-1/saga-tech-math-tutoring" target="_blank" rel="noopener">Evidence Based Policy</a>; <a href="https://aibm.org/research/the-strong-positive-effects-of-high-dose-tutoring-for-boys-and-girls/" target="_blank" rel="noopener">American Institute for Boys and Men</a>; <a href="https://www.mheducation.com/prek-12/resources/research/library/math/high-dosage-tutoring-at-scale.html" target="_blank" rel="noopener">McGraw Hill research library</a>; Jens Ludwig, <em>Unforgiving Places</em> (2025)</p>
+      <p class="recog"><strong>Media:</strong> <a href="https://commonwealthbeacon.org/education/study-shows-technology-can-help-scale-tutoring-efforts/" target="_blank" rel="noopener">CommonWealth Beacon</a>; <a href="https://www.k12dive.com/news/ed-tech-high-dosage-tutoring-cut-costs-reduce-staffing/718013/" target="_blank" rel="noopener">K-12 Dive</a>; Chalkbeat; WBEZ Chicago</p>
     </div></div>
   </article>
 
@@ -294,7 +306,40 @@
     </div></div>
   </article>
 
+  <!-- ============ REPLICATION / METASCIENCE ============ -->
+  <article class="card" data-tags="metascience">
+    <button class="card-head" aria-expanded="false">
+      <div class="eyebrow">Published &middot; Metascience</div>
+      <h2>The Reliability of Replications: A Study in Computational Reproductions</h2>
+      <div class="authors">Breznau, Rinke, Wuttke, et al. (a large multi-team collaboration) &middot; Royal Society Open Science (2025)</div>
+      <div class="teaser">A crowdsourced study of how reliably researchers can computationally reproduce a published result.</div>
+      <span class="toggle-hint">Read more
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+    </button>
+    <div class="card-body"><div class="card-body-inner">
+      <p>Eighty-five independent teams attempted to numerically reproduce results from a published study of immigration and policy preferences. Teams were randomly assigned to a transparent group, given the original data and code, or an opaque group, given only a written description of the methods. Teams with the code reproduced the findings far more often than teams working from the description alone, and exact numerical matches were less common still. The study documents how much variation arises even in supposedly mechanical reproduction, and makes the case for sharing data and code as standard practice. I contributed as one of the participating reproduction teams.</p>
+      <p class="links" style="margin-top:12px">Learn more: <a href="https://doi.org/10.1098/rsos.241038" target="_blank" rel="noopener">open-access article (Royal Society Open Science)</a></p>
+    </div></div>
+  </article>
+
+
   <div class="empty">No projects under this filter yet.</div>
+
+  <!-- ============ PUBLIC WRITING ============ -->
+  <h2 class="section-head">Public Writing</h2>
+  <div class="writing">
+    <article class="write-item">
+      <h3><a href="https://www.thefridaytimes.com/04-May-2026/millions-pakistani-children-can-t-read" target="_blank" rel="noopener">Why Millions of Pakistani Children Can't Read</a></h3>
+      <div class="write-meta">The Friday Times &middot; 2026</div>
+      <p>An op-ed arguing that Pakistan can address its learning crisis by adapting high-dosage tutoring to government schools, drawing on the Saga Tech RCT and tutoring evidence worldwide.</p>
+    </article>
+    <article class="write-item">
+      <h3>Low-Fee Private Schools: Last Hope or Lost Hope?</h3>
+      <div class="write-meta">IDEAS (Institute of Development and Economic Alternatives) &middot; 2016</div>
+      <p>An essay on the promise and limits of low-fee private schooling as a route to quality education for low-income families in Pakistan.</p>
+    </article>
+  </div>
 
   <div class="foot">Effect sizes shown in the interactive elements are each paper's headline estimate; see the linked papers for the exact estimand (ITT vs. TOT) and confidence intervals. Guesses are not recorded or stored.</div>
 </div>
