@@ -1,138 +1,770 @@
-Inspired by discussions with, and analysis by, Hasan Ejaz.
-ONE-DAY INTERNATIONAL OPENING BATSMEN · ERA-ADJUSTED · 1989 TO 2009
-Strike rate for survival: the bargain openers made in the 1990s and 2000s, and three who beat it.
-Jayasuriya paid for his speed by losing his wicket sooner, as did nearly every other opener of his era. Three managed to defy the norm.
-Strike rate against average is often treated as a modern argument. It is not. Across the 1990s and 2000s an opener who scored quicker than his contemporaries surrendered his wicket sooner for it, at almost exactly the same rate in 1994 as in 2004. But three batsmen of the 1990s refused the bargain entirely, scoring far faster than the field while lasting longer at the crease. Sachin Tendulkar, Brian Lara and Saeed Anwar: two remembered as the finest of their generation, the third for his wrists.
-104 OPENERS · 1989 TO 2009 · ESPNCRICINFO STATSGURU
-The premise of modern batting is that a quicker innings is worth more than the wicket it costs. In limited-overs cricket that is now close to orthodoxy.
-The trade it asks for is precise: score faster, get out sooner. It is the oldest shape of argument there is, and a higher expected return is fraught with more risk. Which leaves two questions worth measuring. What is the exchange rate between speed and survival, and are there exceptions to the norm?
-Openers are the natural place to ask. Every one of them walks in at the same moment against the same new ball under the same fielding restrictions, so the comparison is mechanically clean in a way it never is for a number six, whose job changes with every scoreboard he inherits.
-Average is actually the wrong place to look
-Batting average and strike rate are not two independent things a batsman balances. They are arithmetically joined:
-average = (strike rate ÷ 100) × balls faced per dismissal
-So average rises with strike rate unless survival falls by proportionally more. A batsman who strikes ten per cent faster and gets out five per cent sooner ends up with a higher average than before, having paid the price all the same. Correlating the two therefore does not measure the trade-off. It measures whether speed gains outran survival losses, which is a different question, and it comes out positive in every decade here for that reason.
-Raw comparison across eras compounds the problem. Pitches, boundary sizes, bat weights, fielding restrictions and the number of balls used per innings have all moved, and each changes what a given strike rate is worth. So in every figure below, a player is compared to the openers who batted in his own years, under similar conditions. A ratio of 1.00 means he matched them exactly.
-WHAT "VS ERA" ACTUALLY MEANS
-For each batsman the comparison group is every other opener who played in the same years he did. But a career is not spread evenly across its span, and the game was changing underneath it, so the years have to be weighted.
-Take a batsman who played most of his innings between 1995 and 1998 and then appeared occasionally until 2005. Pooling every opener innings from 1995 to 2005 weights the benchmark by how much everyone else played, and since the game got busier later, most of that benchmark would come from years he barely featured in. He would be measured against conditions he hardly batted in.
-So each year is weighted instead by his own share of innings in it. If a fifth of his career fell in 1996, then a fifth of his benchmark comes from 1996. The question becomes what the field would have averaged on his schedule rather than on its own. For a batsman who played steadily the two approaches give nearly the same answer; for one whose peak sat at one end of a shifting era they can differ enough to matter.
-What the identity hides is the thing worth measuring: strike rate against balls faced per dismissal. Survival is worth making concrete, because the ratios are easy to skim past. A 1990s opener faced somewhere around 46 balls for every dismissal. A survival ratio of 0.75 means three quarters of that, roughly 35 balls, so he was giving his wicket up about eleven balls earlier every time he walked out. A ratio of 1.18 means the opposite: eight balls longer at the crease, innings after innings, for a decade. The tables below carry the raw counts alongside the ratios.
-Where the trade-off took prominence
-Most people date the aggressive opener to the 1996 World Cup. Sanath Jayasuriya and Romesh Kaluwitharana went after the new ball inside the first fifteen overs, Sri Lanka won the thing, and every side spent the next decade looking for its own version. Anyone who was watching four years earlier will tell you it started in 1992, when New Zealand sent Mark Greatbatch up the order at their home World Cup to hit over the top of the field.
-Both predate the first Twenty20 international by a decade or more. Start with the men the story is usually told about. Greatbatch and Kaluwitharana were pinch-hitters in the strict sense, promoted to attack the new ball and judged on whether it came off. Jayasuriya outgrew the description almost immediately and became one of the highest run-scorers the format has had, which is why the label sits badly on him now. For the purposes of this decade, though, all three were doing the same thing.
-THE ATTACKING OPENERS OF THE 1990S, AGAINST THEIR OWN ERA
-PLAYER
-INNS
-AVG
-SR
-BALLS / DISMISSAL
-AVG VS ERA
-SR VS ERA
-SURVIVAL VS ERA
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strike rate for survival: openers in the 1990s and 2000s</title>
+<meta name="description" content="Through the 1990s and 2000s, openers who scored faster survived fewer balls for it. An era-adjusted look at the three who did not.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#DDE1D6; --panel:#D3D9CA; --ink:#171E19;
+  --soft:#4E574F; --faint:#828C83; --rule:#B6BDAE;
+  --anwar:#41648A; --tendulkar:#9C4A2F; --lara:#2E7D6E; --jaya:#A87A1E;
+  --up:#2E7D6E; --down:#9C4A2F;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"Public Sans",system-ui,sans-serif;font-size:17px;line-height:1.65}
+.wrap{max-width:720px;margin:0 auto;padding:0 26px 90px}
+.wide{max-width:960px;margin-left:calc((720px - 960px)/2)}
+@media (max-width:1010px){.wide{max-width:100%;margin-left:0}}
 
-They paid in full. Jayasuriya struck 31 per cent faster than the field across 144 innings and surrendered his wicket after 35 balls where the ordinary opener of his day lasted 47, nearly twelve balls of survival gone every innings. Kaluwitharana bought 15 per cent of speed at 30 balls against the field's 46, giving up a third of his time at the crease. Greatbatch, on the thirty-two innings that make him more emblem than evidence, was 14 per cent quicker and nine balls shorter-lived. All three finished at or below their contemporaries on runs per dismissal.
-This is not a criticism. The trade was deliberate, correctly priced against the fielding restrictions of the day, and it won a World Cup. It is the bargain, taken. Jayasuriya in particular went on to a career this measure cannot see, because the value of a fast start belongs to the batsmen who inherit the total, not the man who made it.
-The bargain, and its price
-Widen out from those three to every opener of the period and the bargain holds, at a rate that barely moves across twenty years.
-CORRELATION BETWEEN STRIKE RATE AND SURVIVAL, OPENERS WITH 40+ INNINGS
-DECADE
-OPENERS
-CORRELATION
-ABOVE-ERA STRIKERS: AVG RATIO
-BELOW-ERA STRIKERS
+header{padding:78px 0 34px}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--faint);margin:0 0 26px}
+h1{font-family:"Fraunces",serif;font-variation-settings:"SOFT" 40,"WONK" 1;
+  font-weight:600;font-size:clamp(2.3rem,6vw,3.7rem);line-height:1.04;
+  letter-spacing:-.022em;margin:0 0 22px}
+.deck{font-family:"Fraunces",serif;font-variation-settings:"SOFT" 40,"WONK" 1;
+  font-size:1.28rem;line-height:1.32;color:var(--anwar);margin:0 0 24px;
+  font-weight:400;max-width:34ch}
+.standfirst{font-size:1.17rem;line-height:1.58;color:var(--soft);margin:0}
+.standfirst b{color:var(--ink);font-weight:600}
+.byline{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--faint);margin:28px 0 0;
+  padding-top:18px;border-top:1px solid var(--rule)}
+.ack{font-size:13px;font-style:italic;color:var(--soft);margin:0 0 22px}
 
-The two right-hand columns are the part that matters. In both decades the openers who struck faster than their era finished with the higher average relative to it: 1.149 against 1.027 in the 1990s, 1.038 against 0.980 in the 2000s. The bargain was real, and it was worth taking.
-WHY BOTH FIGURES CAN SIT ABOVE 1.00
-A ratio of 1.00 means matching the field, so it looks wrong that in the 1990s both the fast group and the slow group came out above it. The reason is the forty-innings filter.
-The era baseline pools every opening innings of those years, including the many batsmen who were tried at the top and dropped inside a season. Anyone who reached forty innings had, by definition, kept his place, and openers keep their places by scoring runs. So the qualifying group sits above the baseline as a whole: the mean average ratio across 1990s openers is 1.003 at a twenty-five-innings cut and 1.071 at forty.
-Which means the levels in those two columns are partly an artefact of who is allowed in. The gap between them is the finding, and the gap is not affected by where the threshold sits.
-Minus four tenths in both decades. That is a clear tendency rather than a law: a correlation of that size accounts for about a sixth of what separates openers on survival, so five sixths of it is other things, and individual exceptions are common rather than freakish. What matters here is that the number barely moves. The exchange rate in 1994 was almost indistinguishable from the exchange rate in 2004.
-Both of those dates sit before Twenty20 reached the international game, which settles one thing and raises another. It settles that the bargain was not created by T20: it was already there, priced the same, when the format did not exist. What it cannot tell you is whether the price held afterwards. It did not, and the story of how it loosened through the 2010s belongs to a separate piece. Everything here is the two decades when the cost of scoring quickly was high and stable, which is the period that makes the exceptions worth naming.
-The exceptions
-Plotted against each other, the bargain shows up as a downward tilt across the cloud. The interesting region is the top right, where a batsman scored faster than his era and survived longer than it, which the trade-off says should be close to empty. Jayasuriya sits at the far top left of the 1990s chart, the purest expression of the trade: fastest of anyone, shortest-lived of almost anyone. The men who mattered for this argument are in the opposite corner.
+h2{font-family:"Fraunces",serif;font-variation-settings:"SOFT" 40,"WONK" 1;
+  font-weight:600;font-size:1.68rem;line-height:1.2;letter-spacing:-.014em;margin:52px 0 16px}
+p{margin:0 0 19px}
+.lead::first-letter{font-family:"Fraunces",serif;
+  font-variation-settings:"SOFT" 40,"WONK" 1;font-size:3.3rem;line-height:.82;
+  float:left;padding:5px 11px 0 0;color:var(--ink)}
+em{font-style:italic} strong{font-weight:600}
 
-Hover or tap any point for that player's figures.
-1989–99
-2000s
-Each dot is one opener, sized by innings. The downward tilt is the trade-off. The shaded corner is where batsmen escaped it.
-Seven openers reached that corner in the 1990s. But most of them got there by being barely faster than the field and much harder to dismiss, which is a way of avoiding the trade-off rather than beating it. Ask for a real speed advantage, something above ten per cent, and the list shortens sharply.
-FASTER THAN THEIR ERA AND HARDER TO DISMISS, 1989 TO 1999
-PLAYER
-INNS
-AVG
-SR
-BALLS / DISMISSAL
-AVG VS ERA
-SR VS ERA
-SURVIVAL VS ERA
+.eq{font-family:"IBM Plex Mono",monospace;font-size:14.5px;background:var(--panel);
+  border-left:3px solid var(--ink);padding:18px 22px;margin:26px 0;line-height:1.7}
+.eq b{color:var(--ink)}
+.kicker{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink);
+  background:var(--panel);border-left:3px solid var(--down);padding:15px 20px;margin:0 0 30px}
 
-Three names, and they were doing the thing the bargain says is difficult: adding a fifth or more to their scoring rate while lasting longer at the crease than the men around them. Below the dashed line sit four more who reached the same corner on survival alone, two to seven per cent quicker than the field, which is inside the range where the number stops meaning much.
-Tendulkar is the clearest case. Across 139 innings he struck 27 per cent above his era and lasted 53 balls per dismissal against the field's 45, eight balls longer while scoring quicker, which is why his average came out at nearly half again the field's. That combination, not the hundreds, is the specific thing that made him a great opening batsman rather than a great batsman who happened to open. He was doing Jayasuriya's job and Ramiz Raja's job at the same time.
-Lara's figures are the best of anyone on both counts, 1.237 and 1.225, and they rest on fifty innings. That is enough to notice and not enough to lean on, so he belongs in the list with an asterisk rather than at the top of it.
-Saeed Anwar's rest on 168, more opening innings than any other batsman in the decade. He struck 19 per cent above his era and still lasted 50 balls per dismissal against the field's 47. That is a smaller edge than Tendulkar's and a far more sustained one than Lara's, and it is the part of him nobody talks about. Anwar is remembered for wrists and timing and the 194 at Chennai, the vocabulary of an accumulator. For ten years he was one of the fastest-scoring openers in the world relative to the men he played against, and he was not paying for it.
-What happened next
-Run the same test on the 2000s and the corner is still occupied. It is occupied differently.
-FASTER THAN THEIR ERA AND HARDER TO DISMISS, 2000 TO 2009
-PLAYER
-INNS
-AVG
-SR
-BALLS / DISMISSAL
-AVG VS ERA
-SR VS ERA
-SURVIVAL VS ERA
+figure{margin:34px 0 8px}
+#plot{display:block;width:100%;aspect-ratio:820/570;height:auto;overflow:visible}
+figcaption{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);
+  line-height:1.55;padding-top:14px;border-top:1px solid var(--rule);margin-top:10px}
+.readout{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--soft);
+  min-height:1.7em;margin:10px 0 0}
+.readout b{color:var(--ink)}
+.toggle{display:flex;gap:0;border:1px solid var(--rule);width:max-content;margin:22px 0 0}
+.toggle button{border:0;background:none;padding:9px 18px;cursor:pointer;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--soft);
+  border-right:1px solid var(--rule)}
+.toggle button:last-child{border-right:0}
+.toggle button[aria-pressed=true]{background:var(--ink);color:var(--ground);font-weight:600}
 
-Four openers, and not one of them above 1.10 on strike rate. Tendulkar at 1.080 is the fastest, and his own strike-rate edge had fallen from 1.266 in the previous decade. Hayden, Gayle and Smith cleared the corner on survival, striking between two and five per cent above their contemporaries.
-The obvious reading is that the field caught up. Once every side expected its openers to attack, being twenty per cent faster than the field stopped being available. The men who had been unusual in 1995 were doing something ordinary by 2005, and the ones who kept an edge kept a smaller one.
-Which reframes what the 1990s trio actually achieved. They were not merely good players in a slow decade. They were operating in the last period when a substantial speed advantage was still there to be taken, and they were the only three who took it without paying for it in wickets.
-Bonus: what separates a great decade from a great career
-Tendulkar was the better opener of the two in the 1990s, ahead of Anwar on all three measures, and it is not especially close on average. But they were not miles apart either, and they belonged to the same very small group: the handful of batsmen scoring faster than the field without surrendering time at the crease for it. The decade after is where they separate, and how they separate says more about greatness than either decade does alone.
-TENDULKAR AND SAEED ANWAR, DECADE AGAINST DECADE
-PLAYER
-DECADE
-INNS
-AVG
-SR
-BALLS / DISMISSAL
-AVG VS ERA
-SR VS ERA
-SURVIVAL VS ERA
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:26px 0}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+caption{text-align:left;font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--faint);padding-bottom:12px}
+th,td{padding:10px 12px;text-align:right;border-bottom:1px solid var(--rule)}
+th{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--faint);
+  border-bottom:1px solid var(--ink);white-space:nowrap}
+th:first-child,td:first-child,td.nm{text-align:left}
+td{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+td.nm{font-family:"Public Sans",sans-serif;font-weight:600;white-space:nowrap}
+tbody tr:last-child td{border-bottom:1px solid var(--ink)}
+td.hi{font-weight:700} .lo{color:var(--down)} .gd{color:var(--up)}
+.pl{background:rgba(65,100,138,.10)}
+.sep td{border-bottom:1px dashed var(--rule);padding-top:16px}
+.faded td{opacity:.62}
 
-Look at Tendulkar's raw average across twenty years: 48.60, then 48.24. Two decades, 317 opening innings, and a difference of a third of a run. He held a number steady while the game moved underneath it, which is why his ratio slipped from 1.489 to 1.392 without his getting any worse. The field improved. He did not need to.
-What is more revealing is how he held it. His strike-rate edge eroded badly, from 1.266 to 1.080, because by the 2000s everyone was scoring quickly and being fast no longer distinguished anybody. So he became harder to get out instead. His survival went from 1.176 to 1.289, from eight balls above the field to nearly thirteen. He replaced an advantage that was disappearing with one that was still available. That adaptation, across two eras with two different definitions of a good opener, is a large part of what the word legend is doing when people use it about him.
-Anwar had the same problem and no second answer. His strike rate fell from 82.6 to 71.3 while the field's climbed from 69.6 to 77.2, so a ratio of 1.187 became 0.925 without his ever getting out more often. His survival held almost exactly where it had been, 1.069 to 1.059, which rules out the usual story of a batsman losing his eye. He kept batting time and stopped converting it, in a decade when everyone around him was converting it faster.
-Then it ended. Fifty-two innings and retirement in 2003, against Tendulkar's 178 in the same stretch. The gap between them was never really the 1990s, where Anwar played more opening innings than anyone alive and cleared both bars for ten years. It was that Tendulkar had a second decade and Anwar did not, and that when the game changed its terms only one of them found a new way to be ahead of it.
-It passed quietly, too: three years, an erosion of tempo rather than a collapse of technique, and a fraction of the scrutiny a comparable slump would draw now.
-What this does and does not show
-	•	The trade-off is real. Across both decades, openers who struck faster than their contemporaries survived fewer balls for it, at a correlation of roughly minus four tenths that barely moved between 1994 and 2004.
-	•	It was worth taking anyway. In both decades the faster group finished with the higher average relative to its era. Aggression cost wickets and bought more runs than it cost.
-	•	Escaping it was rare, and that is the point. Three 1990s openers scored substantially faster than the field while lasting longer at the crease. Four managed it in the 2000s, none with anything close to the same speed advantage.
-	•	It does not show that aggression is free. The correlation is negative in both decades and most batsmen who accelerated lost survival roughly as predicted. Tendulkar, Lara and Anwar are exceptions, and building general advice out of exceptions is how bad advice gets made.
-	•	It cannot see what a fast start was worth to everyone else. Jayasuriya struck 31 per cent above his era across 144 innings and averaged fractionally less than the ordinary opener of his day, which by this measure makes him a man who paid in full. It also understates him badly. His value was in the total his middle order inherited, and no figure computed from his own innings will find it.
-	•	It stops at 2009 on purpose. The exchange rate that held so steady across these two decades did not survive the decade after, which is a finding large enough to need its own piece. Read the three exceptions as belonging to this period rather than to cricket in general.
-◆
-Look up any opener
-Type a name or a country, switch decades, or click a heading to sort. Ratios above 1.00 mean he beat the field of his own years.
-Who is in here: any batsman who played 25 or more innings at position one or two in one-day internationals within that decade. Innings at other positions are excluded entirely, so a middle-order batsman who opened occasionally appears only if those opening innings alone reach 25. His figures are computed from those innings only, and his comparison group is every other opener active in the same years. The correlations quoted in the article use a stricter 40-innings cut; this table uses 25 so you can see the near misses.
+.note{background:var(--panel);border-left:3px solid var(--ink);padding:20px 24px;margin:34px 0}
+.note h3{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;margin:0 0 10px;color:var(--ink);font-weight:600}
+.note p{font-size:14.5px;line-height:1.6;color:var(--soft);margin:0 0 12px}
+.note p:last-child{margin-bottom:0}
+.note b{color:var(--ink)}
 
-1989–99
-2000s
+#lookup{padding-top:44px;border-top:1px solid var(--rule);margin-top:46px}
+#lookup h2{margin-top:0}
+.crit{font-size:14px;line-height:1.6;color:var(--soft);background:var(--panel);
+  border-left:3px solid var(--rule);padding:14px 18px;margin:16px 0 0}
+.crit b{color:var(--ink)}
+.lookbar{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:22px 0 6px}
+.lookbar input{flex:1;min-width:210px;padding:10px 13px;border:1px solid var(--rule);
+  background:var(--ground);color:var(--ink);font-family:"Public Sans",sans-serif;font-size:15px}
+.lookbar input:focus{outline:2px solid var(--anwar);outline-offset:-1px}
+.lookbar .seg{display:flex;border:1px solid var(--rule)}
+.lookbar .seg button{border:0;background:none;padding:9px 16px;cursor:pointer;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--soft);
+  border-right:1px solid var(--rule)}
+.lookbar .seg button:last-child{border-right:0}
+.lookbar .seg button[aria-pressed=true]{background:var(--ink);color:var(--ground);font-weight:600}
+.lookcount{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);
+  margin:0 0 4px}
+#lookup table{min-width:720px}
+#lookup th{cursor:pointer;text-decoration:underline dotted var(--rule);text-underline-offset:4px}
+#lookup th[aria-sort]{color:var(--ink);font-weight:600}
+#lookup tbody tr:hover{background:var(--panel)}
+#lookup tr.lit{background:rgba(65,100,138,.10)}
+#lookup .none{color:var(--soft);font-size:14.5px;padding:14px 0}
+.takeaways{margin:26px 0 0;padding-left:1.15rem}
+.takeaways li{margin-bottom:16px;line-height:1.6;color:var(--soft)}
+.takeaways li::marker{color:var(--faint)}
+.takeaways b{color:var(--ink)}
+.endmark{text-align:center;color:var(--faint);font-size:13px;letter-spacing:.4em;
+  padding:34px 0 0;margin:0}
+footer{margin-top:50px;padding-top:22px;border-top:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--faint);line-height:1.9}
+footer a{color:var(--anwar);text-decoration:none}
+footer a:hover{text-decoration:underline}
+.series-band{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  flex-wrap:wrap;margin:30px 0 0;padding:12px 0 14px;border-bottom:1px solid var(--rule);
+  text-decoration:none;font-family:"IBM Plex Mono",monospace}
+.series-band .sb-k{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint)}
+.series-band .sb-t{font-size:12px;color:var(--anwar)}
+.series-band:hover .sb-t{text-decoration:underline}
+.series-next{display:block;margin:44px 0 0;padding:24px 26px;background:var(--panel);
+  border:1px solid var(--rule);text-decoration:none;color:inherit;transition:border-color .15s}
+.series-next:hover{border-color:var(--ink)}
+.series-next .snk{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--faint);margin:0 0 8px}
+.series-next .snt{font-family:"Fraunces",serif;font-variation-settings:"SOFT" 40,"WONK" 1;
+  font-weight:600;font-size:1.2rem;line-height:1.3;margin:0}
+.series-next .sng{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--anwar);
+  margin:12px 0 0;display:inline-block}
+@media (max-width:620px){body{font-size:16px}.wrap{padding:0 19px 70px}header{padding:50px 0 26px}}
+</style>
+</head>
+<body>
+<script src="../nav.js"></script>
+<div class="wrap">
 
-PLAYER
-SIDE
-INNS
-AVG
-SR
-BALLS / DIS
-AVG VS ERA
-SR VS ERA
-SURVIVAL VS ERA
+<header>
+  <p class="ack">Inspired by discussions with, and analysis by, Hasan Ejaz.</p>
+  <p class="eyebrow">One-day international opening batsmen · era-adjusted · 1989 to 2009</p>
+  <h1>Strike rate for survival: the bargain openers made in the 1990s and 2000s, and three who beat it.</h1>
+  <p class="deck">Jayasuriya paid for his speed by losing his wicket sooner, as did
+  nearly every other opener of his era. Three managed to defy the norm.</p>
+  <p class="standfirst">Strike rate against average is often treated as a modern
+  argument. It is not. Across the 1990s and 2000s an opener who scored quicker than his
+  contemporaries surrendered his wicket sooner for it, at almost exactly the same rate
+  in 1994 as in 2004. But three batsmen of the 1990s refused the bargain entirely,
+  scoring far faster than the field while lasting longer at the crease. <b>Sachin
+  Tendulkar, Brian Lara and Saeed Anwar</b>: two remembered as the finest of their
+  generation, the third for his wrists.</p>
+  <p class="byline">104 openers · 1989 to 2009 · ESPNcricinfo Statsguru</p>
+</header>
 
-METHOD
-Every one-day international opening innings, batting positions one and two, from 1989 onward, scraped from ESPNcricinfo Statsguru. The series starts in 1989 because balls faced were not recorded consistently for earlier matches, and without balls faced there is neither a strike rate nor a survival figure.
-Survival is balls faced per dismissal, which is average divided by strike rate, scaled. Every figure is a ratio: the batsman divided by every other opener active in the same years, with each year weighted by that batsman's own share of innings in it. Decade figures clip a player's innings to those ten years and rebuild his comparison group from that stretch alone. Correlations use openers with at least forty innings in the decade; the tables use the same threshold.
-The analysis stops at 2009 deliberately. Twenty20 arrived internationally in 2005 and the IPL in 2008, and the decade after brought new fielding restrictions and two new balls per innings as well. All of those plausibly move the exchange rate between speed and survival, so including those years would conflate a change in cricket with a change in batsmen. It is a subject worth its own piece rather than a footnote in this one.
-Nothing here adjusts for home and away, ground, opposition strength, or whether a side batted first.
-DATA: ESPNCRICINFO STATSGURU
-1989 TO 2009 · 47 OPENERS QUALIFYING IN 1989–99 · 57 IN THE 2000S
-QUESTIONS OR CORRECTIONS: PRACTICINGECONOMIST@GMAIL.COM
+<p class="lead">The premise of modern batting is that a quicker innings is worth
+more than the wicket it costs. In limited-overs cricket that is now close to
+orthodoxy.</p>
+
+<p>The trade it asks for is precise: score faster, <strong>get out sooner</strong>. It
+is the oldest shape of argument there is, and a higher expected return is fraught with
+more risk. Which leaves two questions worth measuring. What is the exchange rate
+between speed and survival, and are there exceptions to the norm?</p>
+
+<p>Openers are the natural place to ask. Every one of them walks in at the same moment
+against the same new ball under the same fielding restrictions, so the comparison is
+mechanically clean in a way it never is for a number six, whose job changes with every
+scoreboard he inherits.</p>
+
+<h2>Average is actually the wrong place to look</h2>
+
+<p>Batting average and strike rate are not two independent things a batsman balances.
+They are arithmetically joined:</p>
+
+<div class="eq">
+  <b>average</b> = (strike rate ÷ 100) × balls faced per dismissal
+</div>
+
+<p>So average rises with strike rate <em>unless</em> survival falls by proportionally
+more. A batsman who strikes ten per cent faster and gets out five per cent sooner ends
+up with a higher average than before, having paid the price all the same. Correlating
+the two therefore does not measure the trade-off. It measures whether speed gains
+outran survival losses, which is a different question, and it comes out positive in
+every decade here for that reason.</p>
+
+<p>Raw comparison across eras compounds the problem. Pitches, boundary sizes, bat
+weights, fielding restrictions and the number of balls used per innings have all moved,
+and each changes what a given strike rate is worth. So in every figure below, a player
+is compared to the openers who batted in his own years, under similar conditions.
+<strong>A ratio of 1.00 means he matched them exactly.</strong></p>
+
+<div class="note">
+  <h3>What "vs era" actually means</h3>
+  <p>For each batsman the comparison group is every <b>other</b> opener who played in
+  the same years he did. But a career is not spread evenly across its span, and the
+  game was changing underneath it, so the years have to be weighted.</p>
+  <p>Take a batsman who played most of his innings between 1995 and 1998 and then
+  appeared occasionally until 2005. Pooling every opener innings from 1995 to 2005
+  weights the benchmark by how much <i>everyone else</i> played, and since the game
+  got busier later, most of that benchmark would come from years he barely featured
+  in. He would be measured against conditions he hardly batted in.</p>
+  <p>So each year is weighted instead by <b>his own share of innings in it</b>. If a
+  fifth of his career fell in 1996, then a fifth of his benchmark comes from 1996. The
+  question becomes what the field would have averaged on his schedule rather than on
+  its own. For a batsman who played steadily the two approaches give nearly the same
+  answer; for one whose peak sat at one end of a shifting era they can differ enough
+  to matter.</p>
+</div>
+
+<p>What the identity hides is the thing worth measuring: strike rate against balls
+faced per dismissal. Survival is worth making concrete, because the ratios are easy to
+skim past. A 1990s opener faced somewhere around 46 balls for every dismissal. A
+survival ratio of 0.75 means three quarters of that, roughly 35 balls, so he was
+giving his wicket up about <b>eleven balls earlier every time he walked out</b>. A
+ratio of 1.18 means the opposite: eight balls longer at the crease, innings after
+innings, for a decade. The tables below carry the raw counts alongside the ratios.</p>
+
+<h2>Where the trade-off took prominence</h2>
+
+<p>Most people date the aggressive opener to the 1996 World Cup. Sanath Jayasuriya and
+Romesh Kaluwitharana went after the new ball inside the first fifteen overs, Sri Lanka
+won the thing, and every side spent the next decade looking for its own version.
+Anyone who was watching four years earlier will tell you it started in 1992, when New
+Zealand sent Mark Greatbatch up the order at their home World Cup to hit over the top
+of the field.</p>
+
+<p>Both predate the first Twenty20 international by a decade or more. Start with the
+men the story is usually told about. Greatbatch and Kaluwitharana
+were pinch-hitters in the strict sense, promoted to attack the new ball and judged on
+whether it came off. Jayasuriya outgrew the description almost immediately and became
+one of the highest run-scorers the format has had, which is why the label sits badly
+on him now. For the purposes of this decade, though, all three were doing the same
+thing.</p>
+
+<div class="scroll">
+<table>
+  <caption>The attacking openers of the 1990s, against their own era</caption>
+  <thead><tr><th>Player</th><th>Inns</th><th>Avg</th><th>SR</th>
+    <th>Balls / dismissal</th>
+    <th>Avg vs era</th><th>SR vs era</th><th>Survival vs era</th></tr></thead>
+  <tbody id="attackTable"></tbody>
+</table>
+</div>
+
+<p>They paid in full. Jayasuriya struck 31 per cent faster than the field across 144
+innings and surrendered his wicket after 35 balls where the ordinary opener of his day
+lasted 47, nearly twelve balls of survival gone every innings. Kaluwitharana bought 15
+per cent of speed at 30 balls against the field's 46, giving up a third of his time at
+the crease. Greatbatch, on the thirty-two innings that make him more emblem than
+evidence, was 14 per cent quicker and nine balls shorter-lived. All three finished at
+or below their contemporaries on runs per dismissal.</p>
+
+<p>This is not a criticism. The trade was deliberate, correctly priced against the
+fielding restrictions of the day, and it won a World Cup. It is the bargain, taken.
+Jayasuriya in particular went on to a career this measure cannot see, because the value
+of a fast start belongs to the batsmen who inherit the total, not the man who made
+it.</p>
+
+<h2>The bargain, and its price</h2>
+
+<p>Widen out from those three to every opener of the period and the bargain holds, at
+a rate that barely moves across twenty years.</p>
+
+<div class="scroll">
+<table>
+  <caption>Correlation between strike rate and survival, openers with 40+ innings</caption>
+  <thead><tr><th>Decade</th><th>Openers</th><th>Correlation</th>
+    <th>Above-era strikers: avg ratio</th><th>Below-era strikers</th></tr></thead>
+  <tbody id="corrTable"></tbody>
+</table>
+</div>
+
+<p class="kicker">The two right-hand columns are the part that matters. In both
+decades the openers who struck <i>faster</i> than their era finished with the
+<b>higher</b> average relative to it: 1.149 against 1.027 in the 1990s, 1.038
+against 0.980 in the 2000s. The bargain was real, and it was worth taking.</p>
+
+<div class="note">
+  <h3>Why both figures can sit above 1.00</h3>
+  <p>A ratio of 1.00 means matching the field, so it looks wrong that in the 1990s
+  both the fast group and the slow group came out above it. The reason is the
+  forty-innings filter.</p>
+  <p>The era baseline pools <b>every</b> opening innings of those years, including the
+  many batsmen who were tried at the top and dropped inside a season. Anyone who
+  reached forty innings had, by definition, kept his place, and openers keep their
+  places by scoring runs. So the qualifying group sits above the baseline as a whole:
+  the mean average ratio across 1990s openers is 1.003 at a twenty-five-innings
+  cut and 1.071 at forty.</p>
+  <p>Which means the <i>levels</i> in those two columns are partly an artefact of who
+  is allowed in. The <b>gap</b> between them is the finding, and the gap is not
+  affected by where the threshold sits.</p>
+</div>
+
+<p>Minus four tenths in both decades. That is a clear tendency rather than a law:
+a correlation of that size accounts for about a sixth of what separates openers on
+survival, so five sixths of it is other things, and individual exceptions are common
+rather than freakish. What matters here is that the number barely moves. The exchange
+rate in 1994 was almost indistinguishable from the exchange rate in 2004.</p>
+
+<p>Both of those dates sit before Twenty20 reached the international game, which
+settles one thing and raises another. It settles that the bargain was not created by
+T20: it was already there, priced the same, when the format did not exist. What it
+cannot tell you is whether the price held afterwards. It did not, and the story of how
+it loosened through the 2010s belongs to a separate piece. Everything here is the two
+decades when the cost of scoring quickly was high and stable, which is the period that
+makes the exceptions worth naming.</p>
+
+
+
+<h2>The exceptions</h2>
+
+<p>Plotted against each other, the bargain shows up as a downward tilt across the
+cloud. The interesting region is the top right, where a batsman scored faster than
+his era <em>and</em> survived longer than it, which the trade-off says should be close
+to empty. Jayasuriya sits at the far top left of the 1990s chart, the purest
+expression of the trade: fastest of anyone, shortest-lived of almost anyone. The men who mattered for this argument are in the opposite
+corner.</p>
+
+<figure class="wide">
+  <svg id="plot" viewBox="0 0 820 570" preserveAspectRatio="xMidYMid meet" role="img"
+       aria-label="Scatter plot of strike rate against survival, both relative to era, for one-day openers."></svg>
+  <p class="readout" id="readout">Hover or tap any point for that player's figures.</p>
+  <div class="toggle" id="toggle">
+    <button data-d="90" aria-pressed="true">1989–99</button>
+    <button data-d="00" aria-pressed="false">2000s</button>
+  </div>
+  <figcaption>Each dot is one opener, sized by innings. The downward tilt is the
+  trade-off. The shaded corner is where batsmen escaped it.</figcaption>
+</figure>
+
+<p>Seven openers reached that corner in the 1990s. But most of them got there by
+being barely faster than the field and much harder to dismiss, which is a way of
+avoiding the trade-off rather than beating it. Ask for a real speed advantage,
+something above ten per cent, and the list shortens sharply.</p>
+
+<div class="scroll">
+<table>
+  <caption>Faster than their era and harder to dismiss, 1989 to 1999</caption>
+  <thead><tr><th>Player</th><th>Inns</th><th>Avg</th><th>SR</th>
+    <th>Balls / dismissal</th>
+    <th>Avg vs era</th><th>SR vs era</th><th>Survival vs era</th></tr></thead>
+  <tbody id="1990sTable"></tbody>
+</table>
+</div>
+
+<p>Three names, and they were doing the thing the bargain says is difficult: adding a
+fifth or more to their scoring rate while lasting <em>longer</em> at the crease than
+the men around them. Below the dashed line sit four more who reached the same corner
+on survival alone, two to seven per cent quicker than the field, which is inside the
+range where the number stops meaning much.</p>
+
+<p><strong>Tendulkar is the clearest case.</strong> Across 139 innings he struck 27
+per cent above his era and lasted 53 balls per dismissal against the field's 45, eight
+balls longer while scoring quicker, which is why his average came out at nearly half
+again the field's. That combination, not the hundreds,
+is the specific thing that made him a great opening batsman rather than a great
+batsman who happened to open. He was doing Jayasuriya's job and Ramiz Raja's job at
+the same time.</p>
+
+<p><strong>Lara's figures are the best of anyone on both counts</strong>, 1.237 and
+1.225, and they rest on fifty innings. That is enough to notice and not enough to
+lean on, so he belongs in the list with an asterisk rather than at the top of it.</p>
+
+<p><strong>Saeed Anwar's rest on 168, more opening innings than any other batsman in
+the decade.</strong> He struck 19 per cent above his era and still lasted 50 balls per dismissal
+against the field's 47. That is a smaller edge than Tendulkar's and a far more sustained one
+than Lara's, and it is the part of him nobody talks about. Anwar is remembered for
+wrists and timing and the 194 at Chennai, the vocabulary of an accumulator. For ten
+years he was one of the fastest-scoring openers in the world relative to the men he
+played against, and he was not paying for it.</p>
+
+<h2>What happened next</h2>
+
+<p>Run the same test on the 2000s and the corner is still occupied. It is occupied
+differently.</p>
+
+<div class="scroll">
+<table>
+  <caption>Faster than their era and harder to dismiss, 2000 to 2009</caption>
+  <thead><tr><th>Player</th><th>Inns</th><th>Avg</th><th>SR</th>
+    <th>Balls / dismissal</th>
+    <th>Avg vs era</th><th>SR vs era</th><th>Survival vs era</th></tr></thead>
+  <tbody id="aughtsTable"></tbody>
+</table>
+</div>
+
+<p>Four openers, and not one of them above 1.10 on strike rate. Tendulkar at 1.080 is
+the fastest, and his own strike-rate edge had fallen from 1.266 in the previous
+decade. Hayden, Gayle and Smith cleared the corner on survival, striking between two
+and five per cent above their contemporaries.</p>
+
+<p>The obvious reading is that the field caught up. Once every side expected its
+openers to attack, being twenty per cent faster than the field stopped being
+available. The men who had been unusual in 1995 were doing something ordinary by
+2005, and the ones who kept an edge kept a smaller one.</p>
+
+<p>Which reframes what the 1990s trio actually achieved. They were not merely good
+players in a slow decade. They were operating in the last period when a substantial
+speed advantage was still there to be taken, and they were the only three who took it
+without paying for it in wickets.</p>
+
+<h2>Bonus: what separates a great decade from a great career</h2>
+
+<p>Tendulkar was the better opener of the two in the 1990s, ahead of Anwar on all
+three measures, and it is not especially close on average. But they were not miles
+apart either, and they belonged to the same very small group: the handful of batsmen
+scoring faster than the field without surrendering time at the crease for it. The
+decade after is where they separate, and how they separate says more about greatness
+than either decade does alone.</p>
+
+<div class="scroll">
+<table>
+  <caption>Tendulkar and Saeed Anwar, decade against decade</caption>
+  <thead><tr><th>Player</th><th>Decade</th><th>Inns</th><th>Avg</th><th>SR</th>
+    <th>Balls / dismissal</th>
+    <th>Avg vs era</th><th>SR vs era</th><th>Survival vs era</th></tr></thead>
+  <tbody id="anwarTable"></tbody>
+</table>
+</div>
+
+<p><strong>Look at Tendulkar's raw average across twenty years: 48.60, then 48.24.</strong>
+Two decades, 317 opening innings, and a difference of a third of a run. He held a
+number steady while the game moved underneath it, which is why his ratio slipped from
+1.489 to 1.392 without his getting any worse. The field improved. He did not need to.</p>
+
+<p>What is more revealing is <em>how</em> he held it. His strike-rate edge eroded
+badly, from 1.266 to 1.080, because by the 2000s everyone was scoring quickly and
+being fast no longer distinguished anybody. So he became harder to get out instead.
+His survival went from 1.176 to 1.289, from eight balls above the field to nearly
+thirteen. He replaced an advantage that was disappearing with one that was still
+available. That adaptation, across two eras with two different definitions of a good
+opener, is a large part of what the word legend is doing when people use it about
+him.</p>
+
+<p>Anwar had the same problem and no second answer. His strike rate fell from 82.6 to
+71.3 while the field's climbed from 69.6 to 77.2, so a ratio of 1.187 became 0.925
+without his ever getting out more often. His survival held almost exactly where it had
+been, 1.069 to 1.059, which rules out the usual story of a batsman losing his eye. He
+kept batting time and stopped converting it, in a decade when everyone around him was
+converting it faster.</p>
+
+<p>Then it ended. Fifty-two innings and retirement in 2003, against Tendulkar's 178 in
+the same stretch. The gap between them was never really the 1990s, where Anwar
+played more opening innings than anyone alive and cleared both bars for ten years. It
+was that Tendulkar had a second decade and Anwar did not, and that when the game
+changed its terms only one of them found a new way to be ahead of it.</p>
+
+<p>It passed quietly, too: three years, an erosion of tempo rather than a collapse of
+technique, and a fraction of the scrutiny a comparable slump would draw now.</p>
+
+<h2>What this does and does not show</h2>
+
+<ul class="takeaways">
+  <li><b>The trade-off is real.</b> Across both decades, openers who struck faster
+  than their contemporaries survived fewer balls for it, at a correlation of roughly
+  minus four tenths that barely moved between 1994 and 2004.</li>
+
+  <li><b>It was worth taking anyway.</b> In both decades the faster group finished
+  with the higher average relative to its era. Aggression cost wickets and bought more
+  runs than it cost.</li>
+
+  <li><b>Escaping it was rare, and that is the point.</b> Three 1990s openers scored
+  substantially faster than the field while lasting longer at the crease. Four managed
+  it in the 2000s, none with anything close to the same speed advantage.</li>
+
+  <li><b>It does not show that aggression is free.</b> The correlation is negative in
+  both decades and most batsmen who accelerated lost survival roughly as predicted.
+  Tendulkar, Lara and Anwar are exceptions, and building general advice out of
+  exceptions is how bad advice gets made.</li>
+
+  <li><b>It cannot see what a fast start was worth to everyone else.</b> Jayasuriya
+  struck 31 per cent above his era across 144 innings and averaged fractionally less
+  than the ordinary opener of his day, which by this measure makes him a man who paid
+  in full. It also understates him badly. His value was in the total his middle order
+  inherited, and no figure computed from his own innings will find it.</li>
+
+  <li><b>It stops at 2009 on purpose.</b> The exchange rate that held so steady across
+  these two decades did not survive the decade after, which is a finding large enough
+  to need its own piece. Read the three exceptions as belonging to this period rather
+  than to cricket in general.</li>
+</ul>
+
+<p class="endmark">◆</p>
+
+<section id="lookup">
+  <h2>Look up any opener</h2>
+  <p class="sub">Type a name or a country, switch decades, or click a heading to sort.
+  Ratios above 1.00 mean he beat the field of his own years.</p>
+  <p class="crit"><b>Who is in here:</b> any batsman who played <b>25 or more innings
+  at position one or two</b> in one-day internationals within that decade. Innings at
+  other positions are excluded entirely, so a middle-order batsman who opened
+  occasionally appears only if those opening innings alone reach 25. His figures are
+  computed from those innings only, and his comparison group is every other opener
+  active in the same years. The correlations quoted in the article use a stricter
+  40-innings cut; this table uses 25 so you can see the near misses.</p>
+  <div class="lookbar">
+    <input type="search" id="lookSearch" placeholder="Search a player, or a country…"
+           aria-label="Search openers by name or country">
+    <div class="seg" id="lookDec">
+      <button data-d="90" aria-pressed="true">1989–99</button>
+      <button data-d="00" aria-pressed="false">2000s</button>
+    </div>
+  </div>
+  <p class="lookcount" id="lookCount"></p>
+  <div class="scroll">
+    <table>
+      <thead><tr>
+        <th data-k="n">Player</th><th data-k="t">Side</th><th data-k="i">Inns</th>
+        <th data-k="a">Avg</th><th data-k="s">SR</th><th data-k="bpd">Balls / dis</th>
+        <th data-k="aR">Avg vs era</th><th data-k="sR">SR vs era</th>
+        <th data-k="bR" aria-sort="descending">Survival vs era</th>
+      </tr></thead>
+      <tbody id="lookBody"></tbody>
+    </table>
+  </div>
+  <p class="none" id="lookNone" style="display:none">No opener of that name in this decade.</p>
+</section>
+
+<div class="note">
+  <h3>Method</h3>
+  <p>Every one-day international opening innings, batting positions one and two, from
+  1989 onward, scraped from ESPNcricinfo Statsguru. The series starts in 1989 because
+  balls faced were not recorded consistently for earlier matches, and without balls
+  faced there is neither a strike rate nor a survival figure.</p>
+  <p>Survival is balls faced per dismissal, which is average divided by strike rate,
+  scaled. Every figure is a ratio: the batsman divided by every <b>other</b> opener
+  active in the same years, with each year weighted by that batsman's own share of
+  innings in it. Decade figures clip a player's innings to those ten years and rebuild
+  his comparison group from that stretch alone. Correlations use openers with at least
+  forty innings in the decade; the tables use the same threshold.</p>
+  <p>The analysis stops at 2009 deliberately. Twenty20 arrived internationally in
+  2005 and the IPL in 2008, and the decade after brought new fielding restrictions and
+  two new balls per innings as well. All of those plausibly move the exchange rate
+  between speed and survival, so including those years would conflate a change in
+  cricket with a change in batsmen. It is a subject worth its own piece rather than a
+  footnote in this one.</p>
+  <p>Nothing here adjusts for home and away, ground, opposition strength, or whether a
+  side batted first.</p>
+</div>
+
+<footer>
+  Data: ESPNcricinfo Statsguru<br>
+  1989 to 2009 · 47 openers qualifying in 1989–99 · 57 in the 2000s<br>
+  Questions or corrections: <a href="mailto:practicingeconomist@gmail.com">practicingeconomist@gmail.com</a>
+</footer>
+
+</div>
+
+<script>
+const DATA = {"d90":[{"n":"SR Tendulkar","t":"India","i":139,"a":48.6,"ea":32.64,"aR":1.489,"s":91.44,"es":72.24,"sR":1.266,"bpd":53.1496062992126,"ebpd":45.182724252491695,"bR":1.1763258452987495},{"n":"BC Lara","t":"West Indies","i":50,"a":46.84,"ea":30.91,"aR":1.515,"s":74.23,"es":60,"sR":1.237,"bpd":63.10117203287081,"ebpd":51.516666666666666,"bR":1.2248690786063567},{"n":"Saeed Anwar","t":"Pakistan","i":168,"a":41.56,"ea":32.76,"aR":1.269,"s":82.59,"es":69.57,"sR":1.187,"bpd":50.320862089841384,"ebpd":47.089262613195345,"bR":1.0686270987760271},{"n":"ME Waugh","t":"Australia","i":99,"a":45.3,"ea":32.8,"aR":1.381,"s":77.18,"es":74.19,"sR":1.04,"bpd":58.69396216636434,"ebpd":44.21081008222132,"bR":1.3275930040007837},{"n":"DL Haynes","t":"West Indies","i":92,"a":40.95,"ea":31.09,"aR":1.317,"s":64.08,"es":59.7,"sR":1.073,"bpd":63.90449438202248,"ebpd":52.077051926298154,"bR":1.2271142858175432},{"n":"AC Gilchrist","t":"Australia","i":57,"a":35.19,"ea":32.59,"aR":1.08,"s":89.63,"es":73.15,"sR":1.225,"bpd":39.2614080107107,"ebpd":44.552289815447715,"bR":0.8812433249412358},{"n":"GR Marsh","t":"Australia","i":55,"a":44.16,"ea":30.15,"aR":1.464,"s":54.1,"es":60.42,"sR":0.895,"bpd":81.62661737523105,"ebpd":49.900695134061564,"bR":1.63578116809667},{"n":"ST Jayasuriya","t":"Sri Lanka","i":144,"a":32.8,"ea":33.38,"aR":0.983,"s":93.8,"es":71.47,"sR":1.313,"bpd":34.96801705756929,"ebpd":46.704911151532116,"bR":0.7487010722302208},{"n":"SC Ganguly","t":"India","i":106,"a":43.63,"ea":32.18,"aR":1.356,"s":71.59,"es":75.73,"sR":0.945,"bpd":60.94426595893281,"ebpd":42.493067476561464,"bR":1.4342166752858863},{"n":"NS Sidhu","t":"India","i":54,"a":39.62,"ea":32.46,"aR":1.221,"s":67.65,"es":65.94,"sR":1.026,"bpd":58.566149297856605,"ebpd":49.22656960873522,"bR":1.1897263970119114},{"n":"NV Knight","t":"England","i":40,"a":41.24,"ea":33.05,"aR":1.248,"s":73.79,"es":75.19,"sR":0.981,"bpd":55.88833175226995,"ebpd":43.955313206543416,"bR":1.271480685159812},{"n":"G Kirsten","t":"South Africa","i":106,"a":40.28,"ea":33.31,"aR":1.209,"s":70.68,"es":73.15,"sR":0.966,"bpd":56.98924731182795,"ebpd":45.536568694463426,"bR":1.2515050858181374},{"n":"S Chanderpaul","t":"West Indies","i":26,"a":39.79,"ea":33.03,"aR":1.205,"s":70.74,"es":74.18,"sR":0.954,"bpd":56.24823296579022,"ebpd":44.52682663790779,"bR":1.2632436940364271},{"n":"MJ Greatbatch","t":"New Zealand","i":32,"a":30.53,"ea":32.3,"aR":0.945,"s":72,"es":62.92,"sR":1.144,"bpd":42.40277777777778,"ebpd":51.33502860775587,"bR":0.8260008599931202},{"n":"Ramiz Raja","t":"Pakistan","i":88,"a":33.26,"ea":31.81,"aR":1.045,"s":62.32,"es":61.11,"sR":1.02,"bpd":53.36970474967907,"ebpd":52.05367370315824,"bR":1.0252821934149288},{"n":"A Flower","t":"Zimbabwe","i":44,"a":32.19,"ea":32.68,"aR":0.985,"s":70.71,"es":65.35,"sR":1.082,"bpd":45.52397114976666,"ebpd":50.00765110941087,"bR":0.9103401207580326},{"n":"HH Gibbs","t":"South Africa","i":32,"a":33.3,"ea":31.97,"aR":1.042,"s":72.92,"es":72.92,"sR":1,"bpd":45.6664838178826,"ebpd":43.84256719692814,"bR":1.0416015014075695},{"n":"SC Williams","t":"West Indies","i":43,"a":35.56,"ea":32.88,"aR":1.082,"s":67.1,"es":70.72,"sR":0.949,"bpd":52.995529061102836,"ebpd":46.49321266968327,"bR":1.1398551749395351},{"n":"NJ Astle","t":"New Zealand","i":84,"a":35.06,"ea":33.35,"aR":1.051,"s":72.97,"es":74.85,"sR":0.975,"bpd":48.04714266136769,"ebpd":44.555778223112895,"bR":1.078359408756633},{"n":"Shahid Afridi","t":"Pakistan","i":66,"a":25.05,"ea":33.54,"aR":0.747,"s":100.67,"es":74.39,"sR":1.353,"bpd":24.883282010529452,"ebpd":45.08670520231214,"bR":0.551898434336102},{"n":"M Prabhakar","t":"India","i":44,"a":32.98,"ea":32.3,"aR":1.021,"s":61.49,"es":63.15,"sR":0.974,"bpd":53.63473735566758,"ebpd":51.14806017418844,"bR":1.0486172334397548},{"n":"MA Atherton","t":"England","i":43,"a":38.34,"ea":33.16,"aR":1.156,"s":59.68,"es":69.77,"sR":0.855,"bpd":64.24262734584451,"ebpd":47.52759065500931,"bR":1.3516912273581339},{"n":"DC Boon","t":"Australia","i":70,"a":31.21,"ea":32.12,"aR":0.972,"s":60.08,"es":61,"sR":0.985,"bpd":51.9474034620506,"ebpd":52.655737704918025,"bR":0.9865478241547594},{"n":"Aamer Sohail","t":"Pakistan","i":129,"a":32.23,"ea":33.2,"aR":0.971,"s":65.52,"es":67.48,"sR":0.971,"bpd":49.19108669108669,"ebpd":49.199762892708954,"bR":0.9998236535887137},{"n":"GA Gooch","t":"England","i":51,"a":31.9,"ea":31.5,"aR":1.013,"s":55.76,"es":60.53,"sR":0.921,"bpd":57.209469153515066,"ebpd":52.04031058979019,"bR":1.0993298945594498},{"n":"GW Flower","t":"Zimbabwe","i":108,"a":34.49,"ea":33.27,"aR":1.037,"s":65.19,"es":72.68,"sR":0.897,"bpd":52.906887559441635,"ebpd":45.776004402861865,"bR":1.155777754078815},{"n":"RS Mahanama","t":"Sri Lanka","i":87,"a":32.53,"ea":32.35,"aR":1.006,"s":58.19,"es":63.01,"sR":0.923,"bpd":55.903076129919235,"ebpd":51.34105697508332,"bR":1.0888571335227855},{"n":"Shoaib Mohammad","t":"Pakistan","i":25,"a":32.04,"ea":31.5,"aR":1.017,"s":55.66,"es":61.03,"sR":0.912,"bpd":57.56378009342436,"ebpd":51.613960347370146,"bR":1.1152753965402187},{"n":"K Srikkanth","t":"India","i":39,"a":27.27,"ea":31.96,"aR":0.853,"s":64.72,"es":59.71,"sR":1.084,"bpd":42.135352286773795,"ebpd":53.525372634399595,"bR":0.7872033432550887},{"n":"AJ Stewart","t":"England","i":73,"a":30.45,"ea":33.1,"aR":0.92,"s":68.87,"es":69.82,"sR":0.986,"bpd":44.21373602439378,"ebpd":47.407619593239765,"bR":0.932629320007001},{"n":"MS Atapattu","t":"Sri Lanka","i":30,"a":34.57,"ea":32.48,"aR":1.065,"s":63.35,"es":74.91,"sR":0.846,"bpd":54.5698500394633,"ebpd":43.358697103190494,"bR":1.2585675697217351},{"n":"MA Taylor","t":"Australia","i":109,"a":32.54,"ea":32.89,"aR":0.989,"s":59.5,"es":66.72,"sR":0.892,"bpd":54.6890756302521,"ebpd":49.295563549160676,"bR":1.1094117136060868},{"n":"A Jadeja","t":"India","i":42,"a":33.76,"ea":33.23,"aR":1.016,"s":57.88,"es":66.81,"sR":0.866,"bpd":58.327574291637866,"ebpd":49.738063164196966,"bR":1.1726949257972696},{"n":"RS Kaluwitharana","t":"Sri Lanka","i":75,"a":25.78,"ea":34.22,"aR":0.753,"s":85.93,"es":74.84,"sR":1.148,"bpd":30.001163737926216,"ebpd":45.72421165152325,"bR":0.6561329906915249},{"n":"AC Hudson","t":"South Africa","i":88,"a":29.41,"ea":33.55,"aR":0.877,"s":64.62,"es":67.4,"sR":0.959,"bpd":45.51222531723924,"ebpd":49.777448071216604,"bR":0.9143141539141358},{"n":"KC Wessels","t":"South Africa","i":42,"a":32.42,"ea":32.49,"aR":0.998,"s":50.21,"es":61.59,"sR":0.815,"bpd":64.56881099382593,"ebpd":52.752070141256695,"bR":1.2240052536502737},{"n":"JG Wright","t":"New Zealand","i":33,"a":24,"ea":31.73,"aR":0.756,"s":62.17,"es":60.34,"sR":1.03,"bpd":38.60382821296445,"ebpd":52.58534968511766,"bR":0.734117552590695},{"n":"KO Otieno","t":"Kenya","i":29,"a":28.86,"ea":33.15,"aR":0.871,"s":62.98,"es":74.5,"sR":0.845,"bpd":45.82407113369324,"ebpd":44.49664429530201,"bR":1.0298320662021558},{"n":"RJ Shastri","t":"India","i":26,"a":28.52,"ea":31.09,"aR":0.917,"s":47.12,"es":59.57,"sR":0.791,"bpd":60.526315789473685,"ebpd":52.19070001678697,"bR":1.1597145807587481},{"n":"PA Wallace","t":"West Indies","i":25,"a":22.12,"ea":32.86,"aR":0.673,"s":67.11,"es":69.34,"sR":0.968,"bpd":32.96081060944718,"ebpd":47.389674069800975,"bR":0.6955272695249749},{"n":"BA Young","t":"New Zealand","i":63,"a":24.38,"ea":33.71,"aR":0.723,"s":60.5,"es":69.43,"sR":0.872,"bpd":40.29752066115702,"ebpd":48.55249891977531,"bR":0.8299783030270342},{"n":"SL Campbell","t":"West Indies","i":62,"a":25.56,"ea":32.82,"aR":0.779,"s":57.78,"es":72.47,"sR":0.797,"bpd":44.23676012461059,"ebpd":45.28770525734787,"bR":0.9767940299300821},{"n":"PV Simmons","t":"West Indies","i":53,"a":21.77,"ea":32.43,"aR":0.671,"s":57.47,"es":62.83,"sR":0.915,"bpd":37.88063337393423,"ebpd":51.61547031672768,"bR":0.7339007693136872},{"n":"MJ Slater","t":"Australia","i":37,"a":23.27,"ea":33.73,"aR":0.69,"s":58.81,"es":67.27,"sR":0.874,"bpd":39.56810066315252,"ebpd":50.141221941430054,"bR":0.7891331549393034},{"n":"UC Hathurusingha","t":"Sri Lanka","i":25,"a":24.13,"ea":32.56,"aR":0.741,"s":49.57,"es":61.35,"sR":0.808,"bpd":48.67863627193867,"ebpd":53.07253463732681,"bR":0.9172095624334882},{"n":"CM Spearman","t":"New Zealand","i":35,"a":19.26,"ea":34.9,"aR":0.552,"s":79.57,"es":75.01,"sR":1.061,"bpd":24.205102425537266,"ebpd":46.527129716037855,"bR":0.520236313163195},{"n":"RT Latham","t":"New Zealand","i":25,"a":16.2,"ea":33.06,"aR":0.49,"s":53.5,"es":60.67,"sR":0.882,"bpd":30.2803738317757,"ebpd":54.49151145541454,"bR":0.5556897399799854}],"d00":[{"n":"SR Tendulkar","t":"India","i":178,"a":48.24,"ea":34.65,"aR":1.392,"s":85.07,"es":78.77,"sR":1.08,"bpd":56.706241918420126,"ebpd":43.98882823409928,"bR":1.289105534174301},{"n":"SR Watson","t":"Australia","i":36,"a":48.32,"ea":36.43,"aR":1.326,"s":86.79,"es":83.94,"sR":1.034,"bpd":55.67461689134692,"ebpd":43.40004765308554,"bR":1.2828238654569477},{"n":"AC Gilchrist","t":"Australia","i":202,"a":36.89,"ea":34.84,"aR":1.059,"s":100.66,"es":77.91,"sR":1.292,"bpd":36.648122392211405,"ebpd":44.71826466435632,"bR":0.8195336439658983},{"n":"ML Hayden","t":"Australia","i":136,"a":45.97,"ea":34.36,"aR":1.338,"s":80.78,"es":79.21,"sR":1.02,"bpd":56.90765040851696,"ebpd":43.37836131801541,"bR":1.3118902761521034},{"n":"V Sehwag","t":"India","i":177,"a":35.92,"ea":35.11,"aR":1.023,"s":103.22,"es":79.36,"sR":1.301,"bpd":34.79945746948266,"ebpd":44.241431451612904,"bR":0.7865807304979049},{"n":"CH Gayle","t":"West Indies","i":183,"a":42.24,"ea":35.09,"aR":1.204,"s":83.77,"es":79.58,"sR":1.053,"bpd":50.42377939596515,"ebpd":44.09399346569491,"bR":1.1435521129469666},{"n":"HH Dippenaar","t":"South Africa","i":41,"a":48.83,"ea":34.91,"aR":1.399,"s":69.81,"es":79.03,"sR":0.883,"bpd":69.94699899727833,"ebpd":44.173098823231676,"bR":1.5834750302935856},{"n":"GC Smith","t":"South Africa","i":146,"a":40.86,"ea":34.58,"aR":1.182,"s":83.27,"es":80.29,"sR":1.037,"bpd":49.06929266242344,"ebpd":43.06887532693984,"bR":1.1393214308461477},{"n":"G Kirsten","t":"South Africa","i":69,"a":44.19,"ea":34.92,"aR":1.266,"s":74.64,"es":77.28,"sR":0.966,"bpd":59.20418006430868,"ebpd":45.18633540372671,"bR":1.310223091457553},{"n":"ST Jayasuriya","t":"Sri Lanka","i":238,"a":35.86,"ea":35.66,"aR":1.006,"s":91.79,"es":78.86,"sR":1.164,"bpd":39.067436539928096,"ebpd":45.219376109561246,"bR":0.8639534620131043},{"n":"ME Trescothick","t":"England","i":122,"a":37.37,"ea":34.9,"aR":1.071,"s":85.22,"es":78.06,"sR":1.092,"bpd":43.85120863647031,"ebpd":44.70919805277991,"bR":0.9808095547744621},{"n":"S Chanderpaul","t":"West Indies","i":48,"a":45.32,"ea":34.42,"aR":1.317,"s":69.35,"es":79,"sR":0.878,"bpd":65.34967555875991,"ebpd":43.56962025316456,"bR":1.4998908684317354},{"n":"ME Waugh","t":"Australia","i":42,"a":40.97,"ea":35.61,"aR":1.151,"s":75.57,"es":76.82,"sR":0.984,"bpd":54.214635437342864,"ebpd":46.355115855246034,"bR":1.1695502090133891},{"n":"SC Ganguly","t":"India","i":130,"a":39.92,"ea":34.64,"aR":1.152,"s":75.45,"es":78.71,"sR":0.958,"bpd":52.909211398277,"ebpd":44.00965569813239,"bR":1.202218253221242},{"n":"HH Gibbs","t":"South Africa","i":148,"a":36.47,"ea":35.85,"aR":1.017,"s":85.25,"es":79.13,"sR":1.077,"bpd":42.780058651026394,"ebpd":45.30519398458234,"bR":0.9442638887184709},{"n":"G Gambhir","t":"India","i":53,"a":37.06,"ea":35.79,"aR":1.035,"s":87.22,"es":82.65,"sR":1.055,"bpd":42.490254528777804,"ebpd":43.30308529945553,"bR":0.9812292642647348},{"n":"BB McCullum","t":"New Zealand","i":56,"a":35.62,"ea":36.46,"aR":0.977,"s":90.73,"es":83.87,"sR":1.082,"bpd":39.259340901576095,"ebpd":43.472040062000715,"bR":0.9030940541456903},{"n":"Yasir Hameed","t":"Pakistan","i":43,"a":39.64,"ea":34.29,"aR":1.156,"s":69.06,"es":76.82,"sR":0.899,"bpd":57.399362872864174,"ebpd":44.63681332986202,"bR":1.2859198179916667},{"n":"AB de Villiers","t":"South Africa","i":36,"a":31.67,"ea":33.64,"aR":0.941,"s":88.71,"es":81.31,"sR":1.091,"bpd":35.700597452372904,"ebpd":41.37252490468577,"bR":0.8629059390167779},{"n":"Salman Butt","t":"Pakistan","i":70,"a":38.53,"ea":34.59,"aR":1.114,"s":76.16,"es":82.68,"sR":0.921,"bpd":50.59086134453782,"ebpd":41.83599419448476,"bR":1.2092663821816672},{"n":"NV Knight","t":"England","i":52,"a":39.54,"ea":35.87,"aR":1.102,"s":72.64,"es":79.05,"sR":0.919,"bpd":54.43281938325991,"ebpd":45.376344086021504,"bR":1.1995858300102302},{"n":"H Masakadza","t":"Zimbabwe","i":42,"a":36.7,"ea":37.15,"aR":0.988,"s":85,"es":84.87,"sR":1.002,"bpd":43.1764705882353,"ebpd":43.77282903263815,"bR":0.9863760589026999},{"n":"MS Atapattu","t":"Sri Lanka","i":62,"a":39.27,"ea":35.38,"aR":1.11,"s":69.95,"es":79.41,"sR":0.881,"bpd":56.14010007147963,"ebpd":44.55358267220754,"bR":1.2600580403267938},{"n":"SP Fleming","t":"New Zealand","i":100,"a":34.65,"ea":34.49,"aR":1.005,"s":73.87,"es":78.82,"sR":0.937,"bpd":46.90672803573845,"ebpd":43.75792945952804,"bR":1.0719594966010162},{"n":"NJ Astle","t":"New Zealand","i":102,"a":34.75,"ea":35.03,"aR":0.992,"s":72.52,"es":78.67,"sR":0.922,"bpd":47.91781577495863,"ebpd":44.527774246853944,"bR":1.0761331906982574},{"n":"SM Katich","t":"Australia","i":33,"a":37.29,"ea":33.91,"aR":1.1,"s":66.67,"es":80.25,"sR":0.831,"bpd":55.932203389830505,"ebpd":42.25545171339563,"bR":1.3236683344246236},{"n":"Saeed Anwar","t":"Pakistan","i":52,"a":34.98,"ea":35.73,"aR":0.979,"s":71.33,"es":77.15,"sR":0.925,"bpd":49.03967475115659,"ebpd":46.31237848347374,"bR":1.058889142751674},{"n":"Shahid Afridi","t":"Pakistan","i":79,"a":24.23,"ea":35.47,"aR":0.683,"s":102.55,"es":78.07,"sR":1.314,"bpd":23.627498781082398,"ebpd":45.43358524401179,"bR":0.5200447786408522},{"n":"L Vincent","t":"New Zealand","i":40,"a":30.31,"ea":34.47,"aR":0.879,"s":82.03,"es":80.71,"sR":1.016,"bpd":36.9498963793734,"ebpd":42.70846239623343,"bR":0.8651656909716353},{"n":"AJ Strauss","t":"England","i":55,"a":33.35,"ea":35.53,"aR":0.939,"s":77.27,"es":82.17,"sR":0.94,"bpd":43.160346835770675,"ebpd":43.23962516733601,"bR":0.9981665351802073},{"n":"ADR Campbell","t":"Zimbabwe","i":54,"a":35.56,"ea":36.72,"aR":0.968,"s":68.61,"es":77.55,"sR":0.885,"bpd":51.829179419909636,"ebpd":47.35009671179884,"bR":1.0945950065397583},{"n":"Shahriar Nafees","t":"Bangladesh","i":59,"a":34.17,"ea":34.9,"aR":0.979,"s":69.73,"es":80.87,"sR":0.862,"bpd":49.00329843682776,"ebpd":43.15568195869914,"bR":1.1355004998814504},{"n":"WU Tharanga","t":"Sri Lanka","i":80,"a":33.05,"ea":35.2,"aR":0.939,"s":72.75,"es":82.11,"sR":0.886,"bpd":45.429553264604806,"ebpd":42.86932164170016,"bR":1.0597217666354262},{"n":"WW Hinds","t":"West Indies","i":49,"a":32.11,"ea":35.45,"aR":0.906,"s":72.15,"es":78.64,"sR":0.918,"bpd":44.5045045045045,"ebpd":45.07884028484232,"bR":0.9872593044384299},{"n":"Imran Farhat","t":"Pakistan","i":30,"a":31.76,"ea":35.14,"aR":0.904,"s":70.47,"es":77.16,"sR":0.913,"bpd":45.06882361288492,"ebpd":45.54173146708139,"bR":0.9896159447837792},{"n":"DA Gunawardene","t":"Sri Lanka","i":42,"a":31.49,"ea":35.92,"aR":0.877,"s":71.33,"es":76.43,"sR":0.933,"bpd":44.14692275339969,"ebpd":46.99725238780583,"bR":0.9393511431075554},{"n":"IR Bell","t":"England","i":26,"a":33.33,"ea":35.87,"aR":0.929,"s":70.48,"es":82.64,"sR":0.853,"bpd":47.29001135073779,"ebpd":43.40513068731848,"bR":1.0895027984457686},{"n":"WTS Porterfield","t":"Ireland","i":37,"a":33.82,"ea":35.78,"aR":0.945,"s":65.86,"es":83.22,"sR":0.791,"bpd":51.351351351351354,"ebpd":42.994472482576306,"bR":1.1943710059976131},{"n":"Kamran Akmal","t":"Pakistan","i":48,"a":26.06,"ea":35.01,"aR":0.744,"s":81.93,"es":82.55,"sR":0.992,"bpd":31.807640668863662,"ebpd":42.4106602059358,"bR":0.7499916415923151},{"n":"Imran Nazir","t":"Pakistan","i":77,"a":25.19,"ea":35.49,"aR":0.71,"s":81.32,"es":78.62,"sR":1.034,"bpd":30.976389572060995,"ebpd":45.14118544899517,"bR":0.6862112561722838},{"n":"GW Flower","t":"Zimbabwe","i":29,"a":28.34,"ea":36.36,"aR":0.78,"s":68.9,"es":76.07,"sR":0.906,"bpd":41.13207547169811,"ebpd":47.7980807151308,"bR":0.860538223633684},{"n":"Tamim Iqbal","t":"Bangladesh","i":66,"a":28.24,"ea":36.33,"aR":0.777,"s":73.82,"es":84.25,"sR":0.876,"bpd":38.25521538878353,"ebpd":43.12166172106825,"bR":0.8871461317107109},{"n":"MJ Prior","t":"England","i":27,"a":25.08,"ea":34.81,"aR":0.72,"s":75.82,"es":82.05,"sR":0.924,"bpd":33.07834344500132,"ebpd":42.425350396099944,"bR":0.7796834471882672},{"n":"RS Kaluwitharana","t":"Sri Lanka","i":37,"a":26.91,"ea":36.73,"aR":0.733,"s":67.58,"es":77.27,"sR":0.875,"bpd":39.81947321692809,"ebpd":47.534618868901255,"bR":0.8376941724672021},{"n":"CJ Nevin","t":"New Zealand","i":30,"a":21.17,"ea":36.28,"aR":0.583,"s":75.33,"es":77.77,"sR":0.969,"bpd":28.103013407672908,"ebpd":46.65037932364665,"bR":0.6024176826666818},{"n":"DO Obuya","t":"Kenya","i":43,"a":23.33,"ea":35.89,"aR":0.65,"s":70.55,"es":81.33,"sR":0.868,"bpd":33.068745570517365,"ebpd":44.12885774007132,"bR":0.749367811995034},{"n":"D Ganga","t":"West Indies","i":27,"a":26.59,"ea":38.15,"aR":0.697,"s":59.63,"es":78.66,"sR":0.758,"bpd":44.59164849907764,"ebpd":48.49987287058225,"bR":0.919417842971808},{"n":"V Sibanda","t":"Zimbabwe","i":61,"a":24.25,"ea":35.55,"aR":0.682,"s":61.84,"es":81.16,"sR":0.762,"bpd":39.21410090556274,"ebpd":43.80236569738787,"bR":0.8952507537258713},{"n":"Javed Omar","t":"Bangladesh","i":50,"a":25.7,"ea":34.64,"aR":0.742,"s":53,"es":79.07,"sR":0.67,"bpd":48.490566037735846,"ebpd":43.80928291387379,"bR":1.1068559632227981},{"n":"S Matsikenyeri","t":"Zimbabwe","i":29,"a":21.14,"ea":33.37,"aR":0.633,"s":60.87,"es":78.24,"sR":0.778,"bpd":34.729751930343355,"ebpd":42.65081799591002,"bR":0.8142810281780235},{"n":"MA Ouma","t":"Kenya","i":33,"a":21.06,"ea":35.23,"aR":0.598,"s":64.5,"es":81.39,"sR":0.792,"bpd":32.651162790697676,"ebpd":43.285415898759055,"bR":0.7543224920621301},{"n":"BRM Taylor","t":"Zimbabwe","i":30,"a":20.67,"ea":33.86,"aR":0.61,"s":55.26,"es":78.18,"sR":0.707,"bpd":37.40499457111835,"ebpd":43.31030954208237,"bR":0.8636510559864243},{"n":"DD Ebrahim","t":"Zimbabwe","i":27,"a":21.89,"ea":37.01,"aR":0.591,"s":55.34,"es":78.49,"sR":0.705,"bpd":39.55547524394651,"ebpd":47.15250350363104,"bR":0.838883883247058},{"n":"Mohammad Hafeez","t":"Pakistan","i":39,"a":19.71,"ea":36.56,"aR":0.539,"s":59.68,"es":78.16,"sR":0.764,"bpd":33.02613941018767,"ebpd":46.775844421699084,"bR":0.7060511641959157},{"n":"RD Shah","t":"Kenya","i":29,"a":20.34,"ea":36.64,"aR":0.555,"s":57,"es":77.94,"sR":0.731,"bpd":35.68421052631579,"ebpd":47.01052091352322,"bR":0.7590686049184096},{"n":"KO Otieno","t":"Kenya","i":55,"a":21.07,"ea":36.38,"aR":0.579,"s":53.53,"es":79.9,"sR":0.67,"bpd":39.361105921912944,"ebpd":45.53191489361702,"bR":0.8644728870700507},{"n":"Junaid Siddique","t":"Bangladesh","i":25,"a":16.72,"ea":37.05,"aR":0.451,"s":62.67,"es":84.97,"sR":0.738,"bpd":26.6794319451093,"ebpd":43.603624808756024,"bR":0.6118627077937754}],"s90":{"n":33,"corr":-0.3986541771192892,"fastN":12,"slowN":21,"fastAvg":1.14875,"slowAvg":1.0266190476190478},"s00":{"n":39,"corr":-0.3715594769888549,"fastN":15,"slowN":24,"fastAvg":1.0375999999999999,"slowAvg":0.9802083333333331}};
+const HL={"Saeed Anwar":"#41648A","SR Tendulkar":"#9C4A2F",
+          "BC Lara":"#2E7D6E","ST Jayasuriya":"#A87A1E"};
+const SHORT={"Saeed Anwar":"Anwar","SR Tendulkar":"Tendulkar","BC Lara":"Lara",
+             "ST Jayasuriya":"Jayasuriya","ML Hayden":"Hayden","CH Gayle":"Gayle",
+             "AC Gilchrist":"Gilchrist","V Sehwag":"Sehwag","GC Smith":"Smith",
+             "RS Kaluwitharana":"Kaluwitharana","Shahid Afridi":"Afridi"};
+const f=(v,d=2)=>v.toFixed(d);
+
+/* ---------- correlation table ---------- */
+document.getElementById("corrTable").innerHTML=[
+  ["1989–99",DATA.s90],["2000s",DATA.s00]
+].map(([lab,s])=>
+  `<tr><td class="nm">${lab}</td><td>${s.n}</td>`+
+  `<td class="hi lo">${f(s.corr,3)}</td>`+
+  `<td class="hi gd">${f(s.fastAvg,3)} <span style="color:var(--faint)">(n=${s.fastN})</span></td>`+
+  `<td>${f(s.slowAvg,3)} <span style="color:var(--faint)">(n=${s.slowN})</span></td></tr>`
+).join("");
+
+/* ---------- corner tables ---------- */
+function corner(rows,id){
+  const r=rows.filter(x=>x.i>=40&&x.sR>1&&x.bR>1).sort((a,b)=>b.sR-a.sR);
+  const strong=r.filter(x=>x.sR>=1.10), weak=r.filter(x=>x.sR<1.10);
+  const row=(x,cls)=>{
+    const c=HL[x.n], st=c?` style="color:${c}"`:"";
+    return `<tr class="${cls}${x.n==="Saeed Anwar"?" pl":""}">`+
+      `<td class="nm"${st}>${x.n}</td><td>${x.i}</td>`+
+      `<td>${f(x.a)}</td><td>${f(x.s,1)}</td>`+
+      `<td>${f(x.bpd,1)} <span style="color:var(--faint)">v ${f(x.ebpd,1)}</span></td>`+
+      `<td class="hi">${f(x.aR,3)}</td><td class="hi">${f(x.sR,3)}</td>`+
+      `<td class="hi">${f(x.bR,3)}</td></tr>`;};
+  // fading only means something when there is a stronger group above it
+  document.getElementById(id).innerHTML= strong.length
+    ? strong.map(x=>row(x,"")).join("")+
+      weak.map((x,i)=>row(x,"faded"+(i===0?" sep":""))).join("")
+    : weak.map(x=>row(x,"")).join("");
+}
+const atk=["ST Jayasuriya","RS Kaluwitharana","MJ Greatbatch"]
+  .map(nm=>DATA.d90.find(r=>r.n===nm)).filter(Boolean);
+document.getElementById("attackTable").innerHTML=atk.map(r=>{
+  const c=HL[r.n], st=c?` style="color:${c}"`:"";
+  return `<tr><td class="nm"${st}>${r.n}</td><td>${r.i}</td>`+
+    `<td>${f(r.a)}</td><td>${f(r.s,1)}</td>`+
+    `<td>${f(r.bpd,1)} <span style="color:var(--faint)">v ${f(r.ebpd,1)}</span></td>`+
+    `<td class="hi lo">${f(r.aR,3)}</td><td class="hi">${f(r.sR,3)}</td>`+
+    `<td class="hi lo">${f(r.bR,3)}</td></tr>`;}).join("");
+
+const pairRows=[];
+for(const nm of ["SR Tendulkar","Saeed Anwar"])
+  for(const [lab,set] of [["1990s",DATA.d90],["2000s",DATA.d00]]){
+    const r=set.find(x=>x.n===nm); if(r) pairRows.push([nm,lab,r]);}
+document.getElementById("anwarTable").innerHTML=pairRows.map(([nm,lab,r],k)=>
+  `<tr${k===2?' class="sep"':''}><td class="nm" style="color:${HL[nm]||"#4E574F"}">`+
+  `${k%2===0?nm:""}</td><td>${lab}</td><td>${r.i}</td>`+
+  `<td>${f(r.a)}</td><td>${f(r.s,1)}</td>`+
+  `<td>${f(r.bpd,1)} <span style="color:var(--faint)">v ${f(r.ebpd,1)}</span></td>`+
+  `<td class="hi ${r.aR>=1?"gd":"lo"}">${f(r.aR,3)}</td>`+
+  `<td class="hi ${r.sR>=1?"gd":"lo"}">${f(r.sR,3)}</td>`+
+  `<td class="hi ${r.bR>=1?"gd":"lo"}">${f(r.bR,3)}</td></tr>`).join("");
+
+corner(DATA.d90,"1990sTable");
+corner(DATA.d00,"aughtsTable");
+
+/* ---------- figure ---------- */
+const NS="http://www.w3.org/2000/svg";
+function n(tag,a,txt){const e=document.createElementNS(NS,tag);
+  for(const k in a)e.setAttribute(k,a[k]);
+  if(txt!==undefined)e.textContent=txt;return e;}
+
+const LAB={"90":["Saeed Anwar","SR Tendulkar","BC Lara","ST Jayasuriya",
+                 "RS Kaluwitharana","Shahid Afridi"],
+           "00":["V Sehwag","AC Gilchrist","SR Tendulkar","ML Hayden","CH Gayle"]};
+const OFF={"Saeed Anwar":[13,-11],"SR Tendulkar":[15,-13],"BC Lara":[-15,17],
+  "ST Jayasuriya":[13,-11],"RS Kaluwitharana":[13,19],"Shahid Afridi":[-12,-11],
+  "V Sehwag":[13,-11],"AC Gilchrist":[13,19],"ML Hayden":[-12,19],"CH Gayle":[13,-11]};
+
+let dec="90";
+function draw(){
+  const svg=document.getElementById("plot");
+  while(svg.firstChild)svg.removeChild(svg.firstChild);
+  const pts=dec==="90"?DATA.d90:DATA.d00;
+  const L=94,R=790,T=30,B=482;
+  const xd=[0.48,1.70], yd=[0.76,1.40];
+  const x=v=>L+(v-xd[0])/(xd[1]-xd[0])*(R-L);
+  const y=v=>B-(v-yd[0])/(yd[1]-yd[0])*(B-T);
+
+  svg.appendChild(n("rect",{x:x(1),y:T,width:R-x(1),height:y(1)-T,
+    fill:"#2E7D6E",opacity:".08"}));
+  for(let v=0.6;v<=1.7001;v+=0.2){
+    svg.appendChild(n("line",{x1:x(v),x2:x(v),y1:T,y2:B,stroke:"#B6BDAE",opacity:".5"}));
+    svg.appendChild(n("text",{x:x(v),y:B+22,"text-anchor":"middle",
+      "font-family":"IBM Plex Mono,monospace","font-size":11,fill:"#828C83"},v.toFixed(1)));}
+  for(let v=0.8;v<=1.4001;v+=0.1){
+    svg.appendChild(n("line",{x1:L,x2:R,y1:y(v),y2:y(v),stroke:"#B6BDAE",opacity:".5"}));
+    svg.appendChild(n("text",{x:L-14,y:y(v)+4,"text-anchor":"end",
+      "font-family":"IBM Plex Mono,monospace","font-size":11,fill:"#828C83"},v.toFixed(1)));}
+  svg.appendChild(n("line",{x1:x(1),x2:x(1),y1:T,y2:B,stroke:"#171E19",
+    "stroke-width":1.5,"stroke-dasharray":"3 4",opacity:".55"}));
+  svg.appendChild(n("line",{x1:L,x2:R,y1:y(1),y2:y(1),stroke:"#171E19",
+    "stroke-width":1.5,"stroke-dasharray":"3 4",opacity:".55"}));
+  svg.appendChild(n("text",{x:R-8,y:T+15,"text-anchor":"end",
+    "font-family":"IBM Plex Mono,monospace","font-size":10.5,"letter-spacing":".08em",
+    fill:"#2E7D6E"},"FASTER AND HARDER TO DISMISS"));
+
+  // least-squares fit: the trade-off itself
+  const q=pts.filter(p=>p.i>=40);
+  const mx=q.reduce((s,p)=>s+p.bR,0)/q.length, my=q.reduce((s,p)=>s+p.sR,0)/q.length;
+  let nu=0,de=0; q.forEach(p=>{nu+=(p.bR-mx)*(p.sR-my);de+=(p.bR-mx)**2;});
+  const b=nu/de, a=my-b*mx;
+  svg.appendChild(n("line",{x1:x(xd[0]),y1:y(a+b*xd[0]),x2:x(xd[1]),y2:y(a+b*xd[1]),
+    stroke:"#9C4A2F","stroke-width":2,"stroke-dasharray":"7 5",opacity:".65"}));
+  svg.appendChild(n("text",{x:x(xd[0])+8,y:y(a+b*xd[0])-9,
+    "font-family":"IBM Plex Mono,monospace","font-size":10.5,"letter-spacing":".08em",
+    fill:"#9C4A2F"},"THE TRADE-OFF"));
+
+  const tip=n("g",{opacity:"0","pointer-events":"none"});
+  const tr=n("rect",{rx:2,fill:"#171E19"});
+  const tt=n("text",{"font-family":"Public Sans,sans-serif","font-size":12,
+    "font-weight":600,fill:"#DDE1D6"});
+  tip.appendChild(tr);tip.appendChild(tt);
+  const hit=(c,p)=>{
+    const show=()=>{
+      document.getElementById("readout").innerHTML=
+        `<b>${p.n}</b> (${p.t}) · ${p.i} inns · SR <b>${p.s.toFixed(2)}</b> v `+
+        `${p.es.toFixed(2)} = <b>${p.sR.toFixed(3)}</b> · survives <b>${p.bpd.toFixed(1)}</b> `+
+        `balls v ${p.ebpd.toFixed(1)} = <b>${p.bR.toFixed(3)}</b> · avg ratio `+
+        `<b>${p.aR.toFixed(3)}</b>`;
+      tt.textContent=p.n;
+      let w=p.n.length*7.2+16,h=21;
+      try{const bb=tt.getBBox();if(bb.width)w=bb.width+16;}catch(e){}
+      const cx=x(p.bR),cy=y(p.sR);
+      const px=(cx+w+14>R)?cx-w-12:cx+12, py=cy-h/2;
+      tr.setAttribute("x",px);tr.setAttribute("y",py);
+      tr.setAttribute("width",w);tr.setAttribute("height",h);
+      tt.setAttribute("x",px+8);tt.setAttribute("y",py+14.5);
+      tip.setAttribute("opacity","1");svg.appendChild(tip);};
+    c.addEventListener("mouseenter",show);c.addEventListener("click",show);
+    c.addEventListener("mouseleave",()=>tip.setAttribute("opacity","0"));
+    c.setAttribute("style","cursor:pointer");};
+
+  pts.forEach(p=>{ if(HL[p.n])return;
+    const c=n("circle",{cx:x(p.bR),cy:y(p.sR),r:2.6+Math.sqrt(p.i)/8,
+      fill:"#828C83",opacity:".42"});
+    hit(c,p);svg.appendChild(c);});
+  pts.forEach(p=>{ const col=HL[p.n]; if(!col)return;
+    const c=n("circle",{cx:x(p.bR),cy:y(p.sR),r:7,fill:col,
+      stroke:"#DDE1D6","stroke-width":2});
+    hit(c,p);svg.appendChild(c);});
+  (LAB[dec]||[]).forEach(nm=>{
+    const p=pts.find(z=>z.n===nm); if(!p)return;
+    const [dx,dy]=OFF[nm]||[12,-11];
+    svg.appendChild(n("text",{x:x(p.bR)+dx,y:y(p.sR)+dy,
+      "text-anchor":dx<0?"end":"start","font-family":"Public Sans,sans-serif",
+      "font-size":13,"font-weight":600,fill:HL[nm]||"#4E574F"},SHORT[nm]||nm));});
+
+  svg.appendChild(n("text",{x:(L+R)/2,y:B+54,"text-anchor":"middle",
+    "font-family":"IBM Plex Mono,monospace","font-size":11.5,"letter-spacing":".15em",
+    fill:"#171E19"},"BALLS FACED PER DISMISSAL ÷ THE FIELD'S"));
+  svg.appendChild(n("text",{transform:`translate(${L-58} ${(T+B)/2}) rotate(-90)`,
+    "text-anchor":"middle","font-family":"IBM Plex Mono,monospace","font-size":11.5,
+    "letter-spacing":".15em",fill:"#171E19"},"STRIKE RATE ÷ THE FIELD'S"));
+}
+/* ---------- lookup table ---------- */
+let lkDec="90", lkKey="aR", lkDir=-1, lkQ="";
+function lookup(){
+  const set=(lkDec==="90"?DATA.d90:DATA.d00).slice();
+  const q=lkQ.trim().toLowerCase();
+  const rows=set.filter(r=>!q||r.n.toLowerCase().includes(q)||r.t.toLowerCase().includes(q));
+  rows.sort((a,b)=>{const u=a[lkKey],v=b[lkKey];
+    return (typeof u==="string"?u.localeCompare(v):(u-v))*lkDir;});
+  document.getElementById("lookBody").innerHTML=rows.map(r=>{
+    const c=HL[r.n], st=c?` style="color:${c}"`:"";
+    const cl=v=>v>=1?"gd":"lo";
+    return `<tr${c?' class="lit"':''}><td class="nm"${st}>${r.n}</td>`+
+      `<td class="nm">${r.t}</td><td>${r.i}</td>`+
+      `<td>${f(r.a)}</td><td>${f(r.s,1)}</td>`+
+      `<td>${f(r.bpd,1)} <span style="color:var(--faint)">v ${f(r.ebpd,1)}</span></td>`+
+      `<td class="hi ${cl(r.aR)}">${f(r.aR,3)}</td>`+
+      `<td class="hi ${cl(r.sR)}">${f(r.sR,3)}</td>`+
+      `<td class="hi ${cl(r.bR)}">${f(r.bR,3)}</td></tr>`;}).join("");
+  document.getElementById("lookNone").style.display=rows.length?"none":"block";
+  document.getElementById("lookCount").textContent=
+    q?`${rows.length} of ${set.length} openers match "${lkQ.trim()}"`
+     :`${set.length} openers, ${lkDec==="90"?"1989 to 1999":"2000 to 2009"}`;
+  document.querySelectorAll("#lookup th").forEach(th=>{
+    if(th.dataset.k===lkKey)th.setAttribute("aria-sort",lkDir<0?"descending":"ascending");
+    else th.removeAttribute("aria-sort");});
+}
+document.getElementById("lookSearch").addEventListener("input",e=>{
+  lkQ=e.target.value; lookup();});
+document.getElementById("lookDec").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b)return;
+  lkDec=b.dataset.d;
+  [...b.parentNode.children].forEach(x=>x.setAttribute("aria-pressed",x===b));
+  lookup();});
+document.querySelectorAll("#lookup th").forEach(th=>{
+  th.addEventListener("click",()=>{const k=th.dataset.k;
+    if(k===lkKey)lkDir*=-1; else {lkKey=k; lkDir=(k==="n"||k==="t")?1:-1;}
+    lookup();});});
+lookup();
+
+document.getElementById("toggle").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b)return;
+  dec=b.dataset.d;
+  [...b.parentNode.children].forEach(x=>x.setAttribute("aria-pressed",x===b));
+  document.getElementById("readout").textContent="Hover or tap any point for that player's figures.";
+  draw();});
+draw();
+</script>
+</body>
+</html>
