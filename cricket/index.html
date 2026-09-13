@@ -40,6 +40,9 @@ h1{font-family:"Fraunces",serif;font-variation-settings:"SOFT" 40,"WONK" 1;
 
 h2{font-family:"Fraunces",serif;font-variation-settings:"SOFT" 40,"WONK" 1;
   font-weight:600;font-size:1.68rem;line-height:1.2;letter-spacing:-.014em;margin:52px 0 16px}
+.subhead{font-family:"Fraunces",serif;font-variation-settings:"SOFT" 40,"WONK" 1;
+  font-weight:600;font-size:1.24rem;line-height:1.25;letter-spacing:-.01em;
+  margin:34px 0 10px}
 p{margin:0 0 19px}
 .lead::first-letter{font-family:"Fraunces",serif;
   font-variation-settings:"SOFT" 40,"WONK" 1;font-size:3.3rem;line-height:.82;
@@ -107,7 +110,15 @@ td.hi{font-weight:700} .lo{color:var(--down)} .gd{color:var(--up)}
 .lookbar .seg button[aria-pressed=true]{background:var(--ink);color:var(--ground);font-weight:600}
 .lookcount{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);
   margin:0 0 4px}
-#lookup table{min-width:720px}
+#lookup table{min-width:0}
+.colbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0 0}
+.colbar-label{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--faint)}
+.colbar button{border:1px solid var(--rule);background:none;padding:5px 12px;cursor:pointer;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--soft);border-radius:999px}
+.colbar button[aria-pressed=true]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+#lookup th .ve{display:block;font-size:8.5px;letter-spacing:.08em;color:var(--faint);
+  font-weight:400;margin-top:2px}
 #lookup th{cursor:pointer;text-decoration:underline dotted var(--rule);text-underline-offset:4px}
 #lookup th[aria-sort]{color:var(--ink);font-weight:600}
 #lookup tbody tr:hover{background:var(--panel)}
@@ -144,7 +155,6 @@ footer a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
-<script src="../nav.js"></script>
 <div class="wrap">
 
 <header>
@@ -359,6 +369,8 @@ the men around them. Below the dashed line sit four more who reached the same co
 on survival alone, two to seven per cent quicker than the field, which is inside the
 range where the number stops meaning much.</p>
 
+<h3 class="subhead">Sachin Tendulkar: a class apart</h3>
+
 <p><strong>Tendulkar is the clearest case.</strong> Across 139 innings he struck 27
 per cent above his era and lasted 53 balls per dismissal against the field's 45, eight
 balls longer while scoring quicker, which is why his average came out at nearly half
@@ -367,9 +379,13 @@ is the specific thing that made him a great opening batsman rather than a great
 batsman who happened to open. He was doing Jayasuriya's job and Ramiz Raja's job at
 the same time.</p>
 
+<h3 class="subhead">Brian Lara: the highest peak, the smallest sample</h3>
+
 <p><strong>Lara's figures are the best of anyone on both counts</strong>, 1.237 and
 1.225, and they rest on fifty innings. That is enough to notice and not enough to
 lean on, so he belongs in the list with an asterisk rather than at the top of it.</p>
+
+<h3 class="subhead">Saeed Anwar: the edge nobody talks about</h3>
 
 <p><strong>Saeed Anwar's rest on 168, more opening innings than any other batsman in
 the decade.</strong> He struck 19 per cent above his era and still lasted 50 balls per dismissal
@@ -511,15 +527,16 @@ technique, and a fraction of the scrutiny a comparable slump would draw now.</p>
       <button data-d="00" aria-pressed="false">2000s</button>
     </div>
   </div>
+  <div class="colbar" id="colBar">
+    <span class="colbar-label">Add columns:</span>
+    <button data-col="a" aria-pressed="false">Avg</button>
+    <button data-col="s" aria-pressed="false">SR</button>
+    <button data-col="bpd" aria-pressed="false">Balls / dis</button>
+  </div>
   <p class="lookcount" id="lookCount"></p>
   <div class="scroll">
     <table>
-      <thead><tr>
-        <th data-k="n">Player</th><th data-k="t">Side</th><th data-k="i">Inns</th>
-        <th data-k="a">Avg</th><th data-k="s">SR</th><th data-k="bpd">Balls / dis</th>
-        <th data-k="aR">Avg vs era</th><th data-k="sR">SR vs era</th>
-        <th data-k="bR" aria-sort="descending">Survival vs era</th>
-      </tr></thead>
+      <thead><tr id="lookHead"></tr></thead>
       <tbody id="lookBody"></tbody>
     </table>
   </div>
@@ -721,29 +738,46 @@ function draw(){
 }
 /* ---------- lookup table ---------- */
 let lkDec="90", lkKey="aR", lkDir=-1, lkQ="";
+const lkOpt={a:false,s:false,bpd:false};   // optional columns, off by default
+// column registry: order here is display order
+const COLS=[
+  {k:"n",  label:"Player", core:true,  align:"l", cell:(r,cl)=>{const c=HL[r.n],st=c?` style="color:${c}"`:"";return `<td class="nm"${st}>${r.n}</td>`;}},
+  {k:"t",  label:"Side",   core:true,  align:"l", cell:r=>`<td class="nm">${r.t}</td>`},
+  {k:"i",  label:"Inns",   core:true,          cell:r=>`<td>${r.i}</td>`},
+  {k:"a",  label:"Avg",    opt:"a",            cell:r=>`<td>${f(r.a)}</td>`},
+  {k:"s",  label:"SR",     opt:"s",            cell:r=>`<td>${f(r.s,1)}</td>`},
+  {k:"bpd",label:"Balls / dis", opt:"bpd",     cell:r=>`<td>${f(r.bpd,1)} <span style="color:var(--faint)">v ${f(r.ebpd,1)}</span></td>`},
+  {k:"aR", label:'Avg <span class="ve">vs era</span>', core:true, cell:(r,cl)=>`<td class="hi ${cl(r.aR)}">${f(r.aR,3)}</td>`},
+  {k:"sR", label:'SR <span class="ve">vs era</span>',  core:true, cell:(r,cl)=>`<td class="hi ${cl(r.sR)}">${f(r.sR,3)}</td>`},
+  {k:"bR", label:'Survival <span class="ve">vs era</span>', core:true, cell:(r,cl)=>`<td class="hi ${cl(r.bR)}">${f(r.bR,3)}</td>`}
+];
+function activeCols(){ return COLS.filter(c=>c.core||lkOpt[c.opt]); }
 function lookup(){
   const set=(lkDec==="90"?DATA.d90:DATA.d00).slice();
   const q=lkQ.trim().toLowerCase();
   const rows=set.filter(r=>!q||r.n.toLowerCase().includes(q)||r.t.toLowerCase().includes(q));
   rows.sort((a,b)=>{const u=a[lkKey],v=b[lkKey];
     return (typeof u==="string"?u.localeCompare(v):(u-v))*lkDir;});
+  const cols=activeCols();
+  // header
+  document.getElementById("lookHead").innerHTML=cols.map(c=>{
+    const sort=(c.k===lkKey)?` aria-sort="${lkDir<0?"descending":"ascending"}"`:"";
+    return `<th data-k="${c.k}"${sort}>${c.label}</th>`;}).join("");
+  // body
+  const cl=v=>v>=1?"gd":"lo";
   document.getElementById("lookBody").innerHTML=rows.map(r=>{
-    const c=HL[r.n], st=c?` style="color:${c}"`:"";
-    const cl=v=>v>=1?"gd":"lo";
-    return `<tr${c?' class="lit"':''}><td class="nm"${st}>${r.n}</td>`+
-      `<td class="nm">${r.t}</td><td>${r.i}</td>`+
-      `<td>${f(r.a)}</td><td>${f(r.s,1)}</td>`+
-      `<td>${f(r.bpd,1)} <span style="color:var(--faint)">v ${f(r.ebpd,1)}</span></td>`+
-      `<td class="hi ${cl(r.aR)}">${f(r.aR,3)}</td>`+
-      `<td class="hi ${cl(r.sR)}">${f(r.sR,3)}</td>`+
-      `<td class="hi ${cl(r.bR)}">${f(r.bR,3)}</td></tr>`;}).join("");
+    const c=HL[r.n];
+    return `<tr${c?' class="lit"':''}>`+cols.map(col=>col.cell(r,cl)).join("")+`</tr>`;
+  }).join("");
   document.getElementById("lookNone").style.display=rows.length?"none":"block";
   document.getElementById("lookCount").textContent=
     q?`${rows.length} of ${set.length} openers match "${lkQ.trim()}"`
      :`${set.length} openers, ${lkDec==="90"?"1989 to 1999":"2000 to 2009"}`;
-  document.querySelectorAll("#lookup th").forEach(th=>{
-    if(th.dataset.k===lkKey)th.setAttribute("aria-sort",lkDir<0?"descending":"ascending");
-    else th.removeAttribute("aria-sort");});
+  // (re)bind header sort clicks, since header is re-rendered each pass
+  document.querySelectorAll("#lookHead th").forEach(th=>{
+    th.addEventListener("click",()=>{const k=th.dataset.k;
+      if(k===lkKey)lkDir*=-1; else {lkKey=k; lkDir=(k==="n"||k==="t")?1:-1;}
+      lookup();});});
 }
 document.getElementById("lookSearch").addEventListener("input",e=>{
   lkQ=e.target.value; lookup();});
@@ -752,10 +786,12 @@ document.getElementById("lookDec").addEventListener("click",e=>{
   lkDec=b.dataset.d;
   [...b.parentNode.children].forEach(x=>x.setAttribute("aria-pressed",x===b));
   lookup();});
-document.querySelectorAll("#lookup th").forEach(th=>{
-  th.addEventListener("click",()=>{const k=th.dataset.k;
-    if(k===lkKey)lkDir*=-1; else {lkKey=k; lkDir=(k==="n"||k==="t")?1:-1;}
-    lookup();});});
+document.getElementById("colBar").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b)return;
+  const key=b.dataset.col;
+  lkOpt[key]=!lkOpt[key];
+  b.setAttribute("aria-pressed",lkOpt[key]);
+  lookup();});
 lookup();
 
 document.getElementById("toggle").addEventListener("click",e=>{
