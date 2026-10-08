@@ -35,6 +35,9 @@ header.top{padding-block:28px 14px;display:grid;gap:10px}
 header.top h1{font-size:clamp(34px,6vw,56px);line-height:.95;text-transform:uppercase}
 header.top p{margin:0;max-width:78ch;color:var(--ink2)}
 .eyebrow{font-family:var(--f-display);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted)}
+header.top .credit{font-size:14px;color:var(--ink2);margin-top:-4px}
+header.top .credit a{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+header.top .credit span{color:var(--muted);margin-left:4px}
 nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);display:flex;gap:4px;border-bottom:1px solid var(--line);padding-block:8px 0;overflow-x:auto}
 nav.tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:8px 14px;font-family:var(--f-display);font-weight:600;font-size:19px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);cursor:pointer;white-space:nowrap}
 nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
@@ -121,6 +124,7 @@ thead th.stick1{background:var(--surface2);z-index:4}
 <div class="wrap">
 <header class="top">
   <div class="eyebrow">Test cricket, 1970 to 2026</div>
+  <div class="credit">Created by <a href="https://x.com/hejazredwhite" target="_blank" rel="noopener noreferrer">Hasan Ejaz</a> <span>@hejazredwhite</span></div>
   <h1>Test Bowler Match Factor</h1>
   <p>Compare Test bowlers by how their average compares with the other bowlers in the same matches, instead of raw averages alone. Every setting from the Excel model is here: innings or date ranges, minimum wickets, home and away, opposition, same-type comparisons, and the peak-run finder.</p>
 </header>
